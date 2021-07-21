@@ -1,64 +1,23 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { View, Text, StyleSheet, Button, Pressable } from 'react-native';
 import { gql, useQuery } from '@apollo/client';
-
-console.log(`${new Date().toLocaleString()}: Saved...`);
-
-const GETALLUSERS = gql`
-  query {
-    getAllDbUsers {
-      user {
-        id
-        name
-        password
-      }
-    }
-  }
-`;
-
-/* const test = async () => {
-  console.log('testing...');
-  const wtf = await fetch(
-    'https://limitless-badlands-33344.herokuapp.com/graphql',
-    {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({
-        query: `{getAllDbUsers {
-        name
-    }}`,
-      }),
-    }
-  );
-
-  console.log(wtf);
-}; */
-
-const test = async () => {
-  console.log('testing...');
-  await fetch('http://icanhazdadjoke.com').then(res => console.log(res));
-};
-
-test();
+import { GET_MEALPLAN_FROM_DB } from '../queries/DBqueries';
 
 const MealPlanner = () => {
-  const { loading, error, data } = useQuery(GETALLUSERS);
+  const { loading, error, data } = useQuery(GET_MEALPLAN_FROM_DB);
   if (loading) {
+    console.log('loading...');
     return <Text style={styles.container}>loading</Text>;
   } else if (error) {
+    console.log('error...');
     console.log(error);
     return <Text style={styles.container}>Error</Text>;
   }
 
   if (data) {
+    console.log('got something...');
     console.log(data);
   }
-
-  /* useEffect(() => {
-    test();
-  }, []); */
 
   return (
     <View style={styles.container}>

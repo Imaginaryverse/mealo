@@ -3,9 +3,9 @@ import { View, Text } from 'react-native';
 
 /* 
   From here users can:
-  # visit an about page
   # log out
   # delete account
+  # visit an about page
   # set some app preferences like language, theme, etc
 */
 

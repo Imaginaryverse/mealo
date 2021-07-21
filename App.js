@@ -1,10 +1,13 @@
+import React, { useState } from 'react';
 import { StatusBar } from 'expo-status-bar';
-import React from 'react';
 import { AppRegistry } from 'react-native';
 import { StyleSheet, Text, View } from 'react-native';
-import BottomTabNavigator from './navigation/bottomTabs';
+import BottomTabNavigator from './navigation/BottomTabs';
+import AuthStack from './navigation/AuthStack';
 import { NavigationContainer } from '@react-navigation/native';
 import { ApolloClient, InMemoryCache, ApolloProvider } from '@apollo/client';
+
+console.log(`${new Date().toLocaleTimeString()}: Saved...`);
 
 // Initialize Apollo Client
 const client = new ApolloClient({
@@ -13,10 +16,17 @@ const client = new ApolloClient({
 });
 
 export default function App() {
+  const [user, setUser] = useState(null);
+  const [loggedIn, setLoggedIn] = useState(false);
+
   return (
     <ApolloProvider client={client}>
       <NavigationContainer>
-        <BottomTabNavigator />
+        {loggedIn ? (
+          <BottomTabNavigator user={user} />
+        ) : (
+          <AuthStack setUser={setUser} setLoggedIn={setLoggedIn} user={user} />
+        )}
       </NavigationContainer>
     </ApolloProvider>
   );
