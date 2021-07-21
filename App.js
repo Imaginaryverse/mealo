@@ -1,13 +1,15 @@
 import { StatusBar } from 'expo-status-bar';
 import React from 'react';
 import { StyleSheet, Text, View } from 'react-native';
+import BottomTabNavigator from './navigation/bottomTabs';
+import { NavigationContainer } from '@react-navigation/native';
+import { ApolloClient, InMemoryCache, ApolloProvider } from '@apollo/client';
 
 export default function App() {
   return (
-    <View style={styles.container}>
-      <Text>This is the meal planning app!</Text>
-      <StatusBar style='auto' />
-    </View>
+    <NavigationContainer>
+      <BottomTabNavigator />
+    </NavigationContainer>
   );
 }
 
