@@ -1,26 +1,21 @@
 import React from 'react';
-import { View, Text, StyleSheet } from 'react-native';
-import { useSelector, useDispatch } from 'react-redux';
+import { View, Text, StyleSheet, FlatList } from 'react-native';
 
-const DayPlanContainer = ({dayPlan}) => {
-  // const mealPlan = useSelector(state => state.mealPlan);
-
-  console.log(dayPlan);
+const DayPlanContainer = ({ dayPlan }) => {
+  const renderItem = ({ item }) => (
+    <View>
+      <Text>Meal: {item.meal}</Text>
+      <Text>Calories: {Math.floor(item.calories)}</Text>
+      <Text>{item.recipe.name}</Text>
+    </View>
+  );
 
   return (
     <View style={styles.container}>
-      <Text>This is your dayplan!</Text>
-      <Text>{dayPlan.day}</Text>
+      <Text>Day: {dayPlan.day}</Text>
+      <Text>Calories: {Math.floor(dayPlan.calories)}</Text>
       <View style={styles.dayPlanContainer}>
-        {dayPlan.meals.map((meal, i) => (
-          <View key={i}>
-            <Text>Meal: {meal.meal}</Text>
-            <Text>Calories: {Math.floor(meal.calories)}</Text>
-            <Text></Text>Recipe: {meal.recipe.name}</Text>
-            {/* <Text>{mp.recipe.name}</Text> */}
-            {/* <Text>Meal: {mp.meal}</Text> */}
-          </View>
-        ))}
+        <FlatList data={dayPlan.meals} renderItem={renderItem} />
       </View>
     </View>
   );

@@ -21,6 +21,7 @@ const userSlice = createSlice({
     LogoutUser: (state, action) => {
       state.user = null;
       state.loggedIn = false;
+      state.mealPlan = null;
     },
     UpdateMealPlan: (state, action) => {
       state.mealPlan = action.payload;

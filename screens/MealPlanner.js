@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { MealPlan, MealPlanGenerator } from '../components/index';
+import { MealPlanList, MealPlanGenerator } from '../components/index';
 import { useSelector, useDispatch } from 'react-redux';
 import { View, Text, StyleSheet, Button, Pressable } from 'react-native';
 import { gql, useLazyQuery, useQuery, useMutation } from '@apollo/client';
@@ -41,10 +41,7 @@ const MealPlanner = () => {
         },
       });
       if (res.data.generateMealPlan.success) {
-        const result = getMealPlanFromDb({ variables: { userId } });
-        console.log('result from getting db', result);
-
-        // console.log('dbMealPlan', dbMealPlan);
+        getMealPlanFromDb({ variables: { userId } });
       }
       console.log(res);
     } catch (err) {
@@ -59,17 +56,28 @@ const MealPlanner = () => {
   }, []);
 
   useEffect(() => {
-    if (data) {
-      console.log('Got MealPlan bro?');
+    console.log(mealPlan);
+  }, [mealPlan]);
+
+  useEffect(() => {
+    /* if (data !== undefined && data.getMealPlanFromDb !== null) {
+      console.log('Updating mealplan...');
+      dispatch(UpdateMealPlan(data.getMealPlanFromDb.mealPlan));
+    } */
+
+    // console.log(data);
+
+    if (data.getMealPlanFromDb.mealPlan) {
+      console.log('Updating mealplan...');
       dispatch(UpdateMealPlan(data.getMealPlanFromDb.mealPlan));
     }
-  }, [data]);
+  }, [data.getMealPlanFromDb.mealPlan]);
 
   return (
     <View style={styles.container}>
       <Text>MEAL PLANNER</Text>
       {mealPlan ? (
-        <MealPlan mealPlan={mealPlan} />
+        <MealPlanList mealPlan={mealPlan} />
       ) : (
         <MealPlanGenerator handleMealPlanClick={handleMealPlanClick} />
       )}

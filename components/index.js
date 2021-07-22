@@ -1,4 +1,5 @@
-import MealPlan from './DayPlanContainer';
+import DayPlanContainer from './DayPlanContainer';
 import MealPlanGenerator from './MealPlanGenerator';
+import MealPlanList from './MealPlanList';
 
-export { MealPlan, MealPlanGenerator };
+export { DayPlanContainer, MealPlanGenerator, MealPlanList };
