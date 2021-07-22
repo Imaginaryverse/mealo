@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import axios from 'axios';
 import { MealPlanList, MealPlanGenerator } from '../components/index';
 import { useSelector, useDispatch } from 'react-redux';
 import { View, Text, StyleSheet, Button, Pressable } from 'react-native';
@@ -17,10 +18,40 @@ const initOptions = {
   snackDistribution: null,
 };
 
+const getWithAxios = async id => {
+  return await axios.post(
+    'https://limitless-badlands-33344.herokuapp.com/graphql',
+    {
+      query: `query{
+        getMealPlanFromDb(userId: "${id}") {
+          id
+          mealPlan {
+            day
+            date
+            calories
+            meals {
+              id
+              calories
+              meal
+              recipe {
+                name
+              }
+            }
+          }
+        }
+      }
+      `,
+    }
+  );
+};
+
 const MealPlanner = () => {
-  const [getMealPlanFromDb, { data }] = useLazyQuery(GET_MEALPLAN_FROM_DB);
-  const [generateMealPlan, { mutationData }] = useMutation(GENERATE_MEAL_PLAN);
   const userId = useSelector(state => state.user.databaseId);
+  /* const { loading, initialData, error } = useQuery(GET_MEALPLAN_FROM_DB, {
+    variables: { userId },
+  });
+  const [getMealPlanFromDb, { data }] = useLazyQuery(GET_MEALPLAN_FROM_DB); */
+  const [generateMealPlan, { mutationData }] = useMutation(GENERATE_MEAL_PLAN);
   const [options, setOptions] = useState(initOptions);
   const mealPlan = useSelector(state => state.mealPlan);
   const dispatch = useDispatch();
@@ -41,7 +72,8 @@ const MealPlanner = () => {
         },
       });
       if (res.data.generateMealPlan.success) {
-        getMealPlanFromDb({ variables: { userId } });
+        const result = await getWithAxios(userId);
+        dispatch(UpdateMealPlan(result.data.data.getMealPlanFromDb.mealPlan));
       }
       console.log(res);
     } catch (err) {
@@ -51,27 +83,13 @@ const MealPlanner = () => {
 
   useEffect(() => {
     if (!mealPlan) {
-      getMealPlanFromDb({ variables: { userId } });
+      getWithAxios(userId)
+        .then(res => {
+          dispatch(UpdateMealPlan(res.data.data.getMealPlanFromDb.mealPlan));
+        })
+        .catch(err => console.log(err));
     }
   }, []);
-
-  useEffect(() => {
-    console.log(mealPlan);
-  }, [mealPlan]);
-
-  useEffect(() => {
-    /* if (data !== undefined && data.getMealPlanFromDb !== null) {
-      console.log('Updating mealplan...');
-      dispatch(UpdateMealPlan(data.getMealPlanFromDb.mealPlan));
-    } */
-
-    // console.log(data);
-
-    if (data.getMealPlanFromDb.mealPlan) {
-      console.log('Updating mealplan...');
-      dispatch(UpdateMealPlan(data.getMealPlanFromDb.mealPlan));
-    }
-  }, [data.getMealPlanFromDb.mealPlan]);
 
   return (
     <View style={styles.container}>

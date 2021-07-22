@@ -47,6 +47,7 @@ const Login = ({ navigation }) => {
 
     if (data && data.LoginUserByEmail.success) {
       dispatch(LoginUser(data.LoginUserByEmail.user));
+      console.log(`Logged in ${data.LoginUserByEmail.user.name}...`);
       navigation.navigate('Home');
     }
   }, [data]);

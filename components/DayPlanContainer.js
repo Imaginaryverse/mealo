@@ -15,7 +15,11 @@ const DayPlanContainer = ({ dayPlan }) => {
       <Text>Day: {dayPlan.day}</Text>
       <Text>Calories: {Math.floor(dayPlan.calories)}</Text>
       <View style={styles.dayPlanContainer}>
-        <FlatList data={dayPlan.meals} renderItem={renderItem} />
+        <FlatList
+          data={dayPlan.meals}
+          renderItem={renderItem}
+          keyExtractor={dayPlan.id}
+        />
       </View>
     </View>
   );
