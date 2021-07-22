@@ -18,9 +18,10 @@ const initOptions = {
 };
 
 const MealPlanner = () => {
+  const userId = useSelector(state => state.user.databaseId);
+  const {loading, error, data: initialData} = useQuery(GET_MEALPLAN_FROM_DB, {variables: {userId}});
   const [getMealPlanFromDb, { data }] = useLazyQuery(GET_MEALPLAN_FROM_DB);
   const [generateMealPlan, { mutationData }] = useMutation(GENERATE_MEAL_PLAN);
-  const userId = useSelector(state => state.user.databaseId);
   const [options, setOptions] = useState(initOptions);
   const mealPlan = useSelector(state => state.mealPlan);
   const dispatch = useDispatch();
@@ -49,15 +50,23 @@ const MealPlanner = () => {
     }
   };
 
-  useEffect(() => {
+  useEffect(()=> {
+    console.log('initial meal plan: ', initialData);
+  }, [initialData])
+
+  useEffect(()=> {
+    console.log('refetch: ', data);
+  }, [data])
+
+  /* useEffect(() => {
     if (!mealPlan) {
       getMealPlanFromDb({ variables: { userId } });
     }
   }, []);
-
-  useEffect(() => {
+ */
+ /*  useEffect(() => {
     console.log(mealPlan);
-  }, [mealPlan]);
+  }, [mealPlan]); */
 
   useEffect(() => {
     /* if (data !== undefined && data.getMealPlanFromDb !== null) {
@@ -66,12 +75,12 @@ const MealPlanner = () => {
     } */
 
     // console.log(data);
-
+/* 
     if (data.getMealPlanFromDb.mealPlan) {
       console.log('Updating mealplan...');
       dispatch(UpdateMealPlan(data.getMealPlanFromDb.mealPlan));
-    }
-  }, [data.getMealPlanFromDb.mealPlan]);
+    } */
+  }, []);
 
   return (
     <View style={styles.container}>
