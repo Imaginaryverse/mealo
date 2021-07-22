@@ -5,6 +5,7 @@ import { GET_MEALPLAN_FROM_DB } from '../queries/DBqueries';
 
 const MealPlanner = () => {
   const { loading, error, data } = useQuery(GET_MEALPLAN_FROM_DB);
+  const 
   if (loading) {
     console.log('loading...');
     return <Text style={styles.container}>loading</Text>;
