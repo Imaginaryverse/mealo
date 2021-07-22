@@ -13,10 +13,16 @@ const Home = () => {
   const user = useSelector(state => state.user);
   const dispatch = useDispatch();
   return (
-    <View>
+    <View style={styles.container}>
       <Text>Welcome {user.name}!</Text>
     </View>
   );
 };
+
+const styles = StyleSheet.create({
+  container: {
+    marginTop: 20,
+  },
+});
 
 export default Home;

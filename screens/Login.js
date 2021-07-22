@@ -10,6 +10,7 @@ import {
 } from 'react-native';
 import { useLazyQuery } from '@apollo/client';
 import { LOGIN_USER } from '../queries/DBqueries';
+import { LoginUser } from '../redux/slices/userSlice';
 
 // TODO: implement error messaging
 
@@ -17,6 +18,7 @@ const Login = ({ navigation }) => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [loginUser, { loading, data }] = useLazyQuery(LOGIN_USER);
+  const dispatch = useDispatch();
 
   const handleLogin = () => {
     console.log('Logging in...');
@@ -31,6 +33,7 @@ const Login = ({ navigation }) => {
     data && console.log('Data state changed...');
     data && console.log(data);
     if (data && data.LoginUserByEmail.success) {
+      dispatch(LoginUser(data.LoginUserByEmail.user));
       navigation.navigate('Home');
     }
   }, [data]);
