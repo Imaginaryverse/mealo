@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import { CREATE_USER } from '../queries/DBqueries';
-import { useMutation } from '@apollo/client';
-import { gql } from '@apollo/client';
+import { useMutation, gql } from '@apollo/client';
 import {
   View,
   Text,
@@ -12,6 +11,7 @@ import {
   KeyboardAvoidingView,
   TouchableOpacity,
 } from 'react-native';
+import { validatePassword, isValidEmail } from '../utils/index';
 
 // TOODO: Encrypt password!
 // encrept password
@@ -24,23 +24,27 @@ const Signup = ({ navigation, setUser, setLoggedIn }) => {
   const [confirmPassword, setConfirmPassword] = useState('');
   const [createUser, { loading, data }] = useMutation(CREATE_USER);
 
-  /*
-    /^[a-z0-9.\-_]+@[a-z0-9\-]+.[a-z]{2,}$/i
-  */
-
   const handleSignup = async () => {
-    console.log('in handle singup');
-    if (password !== confirmPassword) {
-      console.log('passwords not matching');
+    console.log('Signing up...');
+
+    const pwdValidation = validatePassword(password, confirmPassword);
+
+    if (!pwdValidation.valid) {
+      console.log(pwdValidation.message);
       return;
     }
-    if (!/^[a-z0-9.\-_]+@[a-z0-9\-]+.[a-z]{2,}$/i.test(email)) {
+
+    if (!isValidEmail(email)) {
       console.log('invalid email format');
       return;
     }
 
-    await createUser();
-    console.log(data);
+    const response = await createUser({ variables: { name, email, password } });
+    console.log(response);
+    setLoggedIn(true);
+    setUser(response.data.createUser.user);
+
+    navigation.navigate('Home');
   };
 
   return (
@@ -69,9 +73,15 @@ const Signup = ({ navigation, setUser, setLoggedIn }) => {
           defaultValue={confirmPassword}
           onChangeText={text => setConfirmPassword(text)}
         />
-        <TouchableOpacity onPress={() => handleSignup()}>
+        <TouchableOpacity onPress={handleSignup}>
           <Text>Sign up</Text>
         </TouchableOpacity>
+        {data && (
+          <>
+            <Text>{data.createUser.message}</Text>
+            <Text>{data.createUser.user.databaseId}</Text>
+          </>
+        )}
       </View>
     </KeyboardAvoidingView>
   );

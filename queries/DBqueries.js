@@ -29,13 +29,26 @@ export const GET_MEALPLAN_FROM_DB = gql`
 `;
 
 export const CREATE_USER = gql`
-  mutation mutation createUser($name: String!, $email: String!, $password: String!){
+  mutation CreateUser($name: String!, $email: String!, $password: String!) {
     createUser(name: $name, email: $email, password: $password) {
       success
       message
       user {
-        id
+        databaseId
         name
+      }
+    }
+  }
+`;
+
+export const LOGIN_USER = gql`
+  query {
+    LoginUserByEmail(email: $email, password: $password) {
+      success
+      message
+      user {
+        name
+        databaseId
       }
     }
   }

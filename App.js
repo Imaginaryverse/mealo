@@ -25,7 +25,7 @@ export default function App() {
         {loggedIn ? (
           <BottomTabNavigator user={user} />
         ) : (
-          <AuthStack setUser={setUser} setLoggedIn={setLoggedIn} user={user} />
+          <AuthStack setLoggedIn={setLoggedIn} user={user} setUser={setUser} />
         )}
       </NavigationContainer>
     </ApolloProvider>
@@ -42,4 +42,3 @@ const styles = StyleSheet.create({
 });
 
 AppRegistry.registerComponent('App', () => App);
-// yo!
