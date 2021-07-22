@@ -21,6 +21,10 @@ const Login = ({ navigation }) => {
   const dispatch = useDispatch();
 
   const handleLogin = () => {
+    if (email === '' || password === '') {
+      return;
+    }
+
     console.log('Logging in...');
     loginUser({ variables: { email, password } });
   };

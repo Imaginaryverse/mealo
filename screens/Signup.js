@@ -42,6 +42,16 @@ const Signup = ({ navigation }) => {
   };
 
   const handleSignup = async () => {
+    if (
+      name === '' ||
+      email === '' ||
+      password === '' ||
+      confirmPassword === ''
+    ) {
+      console.log('Empty fields...');
+      return;
+    }
+
     console.log('Registering user...');
 
     const pwdValidation = validatePassword(password, confirmPassword);
