@@ -22,25 +22,13 @@ const userSlice = createSlice({
       state.user = null;
       state.loggedIn = false;
     },
-    GenerateMealPlan: (state, action) => {
-      state.mealPlan = action.payload;
-    },
-    GetMealPlan: (state, action) => {
-      state.mealPlan = action.payload;
-    },
     UpdateMealPlan: (state, action) => {
       state.mealPlan = action.payload;
     },
   },
 });
 
-export const {
-  CreateUser,
-  LoginUser,
-  LogoutUser,
-  GenerateMealPlan,
-  GetMealPlan,
-  UpdateMealPlan,
-} = userSlice.actions;
+export const { CreateUser, LoginUser, LogoutUser, UpdateMealPlan } =
+  userSlice.actions;
 
 export default userSlice.reducer;

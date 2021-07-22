@@ -9,7 +9,7 @@ export const GET_ALL_USERS = gql`
 `;
 
 export const GET_MEALPLAN_FROM_DB = gql`
-  query GetMealPlanFromDb($userId: String!) {
+  query GetMealPlanFromDb($userId: ID!) {
     getMealPlanFromDb(userId: $userId) {
       id
       mealPlan {
@@ -55,39 +55,57 @@ export const LOGIN_USER = gql`
 `;
 
 /* export const GENERATE_MEAL_PLAN = gql`
-  mutation GenerateMealPlan(
-    $userId: String!, 
-    $addDays: Boolean,
-    $ignoreLock: Boolean,
-    $kcalLimit: Float,
-    $breakfastDistribution: Float,
-    $lunchDistribution: Float, 
-    $dinnerDistribution: Float,
-    $snackDistribution: Float,
+  mutation generateMealPlan(
+    $userId: String!
+    $addDays: Boolean
+    $ignoreLock: Boolean
+    $kcalLimit: Float
+    $breakfastDistribution: Float
+    $lunchDistribution: Float
+    $dinnerDistribution: Float
+    $snackDistribution: Float
+  ) {
+    generateMealPlan(
+      userId: $userId
+      addDays: $addDays
+      ignoreLock: $ignoreLock
+      kcalLimit: $kcalLimit
+      breakfastDistribution: $breakfastDistribution
+      lunchDistribution: $lunchDistribution
+      dinnerDistribution: $dinnerDistribution
+      snackDistribution: $snackDistribution
     ) {
-      generateMealPlan (
-        userId: $userId,
-        addDays: $addDays,
-        ignoreLock: $ignoreLock,
-        kcalLimit: $kcalLimit,
-        breakfastDistribution: $breakfastDistribution,
-        lunchDistribution: $lunchDistribution,
-        dinnerDistribution: $dinnerDistribution,
-        snackDistribution: $snackDistribution,
-        ) {
-          success
-          message
-          mealPlan {
-            day
-            date
-            calories
-            meals {
-              calories
-              meal
-              recipe {
-                name
-              }
-            }
-          }
-        }
-    }`; */
+      success
+      message
+    }
+  }
+`; */
+
+export const GENERATE_MEAL_PLAN = gql`
+  mutation generateMealPlan(
+    $userId: ID!
+    $addDays: Boolean
+    $ignoreLock: Boolean
+    $kcalLimit: Float
+    $maxNumOfServings: Int
+    $breakfastDistribution: Float
+    $lunchDistribution: Float
+    $dinnerDistribution: Float
+    $snackDistribution: Float
+  ) {
+    generateMealPlan(
+      userId: $userId
+      addDays: $addDays
+      ignoreLock: $ignoreLock
+      kcalLimit: $kcalLimit
+      maxNumOfServings: $maxNumOfServings
+      breakfastDistribution: $breakfastDistribution
+      lunchDistribution: $lunchDistribution
+      dinnerDistribution: $dinnerDistribution
+      snackDistribution: $snackDistribution
+    ) {
+      success
+      message
+    }
+  }
+`;
