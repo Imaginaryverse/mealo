@@ -53,3 +53,22 @@ export const LOGIN_USER = gql`
     }
   }
 `;
+
+export const GENERATE_MEAL_PLAN = gql`
+  mutation GenerateMealPlan($userId: String!) {
+    generateMealPlan(userId: $userId) {
+      success
+      message
+      mealPlan {
+        day
+        date
+        calories
+        meals {
+          calories
+          meal
+          recipe {
+            name
+          }
+        }
+      }
+    }
