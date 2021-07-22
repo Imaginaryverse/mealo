@@ -15,10 +15,6 @@ import {
 } from 'react-native';
 import { validatePassword, isValidEmail } from '../utils/index';
 
-// TOODO: Encrypt password!
-// encrept password
-// const encryptPassword = password => bcrypt.hashSync(password, bcrypt.genSaltSync(8), null);
-
 const Signup = ({ navigation }) => {
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
@@ -29,9 +25,6 @@ const Signup = ({ navigation }) => {
   const [createUser, { loading, data }] = useMutation(CREATE_USER);
 
   const dispatch = useDispatch();
-
-  const newUser = useSelector(state => state.user);
-  const loggedIn = useSelector(state => state.loggedIn);
 
   const displayEmailErrorMsg = msg => {
     setEmailErrorMessage(msg);
@@ -68,14 +61,13 @@ const Signup = ({ navigation }) => {
     }
 
     if (!isValidEmail(email)) {
-      displayEmailErrorMsg('Invalid email format');
+      displayEmailErrorMsg('Invalid email format...');
       return;
     }
 
     console.log('Registering user...');
 
     const response = await createUser({ variables: { name, email, password } });
-    console.log(response);
     dispatch(CreateUser(response.data.createUser.user));
     navigation.navigate('Home');
   };
