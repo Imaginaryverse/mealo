@@ -1,4 +1,5 @@
 import React from 'react';
+import { useSelector, useDispatch } from 'react-redux';
 import {
   View,
   Text,
@@ -9,9 +10,11 @@ import {
 } from 'react-native';
 
 const Home = () => {
+  const user = useSelector(state => state.user);
+  const dispatch = useDispatch();
   return (
     <View>
-      <Text>HOME</Text>
+      <Text>Welcome {user.name}!</Text>
     </View>
   );
 };

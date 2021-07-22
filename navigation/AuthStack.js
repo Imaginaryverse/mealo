@@ -6,22 +6,12 @@ import BottomTabNavigator from './BottomTabs';
 
 const Stack = createStackNavigator();
 
-const AuthStack = ({ user, setUser, setLoggedIn }) => {
+const AuthStack = () => {
   return (
     <Stack.Navigator initialRouteName={'Login'}>
-      <Stack.Screen
-        name='Login'
-        component={Login}
-        setUser={setUser}
-        setLoggedIn={setLoggedIn}
-      />
-      <Stack.Screen
-        name='Signup'
-        component={Signup}
-        setUser={setUser}
-        setLoggedIn={setLoggedIn}
-      />
-      <Stack.Screen name='Home' component={BottomTabNavigator} user={user} />
+      <Stack.Screen name='Login' component={Login} />
+      <Stack.Screen name='Signup' component={Signup} />
+      <Stack.Screen name='Home' component={BottomTabNavigator} />
     </Stack.Navigator>
   );
 };

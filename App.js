@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { Provider } from 'react-redux';
 import { StatusBar } from 'expo-status-bar';
 import { AppRegistry } from 'react-native';
 import { StyleSheet, Text, View } from 'react-native';
@@ -6,6 +7,7 @@ import BottomTabNavigator from './navigation/BottomTabs';
 import AuthStack from './navigation/AuthStack';
 import { NavigationContainer } from '@react-navigation/native';
 import { ApolloClient, InMemoryCache, ApolloProvider } from '@apollo/client';
+import { userStore } from './redux/store';
 
 console.log(`${new Date().toLocaleTimeString()}: Saved...`);
 
@@ -20,15 +22,13 @@ export default function App() {
   const [loggedIn, setLoggedIn] = useState(false);
 
   return (
-    <ApolloProvider client={client}>
-      <NavigationContainer>
-        {loggedIn ? (
-          <BottomTabNavigator user={user} />
-        ) : (
-          <AuthStack setLoggedIn={setLoggedIn} user={user} setUser={setUser} />
-        )}
-      </NavigationContainer>
-    </ApolloProvider>
+    <Provider store={userStore}>
+      <ApolloProvider client={client}>
+        <NavigationContainer>
+          {loggedIn ? <BottomTabNavigator /> : <AuthStack />}
+        </NavigationContainer>
+      </ApolloProvider>
+    </Provider>
   );
 }
 

@@ -42,13 +42,13 @@ export const CREATE_USER = gql`
 `;
 
 export const LOGIN_USER = gql`
-  query {
+  query LoginUserByEmail($email: String!, $password: String!) {
     LoginUserByEmail(email: $email, password: $password) {
       success
       message
       user {
-        name
         databaseId
+        name
       }
     }
   }
