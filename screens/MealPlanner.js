@@ -19,12 +19,23 @@ const initOptions = {
 
 const MealPlanner = () => {
   const userId = useSelector(state => state.user.databaseId);
-  const {loading, error, data: initialData} = useQuery(GET_MEALPLAN_FROM_DB, {variables: {userId}});
-  const [getMealPlanFromDb, { data }] = useLazyQuery(GET_MEALPLAN_FROM_DB);
-  const [generateMealPlan, { mutationData }] = useMutation(GENERATE_MEAL_PLAN);
-  const [options, setOptions] = useState(initOptions);
   const mealPlan = useSelector(state => state.mealPlan);
   const dispatch = useDispatch();
+  const [getMealPlanFromDb, { loading: dbLoading, error: dbError, data, refetch }] = useLazyQuery(
+    GET_MEALPLAN_FROM_DB,
+    {
+      variables: { userId },
+      fetchPolicy: "cache-and-network",
+      onCompleted: data => {
+        console.log('onCompleted', data);
+        if(data.getMealPlanFromDb) {
+          dispatch(UpdateMealPlan(data.getMealPlanFromDb.mealPlan));
+        }
+      }
+    }
+  );
+  const [generateMealPlan, {loading: generateLoading, error: generateError}] = useMutation(GENERATE_MEAL_PLAN);
+  const [options, setOptions] = useState(initOptions);
 
   const handleMealPlanClick = async () => {
     console.log('generating...');
@@ -42,45 +53,27 @@ const MealPlanner = () => {
         },
       });
       if (res.data.generateMealPlan.success) {
-        getMealPlanFromDb({ variables: { userId } });
+        refetch();
+        console.log(res);
       }
-      console.log(res);
     } catch (err) {
       console.error(err);
     }
   };
 
-  useEffect(()=> {
-    console.log('initial meal plan: ', initialData);
-  }, [initialData])
-
-  useEffect(()=> {
-    console.log('refetch: ', data);
-  }, [data])
-
-  /* useEffect(() => {
+  useEffect(() => {
+    console.log('mealPlan state:', mealPlan);
     if (!mealPlan) {
-      getMealPlanFromDb({ variables: { userId } });
+      getMealPlanFromDb();
     }
-  }, []);
- */
- /*  useEffect(() => {
-    console.log(mealPlan);
-  }, [mealPlan]); */
+  }, [mealPlan]);
 
   useEffect(() => {
-    /* if (data !== undefined && data.getMealPlanFromDb !== null) {
-      console.log('Updating mealplan...');
+    console.log('Meal data from db: ', data);
+    if (data && data.getMealPlanFromDb) {
       dispatch(UpdateMealPlan(data.getMealPlanFromDb.mealPlan));
-    } */
-
-    // console.log(data);
-/* 
-    if (data.getMealPlanFromDb.mealPlan) {
-      console.log('Updating mealplan...');
-      dispatch(UpdateMealPlan(data.getMealPlanFromDb.mealPlan));
-    } */
-  }, []);
+    }
+  }, [data]);
 
   return (
     <View style={styles.container}>
@@ -88,8 +81,10 @@ const MealPlanner = () => {
       {mealPlan ? (
         <MealPlanList mealPlan={mealPlan} />
       ) : (
+        dbLoading ? <Text>Loading your meal plan...</Text> : 
         <MealPlanGenerator handleMealPlanClick={handleMealPlanClick} />
       )}
+      {generateLoading && <Text>Generating your meal plan...</Text>}
     </View>
   );
 };
