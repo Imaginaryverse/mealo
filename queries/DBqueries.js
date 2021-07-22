@@ -9,8 +9,8 @@ export const GET_ALL_USERS = gql`
 `;
 
 export const GET_MEALPLAN_FROM_DB = gql`
-  query {
-    getMealPlanFromDb(userId: "0aa04c61-b2c1-49eb-9426-aa89d6174008") {
+  query GetMealPlanFromDb($userId: String!) {
+    getMealPlanFromDb(userId: $userId) {
       id
       mealPlan {
         day
@@ -54,21 +54,40 @@ export const LOGIN_USER = gql`
   }
 `;
 
-export const GENERATE_MEAL_PLAN = gql`
-  mutation GenerateMealPlan($userId: String!) {
-    generateMealPlan(userId: $userId) {
-      success
-      message
-      mealPlan {
-        day
-        date
-        calories
-        meals {
-          calories
-          meal
-          recipe {
-            name
+/* export const GENERATE_MEAL_PLAN = gql`
+  mutation GenerateMealPlan(
+    $userId: String!, 
+    $addDays: Boolean,
+    $ignoreLock: Boolean,
+    $kcalLimit: Float,
+    $breakfastDistribution: Float,
+    $lunchDistribution: Float, 
+    $dinnerDistribution: Float,
+    $snackDistribution: Float,
+    ) {
+      generateMealPlan (
+        userId: $userId,
+        addDays: $addDays,
+        ignoreLock: $ignoreLock,
+        kcalLimit: $kcalLimit,
+        breakfastDistribution: $breakfastDistribution,
+        lunchDistribution: $lunchDistribution,
+        dinnerDistribution: $dinnerDistribution,
+        snackDistribution: $snackDistribution,
+        ) {
+          success
+          message
+          mealPlan {
+            day
+            date
+            calories
+            meals {
+              calories
+              meal
+              recipe {
+                name
+              }
+            }
           }
         }
-      }
-    }
+    }`; */

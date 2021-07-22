@@ -16,26 +16,35 @@ import { LoginUser } from '../redux/slices/userSlice';
 
 const Login = ({ navigation }) => {
   const [email, setEmail] = useState('');
+  const [loginErrorMsg, setLoginErrorMsg] = useState(null);
   const [password, setPassword] = useState('');
   const [loginUser, { loading, data }] = useLazyQuery(LOGIN_USER);
   const dispatch = useDispatch();
 
-  const handleLogin = () => {
-    if (email === '' || password === '') {
-      return;
-    }
+  const displayLoginErrorMsg = msg => {
+    setLoginErrorMsg(msg);
 
-    console.log('Logging in...');
+    setTimeout(() => {
+      setLoginErrorMsg(null);
+    }, 5000);
+  };
+
+  const handleLogin = () => {
+    if (email === '' || password === '') return;
+
     loginUser({ variables: { email, password } });
   };
 
   useEffect(() => {
+    loading && console.log('Logging in...');
     loading && console.log('Loading...');
   }, [loading]);
 
   useEffect(() => {
-    data && console.log('Data state changed...');
-    data && console.log(data);
+    if (data && !data.LoginUserByEmail.success) {
+      displayLoginErrorMsg(data.LoginUserByEmail.message);
+    }
+
     if (data && data.LoginUserByEmail.success) {
       dispatch(LoginUser(data.LoginUserByEmail.user));
       navigation.navigate('Home');
@@ -56,6 +65,11 @@ const Login = ({ navigation }) => {
         defaultValue={password}
         onChangeText={text => setPassword(text)}
       />
+      {loginErrorMsg && (
+        <View>
+          <Text>{loginErrorMsg}</Text>
+        </View>
+      )}
       <Button title='Log in' onPress={() => handleLogin()} />
       <Button
         title='Create Account'
