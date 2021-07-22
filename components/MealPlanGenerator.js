@@ -6,7 +6,7 @@ const MealPlanGenerator = ({ handleMealPlanClick }) => {
     <View style={styles.container}>
       <Text>MEAL PLANNER</Text>
       <Pressable onPress={() => handleMealPlanClick()}>
-        <Text>Click to generate your Mealplan</Text>
+        <Text>Generate Meal Plan</Text>
       </Pressable>
     </View>
   );

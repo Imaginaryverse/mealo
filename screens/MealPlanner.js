@@ -21,20 +21,21 @@ const MealPlanner = () => {
   const userId = useSelector(state => state.user.databaseId);
   const mealPlan = useSelector(state => state.mealPlan);
   const dispatch = useDispatch();
-  const [getMealPlanFromDb, { loading: dbLoading, error: dbError, data, refetch }] = useLazyQuery(
-    GET_MEALPLAN_FROM_DB,
-    {
-      variables: { userId },
-      fetchPolicy: "cache-and-network",
-      onCompleted: data => {
+  const [
+    getMealPlanFromDb,
+    { loading: dbLoading, error: dbError, data, refetch },
+  ] = useLazyQuery(GET_MEALPLAN_FROM_DB, {
+    variables: { userId },
+    fetchPolicy: 'cache-and-network',
+    /* onCompleted: data => {
         console.log('onCompleted', data);
         if(data.getMealPlanFromDb) {
           dispatch(UpdateMealPlan(data.getMealPlanFromDb.mealPlan));
         }
-      }
-    }
-  );
-  const [generateMealPlan, {loading: generateLoading, error: generateError}] = useMutation(GENERATE_MEAL_PLAN);
+      } */
+  });
+  const [generateMealPlan, { loading: generateLoading, error: generateError }] =
+    useMutation(GENERATE_MEAL_PLAN);
   const [options, setOptions] = useState(initOptions);
 
   const handleMealPlanClick = async () => {
@@ -54,7 +55,6 @@ const MealPlanner = () => {
       });
       if (res.data.generateMealPlan.success) {
         refetch();
-        console.log(res);
       }
     } catch (err) {
       console.error(err);
@@ -62,15 +62,15 @@ const MealPlanner = () => {
   };
 
   useEffect(() => {
-    console.log('mealPlan state:', mealPlan);
     if (!mealPlan) {
+      console.log('No meal plan. Fetching from DB...');
       getMealPlanFromDb();
     }
   }, [mealPlan]);
 
   useEffect(() => {
-    console.log('Meal data from db: ', data);
     if (data && data.getMealPlanFromDb) {
+      console.log(`💰 ${new Date().toLocaleTimeString()}: Cached meal plan...`);
       dispatch(UpdateMealPlan(data.getMealPlanFromDb.mealPlan));
     }
   }, [data]);
@@ -80,8 +80,9 @@ const MealPlanner = () => {
       <Text>MEAL PLANNER</Text>
       {mealPlan ? (
         <MealPlanList mealPlan={mealPlan} />
+      ) : dbLoading ? (
+        <Text>Loading your meal plan...</Text>
       ) : (
-        dbLoading ? <Text>Loading your meal plan...</Text> : 
         <MealPlanGenerator handleMealPlanClick={handleMealPlanClick} />
       )}
       {generateLoading && <Text>Generating your meal plan...</Text>}

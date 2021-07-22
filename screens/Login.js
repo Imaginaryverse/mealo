@@ -12,8 +12,6 @@ import { useLazyQuery } from '@apollo/client';
 import { LOGIN_USER } from '../queries/DBqueries';
 import { LoginUser } from '../redux/slices/userSlice';
 
-// TODO: implement error messaging
-
 const Login = ({ navigation }) => {
   const [email, setEmail] = useState('');
   const [loginErrorMsg, setLoginErrorMsg] = useState(null);
@@ -37,7 +35,6 @@ const Login = ({ navigation }) => {
 
   useEffect(() => {
     loading && console.log('Logging in...');
-    loading && console.log('Loading...');
   }, [loading]);
 
   useEffect(() => {
