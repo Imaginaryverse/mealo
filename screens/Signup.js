@@ -25,7 +25,7 @@ const Signup = ({ navigation }) => {
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState(null);
   const [emailErrorMessage, setEmailErrorMessage] = useState(null);
-  const [pwdErrorMessage, setPwdErrorMessage] = useState('');
+  const [pwdErrorMessage, setPwdErrorMessage] = useState(null);
   const [createUser, { loading, data }] = useMutation(CREATE_USER);
 
   const dispatch = useDispatch();
@@ -33,12 +33,20 @@ const Signup = ({ navigation }) => {
   const newUser = useSelector(state => state.user);
   const loggedIn = useSelector(state => state.loggedIn);
 
+  const displayEmailErrorMsg = msg => {
+    setEmailErrorMessage(msg);
+
+    setTimeout(() => {
+      setEmailErrorMessage(null);
+    }, 5000);
+  };
+
   const displayPwdErrorMsg = msg => {
     setPwdErrorMessage(msg);
 
     setTimeout(() => {
       setPwdErrorMessage(null);
-    }, 3000);
+    }, 5000);
   };
 
   const handleSignup = async () => {
@@ -52,20 +60,19 @@ const Signup = ({ navigation }) => {
       return;
     }
 
-    console.log('Registering user...');
-
     const pwdValidation = validatePassword(password, confirmPassword);
 
     if (!pwdValidation.valid) {
-      console.log(pwdValidation.message);
       displayPwdErrorMsg(pwdValidation.message);
       return;
     }
 
     if (!isValidEmail(email)) {
-      console.log('Invalid email format');
+      displayEmailErrorMsg('Invalid email format');
       return;
     }
+
+    console.log('Registering user...');
 
     const response = await createUser({ variables: { name, email, password } });
     console.log(response);
@@ -87,6 +94,11 @@ const Signup = ({ navigation }) => {
           defaultValue={email}
           onChangeText={text => setEmail(text)}
         />
+        {emailErrorMessage && (
+          <View>
+            <Text>{emailErrorMessage}</Text>
+          </View>
+        )}
         <TextInput
           placeholder='password'
           secureTextEntry={true}
@@ -99,7 +111,11 @@ const Signup = ({ navigation }) => {
           defaultValue={confirmPassword}
           onChangeText={text => setConfirmPassword(text)}
         />
-        {/* {pwdErrorMessage && <Text>{pwdErrorMessage}</Text>} */}
+        {pwdErrorMessage && (
+          <View>
+            <Text>{pwdErrorMessage}</Text>
+          </View>
+        )}
         <TouchableOpacity onPress={handleSignup}>
           <Text>Sign up</Text>
         </TouchableOpacity>

@@ -3,7 +3,7 @@ export const validatePassword = (pwd, confirmPwd) => {
     return {
       valid: false,
       message:
-        'Password must be at least 8 characters long and include one lowercase character, one uppercase character and one digit',
+        'Password must be at least 8 characters long and include a lowercase character, an uppercase character and a digit',
     };
   }
 
