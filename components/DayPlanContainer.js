@@ -18,7 +18,7 @@ const DayPlanContainer = ({ dayPlan }) => {
         <FlatList
           data={dayPlan.meals}
           renderItem={renderItem}
-          keyExtractor={dayPlan.id}
+          keyExtractor={(item, i) => i.toString()}
         />
       </View>
     </View>
