@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react';
-import axios from 'axios';
 import { MealPlanList, MealPlanGenerator } from '../components/index';
 import { useSelector, useDispatch } from 'react-redux';
 import { View, Text, StyleSheet, Button, Pressable } from 'react-native';
@@ -16,33 +15,6 @@ const initOptions = {
   lunchDistribution: null,
   dinnerDistribution: null,
   snackDistribution: null,
-};
-
-const getWithAxios = async id => {
-  return await axios.post(
-    'https://limitless-badlands-33344.herokuapp.com/graphql',
-    {
-      query: `query{
-        getMealPlanFromDb(userId: "${id}") {
-          id
-          mealPlan {
-            day
-            date
-            calories
-            meals {
-              id
-              calories
-              meal
-              recipe {
-                name
-              }
-            }
-          }
-        }
-      }
-      `,
-    }
-  );
 };
 
 const MealPlanner = () => {
