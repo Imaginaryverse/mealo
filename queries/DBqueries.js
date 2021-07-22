@@ -17,6 +17,7 @@ export const GET_MEALPLAN_FROM_DB = gql`
         date
         calories
         meals {
+          id
           calories
           meal
           recipe {
@@ -27,6 +28,46 @@ export const GET_MEALPLAN_FROM_DB = gql`
     }
   }
 `;
+
+/* export const GET_MEALPLAN_FROM_DB = gql`
+  query GetMealPlanFromDb($userId: ID!) {
+    getMealPlanFromDb(userId: $userId) {
+      id
+      mealPlan {
+        day
+        date
+        calories
+        meals {
+          id
+          calories
+          meal
+          numOfServings
+          recipe {
+            databaseId
+            totalTime
+            name
+            numberOfServings
+            ingredientsCount
+            ingredientLines
+            courses
+            cuisines
+            mainImage
+            source {
+              siteUrl
+              recipeUrl
+            }
+            instructions
+            nutrientsPerServing {
+              protein
+              carbs
+              fat
+            }
+          }
+        }
+      }
+    }
+  }
+`; */
 
 export const CREATE_USER = gql`
   mutation CreateUser($name: String!, $email: String!, $password: String!) {
@@ -54,33 +95,6 @@ export const LOGIN_USER = gql`
   }
 `;
 
-/* export const GENERATE_MEAL_PLAN = gql`
-  mutation generateMealPlan(
-    $userId: String!
-    $addDays: Boolean
-    $ignoreLock: Boolean
-    $kcalLimit: Float
-    $breakfastDistribution: Float
-    $lunchDistribution: Float
-    $dinnerDistribution: Float
-    $snackDistribution: Float
-  ) {
-    generateMealPlan(
-      userId: $userId
-      addDays: $addDays
-      ignoreLock: $ignoreLock
-      kcalLimit: $kcalLimit
-      breakfastDistribution: $breakfastDistribution
-      lunchDistribution: $lunchDistribution
-      dinnerDistribution: $dinnerDistribution
-      snackDistribution: $snackDistribution
-    ) {
-      success
-      message
-    }
-  }
-`; */
-
 export const GENERATE_MEAL_PLAN = gql`
   mutation generateMealPlan(
     $userId: ID!
@@ -106,6 +120,38 @@ export const GENERATE_MEAL_PLAN = gql`
     ) {
       success
       message
+    }
+  }
+`;
+
+export const UPDATE_USER_PROFILE = gql`
+  mutation UpdateUserProfile(
+    $userId: ID!
+    $birthdate: Date
+    $biologicalSex: BiologicalSex
+    $height: Float
+    $startingWeight: Float
+    $targetWeight: Float
+    $activityLevel: ActivityLevel
+    $weeklyWeightGoal: WeeklyWeightGoal
+    $goalsOn: Boolean
+  ) {
+    updateUserProfile(
+      userId: $userId
+      birthdate: $birthdate
+      biologicalSex: $biologicalSex
+      height: $height
+      startingWeight: $startingWeight
+      targetWeight: $targetWeight
+      activityLevel: $activityLevel
+      weeklyWeightGoal: $weeklyWeightGoal
+      goalsOn: $goalsOn
+    ) {
+      success
+      dcig
+      cd
+      tdee
+      bmr
     }
   }
 `;
