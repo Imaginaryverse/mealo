@@ -90,6 +90,21 @@ export const LOGIN_USER = gql`
       user {
         databaseId
         name
+        email
+        profile {
+          birthdate
+          biologicalSex
+          height
+          startingWeight
+          targetWeight
+          activityLevel
+          weeklyWeightGoal
+          goalsOn
+          dcig
+          cd
+          bmr
+          tdee
+        }
       }
     }
   }

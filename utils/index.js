@@ -1,4 +1,5 @@
 import { validatePassword } from './validatePassword';
 import { isValidEmail } from './isValidEmail';
+import formatDate from './formatDate';
 
-export { validatePassword, isValidEmail };
+export { validatePassword, isValidEmail, formatDate };

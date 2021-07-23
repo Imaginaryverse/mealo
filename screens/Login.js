@@ -16,7 +16,9 @@ const Login = ({ navigation }) => {
   const [email, setEmail] = useState('');
   const [loginErrorMsg, setLoginErrorMsg] = useState(null);
   const [password, setPassword] = useState('');
-  const [loginUser, { loading, data }] = useLazyQuery(LOGIN_USER);
+  const [loginUser, { loading, data }] = useLazyQuery(LOGIN_USER, {
+    fetchPolicy: 'network-only',
+  });
   const dispatch = useDispatch();
 
   const displayLoginErrorMsg = msg => {

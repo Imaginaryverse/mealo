@@ -69,7 +69,7 @@ const Signup = ({ navigation }) => {
 
     const response = await createUser({ variables: { name, email, password } });
     dispatch(CreateUser(response.data.createUser.user));
-    navigation.navigate('Home');
+    navigation.navigate('Onboard');
   };
 
   return (

@@ -39,7 +39,7 @@ const MealPlanner = () => {
   const [options, setOptions] = useState(initOptions);
 
   const handleMealPlanClick = async () => {
-    console.log('generating...');
+    console.log('🍅 generating...');
     try {
       const res = await generateMealPlan({
         variables: {
@@ -53,6 +53,7 @@ const MealPlanner = () => {
           snackDistribution: 0.1,
         },
       });
+
       if (res.data.generateMealPlan.success) {
         refetch();
       }
@@ -63,7 +64,7 @@ const MealPlanner = () => {
 
   useEffect(() => {
     if (!mealPlan) {
-      console.log('No meal plan. Fetching from DB...');
+      console.log('🥦 No meal plan. Fetching from DB...');
       getMealPlanFromDb();
     }
   }, [mealPlan]);
