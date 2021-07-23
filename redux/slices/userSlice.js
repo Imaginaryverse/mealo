@@ -12,7 +12,6 @@ const userSlice = createSlice({
   reducers: {
     CreateUser: (state, action) => {
       state.user = action.payload;
-      state.loggedIn = true;
     },
     LoginUser: (state, action) => {
       state.user = action.payload;
@@ -28,6 +27,7 @@ const userSlice = createSlice({
     },
     UpdateUserProfile: (state, action) => {
       state.user.profile = action.payload;
+      state.loggedIn = true;
     },
   },
 });

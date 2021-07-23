@@ -70,6 +70,7 @@ const Onboard = ({ navigation }) => {
           tdee: data.updateUserProfile.tdee,
         })
       );
+      navigation.navigate('Home');
     }
   }, [data]);
 

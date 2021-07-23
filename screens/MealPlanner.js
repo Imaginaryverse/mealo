@@ -76,6 +76,10 @@ const MealPlanner = () => {
     }
   }, [data]);
 
+  useEffect(() => {
+    console.log('Error on generating', generateError);
+  }, [generateError]);
+
   return (
     <View style={styles.container}>
       <Text>MEAL PLANNER</Text>
@@ -87,6 +91,7 @@ const MealPlanner = () => {
         <MealPlanGenerator handleMealPlanClick={handleMealPlanClick} />
       )}
       {generateLoading && <Text>Generating meal plan...</Text>}
+      {generateError && <Text>Error</Text>}
     </View>
   );
 };
