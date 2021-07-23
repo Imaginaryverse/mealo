@@ -111,12 +111,6 @@ const Signup = ({ navigation }) => {
         <TouchableOpacity onPress={handleSignup}>
           <Text>Sign up</Text>
         </TouchableOpacity>
-        {data && (
-          <>
-            <Text>{data.createUser.message}</Text>
-            <Text>{data.createUser.user.databaseId}</Text>
-          </>
-        )}
       </View>
     </KeyboardAvoidingView>
   );
