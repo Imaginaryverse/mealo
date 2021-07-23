@@ -81,11 +81,11 @@ const MealPlanner = () => {
       {mealPlan ? (
         <MealPlanList mealPlan={mealPlan} />
       ) : dbLoading ? (
-        <Text>Loading your meal plan...</Text>
+        <Text>Loading meal plan...</Text>
       ) : (
         <MealPlanGenerator handleMealPlanClick={handleMealPlanClick} />
       )}
-      {generateLoading && <Text>Generating your meal plan...</Text>}
+      {generateLoading && <Text>Generating meal plan...</Text>}
     </View>
   );
 };
