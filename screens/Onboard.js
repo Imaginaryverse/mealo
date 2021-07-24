@@ -43,7 +43,7 @@ const Onboard = ({ navigation }) => {
       goalsOn: true,
     };
 
-    console.log('Saving profile...');
+    console.log('👤 Saving profile...');
 
     updateProfile({
       variables: profile,
@@ -52,7 +52,7 @@ const Onboard = ({ navigation }) => {
 
   useEffect(() => {
     if (data && data.updateUserProfile) {
-      console.log('Profile saved...');
+      console.log('👤 Profile saved...');
       dispatch(
         UpdateUserProfileState({
           userId,

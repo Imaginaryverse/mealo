@@ -49,7 +49,7 @@ const Signup = ({ navigation }) => {
       password === '' ||
       confirmPassword === ''
     ) {
-      console.log('Empty fields...');
+      console.log('❌ Empty fields...');
       return;
     }
 
@@ -61,11 +61,11 @@ const Signup = ({ navigation }) => {
     }
 
     if (!isValidEmail(email)) {
-      displayEmailErrorMsg('Invalid email format...');
+      displayEmailErrorMsg('❌ Invalid email format...');
       return;
     }
 
-    console.log('Registering user...');
+    console.log('👤 Registering user...');
 
     const response = await createUser({ variables: { name, email, password } });
     dispatch(CreateUser(response.data.createUser.user));

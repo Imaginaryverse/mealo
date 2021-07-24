@@ -34,10 +34,12 @@ const Home = () => {
   }, [data]);
 
   useEffect(() => {
-    const currentDate = getCurrentDate();
-    const dp = mealPlan.find(mp => mp.date.substring(0, 10) === currentDate);
+    if (mealPlan) {
+      const currentDate = getCurrentDate();
+      const dp = mealPlan.find(mp => mp.date.substring(0, 10) === currentDate);
 
-    setCurrentDayPlan(dp);
+      setCurrentDayPlan(dp);
+    }
   }, [mealPlan]);
 
   return (
