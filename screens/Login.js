@@ -8,9 +8,10 @@ import {
   Button,
   Pressable,
 } from 'react-native';
-import { useLazyQuery } from '@apollo/client';
-import { LOGIN_USER } from '../queries/DBqueries';
+
+import { LOGIN_USER, GET_MEALPLAN_FROM_DB } from '../queries/DBqueries';
 import { LoginUser } from '../redux/slices/userSlice';
+import { useLazyQuery } from '@apollo/client';
 
 const Login = ({ navigation }) => {
   const [email, setEmail] = useState('');
@@ -19,6 +20,7 @@ const Login = ({ navigation }) => {
   const [loginUser, { loading, data }] = useLazyQuery(LOGIN_USER, {
     fetchPolicy: 'network-only',
   });
+
   const dispatch = useDispatch();
 
   const displayLoginErrorMsg = msg => {
@@ -49,7 +51,7 @@ const Login = ({ navigation }) => {
     if (data && data.LoginUserByEmail.success) {
       dispatch(LoginUser(data.LoginUserByEmail.user));
       console.log(`Logged in ${data.LoginUserByEmail.user.name}...`);
-      navigation.navigate('Home');
+      // navigation.navigate('Home');
     }
   }, [data]);
 
