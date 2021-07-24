@@ -33,7 +33,6 @@ export const GET_MEALPLAN_FROM_DB = gql`
   query GetMealPlanFromDb($userId: ID!) {
     getMealPlanFromDb(userId: $userId) {
       id
-      {
             mealPlan {
               day
               date(useDatetime: false)
@@ -74,8 +73,7 @@ export const GET_MEALPLAN_FROM_DB = gql`
                   }
                 }
               }
-            }
-          }
+            }  
     }
   }
 `; */

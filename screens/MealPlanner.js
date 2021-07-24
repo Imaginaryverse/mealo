@@ -4,7 +4,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { View, Text, StyleSheet, Button, Pressable } from 'react-native';
 import { gql, useLazyQuery, useQuery, useMutation } from '@apollo/client';
 import { GET_MEALPLAN_FROM_DB, GENERATE_MEAL_PLAN } from '../queries/DBqueries';
-import { UpdateMealPlan } from '../redux/slices/userSlice';
+import { UpdateMealPlanState } from '../redux/slices/userSlice';
 
 const initOptions = {
   addDays: false,
@@ -72,12 +72,14 @@ const MealPlanner = () => {
   useEffect(() => {
     if (data && data.getMealPlanFromDb) {
       console.log(`💰 ${new Date().toLocaleTimeString()}: Cached meal plan...`);
-      dispatch(UpdateMealPlan(data.getMealPlanFromDb.mealPlan));
+      dispatch(UpdateMealPlanState(data.getMealPlanFromDb.mealPlan));
     }
   }, [data]);
 
   useEffect(() => {
-    console.log('Error on generating', generateError);
+    if (generateError) {
+      console.log('Error on generating', generateError);
+    }
   }, [generateError]);
 
   return (

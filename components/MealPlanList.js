@@ -1,6 +1,7 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import DayPlanContainer from './DayPlanContainer';
 import { View, Text, FlatList, StyleSheet } from 'react-native';
+import { sortMealPlanByDay } from '../utils';
 
 const MealPlanList = ({ mealPlan }) => {
   const renderItem = ({ item }) => <DayPlanContainer dayPlan={item} />;
@@ -8,7 +9,7 @@ const MealPlanList = ({ mealPlan }) => {
   return (
     <View>
       <FlatList
-        data={mealPlan}
+        data={sortMealPlanByDay(mealPlan)}
         renderItem={renderItem}
         keyExtractor={(item, i) => i.toString()}
       />

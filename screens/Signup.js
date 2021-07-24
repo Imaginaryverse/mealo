@@ -72,7 +72,11 @@ const Signup = ({ navigation }) => {
     navigation.navigate('Onboard');
   };
 
-  return (
+  return loading ? (
+    <View>
+      <Text>Loading...</Text>
+    </View>
+  ) : (
     <KeyboardAvoidingView>
       <View>
         <Text>Create Account</Text>

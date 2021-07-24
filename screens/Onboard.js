@@ -7,7 +7,7 @@ import { useMutation } from '@apollo/client';
 import { UPDATE_USER_PROFILE } from '../queries/DBqueries';
 import { useSelector, useDispatch } from 'react-redux';
 import { formatDate } from '../utils';
-import { UpdateUserProfile } from '../redux/slices/userSlice';
+import { UpdateUserProfileState } from '../redux/slices/userSlice';
 
 const Onboard = ({ navigation }) => {
   const currentDate = new Date();
@@ -54,7 +54,7 @@ const Onboard = ({ navigation }) => {
     if (data && data.updateUserProfile) {
       console.log('Profile saved...');
       dispatch(
-        UpdateUserProfile({
+        UpdateUserProfileState({
           userId,
           biologicalSex,
           birthdate: formatDate(birthdate),
@@ -73,10 +73,6 @@ const Onboard = ({ navigation }) => {
       navigation.navigate('Home');
     }
   }, [data]);
-
-  useEffect(() => {
-    console.log('user state: ', user);
-  }, [user]);
 
   const updateBirthdate = (field, num) => {
     switch (field) {

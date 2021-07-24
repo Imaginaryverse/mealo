@@ -22,10 +22,10 @@ const userSlice = createSlice({
       state.loggedIn = false;
       state.mealPlan = null;
     },
-    UpdateMealPlan: (state, action) => {
+    UpdateMealPlanState: (state, action) => {
       state.mealPlan = action.payload;
     },
-    UpdateUserProfile: (state, action) => {
+    UpdateUserProfileState: (state, action) => {
       state.user.profile = action.payload;
       state.loggedIn = true;
     },
@@ -36,8 +36,8 @@ export const {
   CreateUser,
   LoginUser,
   LogoutUser,
-  UpdateMealPlan,
-  UpdateUserProfile,
+  UpdateMealPlanState,
+  UpdateUserProfileState,
 } = userSlice.actions;
 
 export default userSlice.reducer;

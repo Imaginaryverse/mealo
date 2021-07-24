@@ -1,5 +1,5 @@
 import { validatePassword } from './validatePassword';
 import { isValidEmail } from './isValidEmail';
 import formatDate from './formatDate';
-
-export { validatePassword, isValidEmail, formatDate };
+import { sortMealPlanByDay } from './sortMealPlanByDay';
+export { validatePassword, isValidEmail, formatDate, sortMealPlanByDay };
