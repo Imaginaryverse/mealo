@@ -33,38 +33,49 @@ export const GET_MEALPLAN_FROM_DB = gql`
   query GetMealPlanFromDb($userId: ID!) {
     getMealPlanFromDb(userId: $userId) {
       id
-      mealPlan {
-        day
-        date
-        calories
-        meals {
-          id
-          calories
-          meal
-          numOfServings
-          recipe {
-            databaseId
-            totalTime
-            name
-            numberOfServings
-            ingredientsCount
-            ingredientLines
-            courses
-            cuisines
-            mainImage
-            source {
-              siteUrl
-              recipeUrl
-            }
-            instructions
-            nutrientsPerServing {
-              protein
-              carbs
-              fat
+      {
+            mealPlan {
+              day
+              date(useDatetime: false)
+              calories
+              meals {
+                id
+                calories
+                meal
+                numOfServings
+                recipe {
+                  id
+                  databaseId
+                  name
+                  numberOfServings
+                  ingredientsCount
+                  ingredientLines
+                  courses
+                  cuisines
+                  mealTags
+                  source {
+                    recipeUrl
+                  }
+                  mainImage
+                  instructions
+                  totalTime
+                  nutrientsPerServing {
+                    calories
+                    sugar
+                    fiber
+                    protein
+                    carbs
+                    fat
+                  }
+                  caloriesPerServing {
+                    protein
+                    carbs
+                    fat
+                  }
+                }
+              }
             }
           }
-        }
-      }
     }
   }
 `; */

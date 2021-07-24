@@ -33,6 +33,8 @@ const Login = ({ navigation }) => {
     if (email === '' || password === '') return;
 
     loginUser({ variables: { email, password } });
+    setEmail('');
+    setPassword('');
   };
 
   useEffect(() => {
@@ -51,7 +53,11 @@ const Login = ({ navigation }) => {
     }
   }, [data]);
 
-  return (
+  return loading ? (
+    <View>
+      <Text>Loading...</Text>
+    </View>
+  ) : (
     <View>
       <Text>Login</Text>
       <TextInput
