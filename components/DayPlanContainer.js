@@ -1,5 +1,6 @@
 import React from 'react';
 import { View, Text, StyleSheet, FlatList } from 'react-native';
+import { getDayOfWeek } from '../utils';
 
 const DayPlanContainer = ({ dayPlan }) => {
   const renderItem = ({ item }) => (
@@ -12,7 +13,9 @@ const DayPlanContainer = ({ dayPlan }) => {
 
   return (
     <View style={styles.container}>
-      <Text>Day {dayPlan.day}</Text>
+      <Text>
+        Day {dayPlan.day} ({getDayOfWeek(dayPlan.date)})
+      </Text>
       <Text>Date: {dayPlan.date.substring(0, 10)}</Text>
       <Text>Calories: {Math.floor(dayPlan.calories)}</Text>
       <View style={styles.dayPlanContainer}>

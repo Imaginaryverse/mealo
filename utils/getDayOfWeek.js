@@ -1,5 +1,5 @@
-export const getDayOfWeek = () => {
-  const currentDate = new Date();
+export const getDayOfWeek = dateString => {
+  const weekday = dateString ? new Date(dateString) : new Date();
   const days = [
     'Sunday',
     'Monday',
@@ -10,5 +10,5 @@ export const getDayOfWeek = () => {
     'Saturday',
   ];
 
-  return days[currentDate.getDay()];
+  return days[weekday.getDay()];
 };
