@@ -12,8 +12,8 @@ const DayPlanContainer = ({ dayPlan }) => {
 
   return (
     <View style={styles.container}>
-      <Text>Day: {dayPlan.day}</Text>
-      <Text>Date: {dayPlan.date}</Text>
+      <Text>Day {dayPlan.day}</Text>
+      <Text>Date: {dayPlan.date.substring(0, 10)}</Text>
       <Text>Calories: {Math.floor(dayPlan.calories)}</Text>
       <View style={styles.dayPlanContainer}>
         <FlatList
