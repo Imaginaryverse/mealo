@@ -12,7 +12,6 @@ import {
 import { getCurrentDate, getDayOfWeek } from '../utils';
 import { UpdateMealPlanState } from '../redux/slices/userSlice';
 import { GET_MEALPLAN_FROM_DB } from '../queries/DBqueries';
-import { DayPlanContainer } from '../components';
 
 const Home = () => {
   const user = useSelector(state => state.user);
@@ -43,11 +42,11 @@ const Home = () => {
     }
   }, [mealPlan]);
 
-  useEffect(() => {
+  /* useEffect(() => {
     if (currentDayPlan) {
       console.log('🥗', currentDayPlan);
     }
-  }, [currentDayPlan]);
+  }, [currentDayPlan]); */
 
   return (
     <View style={styles.container}>
@@ -63,7 +62,6 @@ const Home = () => {
               <Text>Calories: {Math.floor(currentDayPlan.calories)} kcal</Text>
             </View>
           )}
-          {/* {currentDayPlan && <DayPlanContainer dayPlan={currentDayPlan} />} */}
         </View>
       ) : (
         <View>

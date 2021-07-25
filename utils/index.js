@@ -4,6 +4,7 @@ import formatDate from './formatDate';
 import { sortMealPlanByDay } from './sortMealPlanByDay';
 import { getCurrentDate } from './getCurrentDate';
 import { getDayOfWeek } from './getDayOfWeek';
+import { getUserAge } from './getUserAge';
 
 export {
   validatePassword,
@@ -12,4 +13,5 @@ export {
   sortMealPlanByDay,
   getCurrentDate,
   getDayOfWeek,
+  getUserAge,
 };
