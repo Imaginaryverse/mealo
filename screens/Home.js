@@ -43,23 +43,24 @@ const Home = () => {
     }
   }, [mealPlan]);
 
-  /* useEffect(() => {
+  useEffect(() => {
     if (currentDayPlan) {
-      console.log(currentDayPlan);
+      console.log('🥗', currentDayPlan);
     }
-  }, [currentDayPlan]); */
+  }, [currentDayPlan]);
 
   return (
     <View style={styles.container}>
       <Text>Welcome {user.name}!</Text>
       {currentDayPlan ? (
         <View>
-          <Text>This is your meal plan for today:</Text>
+          <Text>Your meal plan for today:</Text>
           {currentDayPlan && (
             <View>
               <Text>
-                Day {currentDayPlan.day} ({getDayOfWeek()}), {getCurrentDate()}
+                Day {currentDayPlan.day} ({getDayOfWeek()})
               </Text>
+              <Text>Calories: {Math.floor(currentDayPlan.calories)} kcal</Text>
             </View>
           )}
           {/* {currentDayPlan && <DayPlanContainer dayPlan={currentDayPlan} />} */}
