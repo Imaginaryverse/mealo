@@ -9,9 +9,10 @@ import {
   Button,
   Pressable,
 } from 'react-native';
-import { getCurrentDate } from '../utils';
+import { getCurrentDate, getDayOfWeek } from '../utils';
 import { UpdateMealPlanState } from '../redux/slices/userSlice';
 import { GET_MEALPLAN_FROM_DB } from '../queries/DBqueries';
+import { DayPlanContainer } from '../components';
 
 const Home = () => {
   const user = useSelector(state => state.user);
@@ -35,28 +36,39 @@ const Home = () => {
 
   useEffect(() => {
     if (mealPlan) {
-      const currentDate = getCurrentDate();
+      const currentDate = getCurrentDate('YYMMDD');
       const dp = mealPlan.find(mp => mp.date.substring(0, 10) === currentDate);
 
       setCurrentDayPlan(dp);
     }
   }, [mealPlan]);
 
+  /* useEffect(() => {
+    if (currentDayPlan) {
+      console.log(currentDayPlan);
+    }
+  }, [currentDayPlan]); */
+
   return (
     <View style={styles.container}>
       <Text>Welcome {user.name}!</Text>
       {currentDayPlan ? (
         <View>
-          <Text>This is your meal plan for today...</Text>
+          <Text>This is your meal plan for today:</Text>
           {currentDayPlan && (
             <View>
-              <Text>{currentDayPlan.date}</Text>
+              <Text>
+                Day {currentDayPlan.day} ({getDayOfWeek()}), {getCurrentDate()}
+              </Text>
             </View>
           )}
+          {/* {currentDayPlan && <DayPlanContainer dayPlan={currentDayPlan} />} */}
         </View>
       ) : (
         <View>
-          <Text>No meal plan, try generating one first</Text>
+          <Text>
+            Once you have generated a meal plan you'll see today's meals here
+          </Text>
         </View>
       )}
     </View>
