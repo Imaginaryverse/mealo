@@ -7,6 +7,7 @@ import Login from './Login';
 import Onboard from './Onboard';
 import Recipe from './Recipe';
 import Swap from './Swap';
+import Favorites from './Favorites';
 
 export {
   Home,
@@ -18,4 +19,5 @@ export {
   Onboard,
   Recipe,
   Swap,
+  Favorites,
 };

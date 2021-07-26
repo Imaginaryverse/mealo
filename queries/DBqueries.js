@@ -1,4 +1,40 @@
 import { gql } from '@apollo/client';
+
+export const GET_RECIPE_FROM_DB = gql`
+  query GetRecipeFromDb($id: ID!) {
+    getRecipeFromDb(id: $id) {
+      id
+      databaseId
+      name
+      numberOfServings
+      ingredientsCount
+      ingredientLines
+      courses
+      cuisines
+      mealTags
+      source {
+        recipeUrl
+      }
+      mainImage
+      instructions
+      totalTime
+      nutrientsPerServing {
+        calories
+        sugar
+        fiber
+        protein
+        carbs
+        fat
+      }
+      caloriesPerServing {
+        protein
+        carbs
+        fat
+      }
+    }
+  }
+`;
+
 export const GET_ALL_USERS = gql`
   query {
     getAllDbUsers {

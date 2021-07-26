@@ -3,9 +3,14 @@ import { gql, useQuery } from '@apollo/client';
 import { View, Text, StyleSheet } from 'react-native';
 import { useSelector } from 'react-redux';
 import { getUserAge } from '../utils';
+import { useMutation } from '@apollo/client';
+import { UpdateUserProfileState } from '../redux/slices/userSlice';
+import { UPDATE_USER_PROFILE } from '../queries/DBqueries';
 
 const Profile = () => {
   const user = useSelector(state => state.user);
+  const [updateProfile, { loading, error, data }] =
+    useMutation(UPDATE_USER_PROFILE);
 
   return (
     <View style={styles.container}>
