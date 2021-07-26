@@ -55,11 +55,7 @@ const Login = ({ navigation }) => {
     }
   }, [data]);
 
-  return loading ? (
-    <View>
-      <Text>Loading...</Text>
-    </View>
-  ) : (
+  return (
     <View>
       <Text>Login</Text>
       <TextInput
@@ -78,11 +74,17 @@ const Login = ({ navigation }) => {
           <Text>{loginErrorMsg}</Text>
         </View>
       )}
-      <Button title='Log in' onPress={() => handleLogin()} />
-      <Button
-        title='Create Account'
-        onPress={() => navigation.navigate('Signup')}
-      />
+      {loading ? (
+        <Text>Loggin in...</Text>
+      ) : (
+        <View>
+          <Button title='Log in' onPress={() => handleLogin()} />
+          <Button
+            title='Create Account'
+            onPress={() => navigation.navigate('Signup')}
+          />
+        </View>
+      )}
     </View>
   );
 };

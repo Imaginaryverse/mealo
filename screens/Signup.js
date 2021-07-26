@@ -72,11 +72,7 @@ const Signup = ({ navigation }) => {
     navigation.navigate('Onboard');
   };
 
-  return loading ? (
-    <View>
-      <Text>Loading...</Text>
-    </View>
-  ) : (
+  return (
     <KeyboardAvoidingView>
       <View>
         <Text>Create Account</Text>
@@ -112,9 +108,13 @@ const Signup = ({ navigation }) => {
             <Text>{pwdErrorMessage}</Text>
           </View>
         )}
-        <TouchableOpacity onPress={handleSignup}>
-          <Text>Sign up</Text>
-        </TouchableOpacity>
+        {loading ? (
+          <Text>Registering user...</Text>
+        ) : (
+          <TouchableOpacity onPress={handleSignup}>
+            <Text>Sign up</Text>
+          </TouchableOpacity>
+        )}
       </View>
     </KeyboardAvoidingView>
   );
