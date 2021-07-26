@@ -102,6 +102,7 @@ const MealPlanner = ({ navigation }) => {
 const styles = StyleSheet.create({
   container: {
     marginTop: 20,
+    marginBottom: 30,
   },
 });
 

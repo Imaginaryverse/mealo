@@ -263,3 +263,21 @@ export const PROFILE_RESTRICTIONS_UPDATE = gql`
     }
   }
 `;
+
+export const ADD_RECIPE_TO_FAVORITES = gql`
+  mutation AddRecipeToFavorites($recipeId: ID!, $userId: ID!) {
+    addRecipeToFavorites(recipeId: $recipeId, userId: $userId) {
+      success
+      message
+    }
+  }
+`;
+
+export const REMOVE_RECIPE_FROM_FAVORITES = gql`
+  mutation RemoveRecipeFromFavorites($recipeId: ID!, $userId: ID!) {
+    removeRecipeFromFavorites(recipeId: $recipeId, userId: $userId) {
+      success
+      message
+    }
+  }
+`;

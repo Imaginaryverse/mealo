@@ -20,7 +20,10 @@ const MealCard = ({ meal, navigation }) => {
             })
           }
         />
-        <Button title='Details' onPress={() => navigation.navigate('Recipe')} />
+        <Button
+          title='Details'
+          onPress={() => navigation.navigate('Recipe', { recipe: meal.recipe })}
+        />
       </View>
     </View>
   );
