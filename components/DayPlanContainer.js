@@ -4,9 +4,9 @@ import { getDayOfWeek } from '../utils';
 import MealCard from './MealCard';
 
 const DayPlanContainer = ({ dayPlan, navigation }) => {
-  const renderItem = ({ item }) => (
+  /*  const renderItem = ({ item }) => (
     <MealCard meal={item} navigation={navigation} />
-  );
+  ); */
 
   {
     /* <View>
@@ -25,7 +25,9 @@ const DayPlanContainer = ({ dayPlan, navigation }) => {
       <View style={styles.mealsContainer}>
         <FlatList
           data={dayPlan.meals}
-          renderItem={renderItem}
+          renderItem={({ item }) => (
+            <MealCard meal={item} navigation={navigation} />
+          )}
           keyExtractor={(item, i) => i.toString()}
         />
       </View>
