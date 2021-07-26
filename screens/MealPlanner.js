@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from 'react';
-import { MealPlanList, MealPlanGenerator } from '../components/index';
+// import { MealPlanList, MealPlanGenerator } from '../components/index';
+import MealPlanList from '../components/MealPlanList';
+import MealPlanGenerator from '../components/MealPlanGenerator';
 import { useSelector, useDispatch } from 'react-redux';
 import { View, Text, StyleSheet, Button, Pressable } from 'react-native';
 import { gql, useLazyQuery, useQuery, useMutation } from '@apollo/client';
