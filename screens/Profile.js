@@ -1,16 +1,19 @@
 import React, { useEffect } from 'react';
 import { gql, useQuery } from '@apollo/client';
-import { View, Text, StyleSheet } from 'react-native';
-import { useSelector } from 'react-redux';
+import { View, Text, StyleSheet, Button } from 'react-native';
 import { getUserAge } from '../utils';
 import { useMutation } from '@apollo/client';
-import { UpdateUserProfileState } from '../redux/slices/userSlice';
+import { useSelector, useDispatch } from 'react-redux';
+import { LogoutUser } from '../redux/slices/userSlice';
 import { UPDATE_USER_PROFILE } from '../queries/DBqueries';
 
-const Profile = () => {
+const Profile = ({ navigation }) => {
   const user = useSelector(state => state.user);
-  const [updateProfile, { loading, error, data }] =
-    useMutation(UPDATE_USER_PROFILE);
+  const dispatch = useDispatch();
+
+  const handleSignOut = () => {
+    dispatch(LogoutUser());
+  };
 
   return (
     <View style={styles.container}>
@@ -21,6 +24,11 @@ const Profile = () => {
       <Text>Birthdate: {user.profile.birthdate.substring(0, 10)}</Text>
       <Text>Height: {user.profile.height} cm</Text>
       <Text>Weight: {user.profile.startingWeight} kg</Text>
+      <Button
+        title='Edit Profile'
+        onPress={() => navigation.navigate('EditProfile')}
+      />
+      <Button title='Log Out' onPress={() => handleSignOut()} />
     </View>
   );
 };

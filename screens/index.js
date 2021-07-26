@@ -8,6 +8,7 @@ import Onboard from './Onboard';
 import Recipe from './Recipe';
 import Swap from './Swap';
 import Favorites from './Favorites';
+import EditProfile from './EditProfile';
 
 export {
   Home,
@@ -20,4 +21,5 @@ export {
   Recipe,
   Swap,
   Favorites,
+  EditProfile,
 };

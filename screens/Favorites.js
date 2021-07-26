@@ -11,30 +11,24 @@ const Favorites = ({ navigation }) => {
     variables: { ids: favorites },
   });
 
-  useEffect(() => {
-    console.log(data);
-  }, [data]);
-  /*   const [getRecipe, { loading, data, error }] =
-    useLazyQuery(GET_RECIPE_FROM_DB);
-  const [localFavs, setLocalFavs] = useState([]);
-
-  const getRecipes = () => {
-    favorites.forEach(id => {
-      // do-da-little-dance
-      getRecipe({ variables: { id } });
-    });
-  }; */
-
   return (
     <View style={styles.container}>
-      <Text>Your Recipes:</Text>
-      <FlatList
-        data={data.getRecipesByIds}
-        keyExtractor={(item, i) => i.toString()}
-        renderItem={({ item }) => (
-          <FavoritesCard recipe={item} navigation={navigation} />
-        )}
-      />
+      {data && data.getRecipesByIds ? (
+        <View>
+          <Text>Your Recipes:</Text>
+          <FlatList
+            data={data.getRecipesByIds}
+            keyExtractor={(item, i) => i.toString()}
+            renderItem={({ item }) => (
+              <FavoritesCard recipe={item} navigation={navigation} />
+            )}
+          />
+        </View>
+      ) : (
+        <View>
+          <Text>No favorites!</Text>
+        </View>
+      )}
     </View>
   );
 };
