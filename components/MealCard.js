@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, Text, Button, StyleSheet } from 'react-native';
+import { View, Text, Image, Button, StyleSheet } from 'react-native';
 import { useLazyQuery } from '@apollo/client';
 
 const MealCard = ({ meal, navigation }) => {

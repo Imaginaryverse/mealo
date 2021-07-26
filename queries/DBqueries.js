@@ -35,6 +35,41 @@ export const GET_RECIPE_FROM_DB = gql`
   }
 `;
 
+export const GET_RECIPES_BY_IDS = gql`
+  query GetRecipesByIds($ids: [ID!]!) {
+    getRecipesByIds(ids: $ids) {
+      id
+      databaseId
+      name
+      numberOfServings
+      ingredientsCount
+      ingredientLines
+      courses
+      cuisines
+      mealTags
+      source {
+        recipeUrl
+      }
+      mainImage
+      instructions
+      totalTime
+      nutrientsPerServing {
+        calories
+        sugar
+        fiber
+        protein
+        carbs
+        fat
+      }
+      caloriesPerServing {
+        protein
+        carbs
+        fat
+      }
+    }
+  }
+`;
+
 export const GET_ALL_USERS = gql`
   query {
     getAllDbUsers {

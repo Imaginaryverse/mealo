@@ -1,11 +1,19 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useSelector } from 'react-redux';
-import { View, Text, StyleSheet } from 'react-native';
-import { useLazyQuery } from '@apollo/client';
-import { GET_RECIPE_FROM_DB } from '../queries/DBqueries';
+import { View, Text, StyleSheet, FlatList } from 'react-native';
+import { FavoritesCard } from '../components';
+import { useQuery, useLazyQuery } from '@apollo/client';
+import { GET_RECIPES_BY_IDS } from '../queries/DBqueries';
 
 const Favorites = ({ navigation }) => {
   const favorites = useSelector(state => state.user.favoriteRecipes);
+  const { loading, error, data } = useQuery(GET_RECIPES_BY_IDS, {
+    variables: { ids: favorites },
+  });
+
+  useEffect(() => {
+    console.log(data);
+  }, [data]);
   /*   const [getRecipe, { loading, data, error }] =
     useLazyQuery(GET_RECIPE_FROM_DB);
   const [localFavs, setLocalFavs] = useState([]);
@@ -20,7 +28,13 @@ const Favorites = ({ navigation }) => {
   return (
     <View style={styles.container}>
       <Text>Your Recipes:</Text>
-      <Text>{favorites}</Text>
+      <FlatList
+        data={data.getRecipesByIds}
+        keyExtractor={(item, i) => i.toString()}
+        renderItem={({ item }) => (
+          <FavoritesCard recipe={item} navigation={navigation} />
+        )}
+      />
     </View>
   );
 };

@@ -4,6 +4,7 @@ import DayPlanContainer from './DayPlanContainer';
 import MealCard from './MealCard';
 import SwapCard from './SwapCard';
 import Restriction from './Restriction';
+import FavoritesCard from './FavoritesCard';
 
 export {
   DayPlanContainer,
@@ -12,4 +13,5 @@ export {
   MealCard,
   SwapCard,
   Restriction,
+  FavoritesCard,
 };

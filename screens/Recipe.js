@@ -40,13 +40,13 @@ const Recipe = ({ route, navigation }) => {
 
   const handleFavoriteClick = () => {
     if (!inFavorites) {
-      addToFavorites({ variables: { recipeId: id, userId: user.databaseId } });
       dispatch(UpdateUserFavoritesState([...favorites, id]));
+      addToFavorites({ variables: { recipeId: id, userId: user.databaseId } });
     } else {
+      dispatch(UpdateUserFavoritesState(favorites.filter(el => el !== id)));
       removeFromFavorites({
         variables: { recipeId: id, userId: user.databaseId },
       });
-      dispatch(UpdateUserFavoritesState(favorites.filter(el => el !== id)));
     }
   };
 
