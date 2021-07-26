@@ -8,7 +8,7 @@ export const GET_ALL_USERS = gql`
   }
 `;
 
-export const GET_MEALPLAN_FROM_DB = gql`
+/* export const GET_MEALPLAN_FROM_DB = gql`
   query GetMealPlanFromDb($userId: ID!) {
     getMealPlanFromDb(userId: $userId) {
       id
@@ -27,56 +27,91 @@ export const GET_MEALPLAN_FROM_DB = gql`
       }
     }
   }
-`;
+`; */
 
-/* export const GET_MEALPLAN_FROM_DB = gql`
+export const GET_MEALPLAN_FROM_DB = gql`
   query GetMealPlanFromDb($userId: ID!) {
     getMealPlanFromDb(userId: $userId) {
       id
-            mealPlan {
-              day
-              date(useDatetime: false)
+      mealPlan {
+        day
+        date
+        calories
+        meals {
+          id
+          calories
+          meal
+          numOfServings
+          recipe {
+            id
+            databaseId
+            name
+            numberOfServings
+            ingredientsCount
+            ingredientLines
+            courses
+            cuisines
+            mealTags
+            source {
+              recipeUrl
+            }
+            mainImage
+            instructions
+            totalTime
+            nutrientsPerServing {
               calories
-              meals {
-                id
-                calories
-                meal
-                numOfServings
-                recipe {
-                  id
-                  databaseId
-                  name
-                  numberOfServings
-                  ingredientsCount
-                  ingredientLines
-                  courses
-                  cuisines
-                  mealTags
-                  source {
-                    recipeUrl
-                  }
-                  mainImage
-                  instructions
-                  totalTime
-                  nutrientsPerServing {
-                    calories
-                    sugar
-                    fiber
-                    protein
-                    carbs
-                    fat
-                  }
-                  caloriesPerServing {
-                    protein
-                    carbs
-                    fat
-                  }
-                }
-              }
-            }  
+              sugar
+              fiber
+              protein
+              carbs
+              fat
+            }
+            caloriesPerServing {
+              protein
+              carbs
+              fat
+            }
+          }
+        }
+      }
     }
   }
-`; */
+`;
+
+export const RECIPE_SWAP_OPTIONS = gql`
+  query RecipeSwapOptions($userId: ID!, $recipeId: ID!) {
+    recipeSwapOptions(userId: $userId, recipeId: $recipeId) {
+      id
+      databaseId
+      name
+      numberOfServings
+      ingredientsCount
+      ingredientLines
+      courses
+      cuisines
+      mealTags
+      source {
+        recipeUrl
+      }
+      mainImage
+      instructions
+      totalTime
+      nutrientsPerServing {
+        calories
+        sugar
+        fiber
+        protein
+        carbs
+        fat
+      }
+      caloriesPerServing {
+        protein
+        carbs
+        fat
+      }
+    }
+  }
+`;
 
 export const CREATE_USER = gql`
   mutation CreateUser($name: String!, $email: String!, $password: String!) {
@@ -176,6 +211,55 @@ export const UPDATE_USER_PROFILE = gql`
       cd
       tdee
       bmr
+    }
+  }
+`;
+
+export const SWAP_MEALPLAN_RECIPE = gql`
+  mutation SwapMealPlanRecipe($recipeId: ID!, $mealId: ID!, $userId: ID!) {
+    swapMealPlanRecipe(recipeId: $recipeId, mealId: $mealId, userId: $userId) {
+      id
+      mealPlan {
+        day
+        date
+        calories
+        meals {
+          id
+          calories
+          meal
+          numOfServings
+          recipe {
+            id
+            databaseId
+            name
+            numberOfServings
+            ingredientsCount
+            ingredientLines
+            courses
+            cuisines
+            mealTags
+            source {
+              recipeUrl
+            }
+            mainImage
+            instructions
+            totalTime
+            nutrientsPerServing {
+              calories
+              sugar
+              fiber
+              protein
+              carbs
+              fat
+            }
+            caloriesPerServing {
+              protein
+              carbs
+              fat
+            }
+          }
+        }
+      }
     }
   }
 `;

@@ -17,7 +17,7 @@ const initOptions = {
   snackDistribution: null,
 };
 
-const MealPlanner = () => {
+const MealPlanner = ({ navigation }) => {
   const userId = useSelector(state => state.user.databaseId);
   const mealPlan = useSelector(state => state.mealPlan);
   const dispatch = useDispatch();
@@ -39,7 +39,7 @@ const MealPlanner = () => {
   const [options, setOptions] = useState(initOptions);
 
   const handleMealPlanClick = async () => {
-    console.log('🥦 Generating...');
+    console.log('🥦 Generating meal plan...');
     try {
       const res = await generateMealPlan({
         variables: {
@@ -55,6 +55,7 @@ const MealPlanner = () => {
       });
 
       if (res.data.generateMealPlan.success) {
+        console.log('🥦 Meal plan generated...');
         getMealPlanFromDb();
       }
     } catch (err) {
@@ -86,7 +87,7 @@ const MealPlanner = () => {
     <View style={styles.container}>
       <Text>MEAL PLANNER</Text>
       {mealPlan ? (
-        <MealPlanList mealPlan={mealPlan} />
+        <MealPlanList mealPlan={mealPlan} navigation={navigation} />
       ) : dbLoading ? (
         <Text>Loading meal plan...</Text>
       ) : (

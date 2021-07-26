@@ -1,5 +1,13 @@
 import DayPlanContainer from './DayPlanContainer';
 import MealPlanGenerator from './MealPlanGenerator';
 import MealPlanList from './MealPlanList';
+import MealCard from './MealCard';
+import SwapCard from './SwapCard';
 
-export { DayPlanContainer, MealPlanGenerator, MealPlanList };
+export {
+  DayPlanContainer,
+  MealPlanGenerator,
+  MealPlanList,
+  MealCard,
+  SwapCard,
+};

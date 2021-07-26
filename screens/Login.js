@@ -50,7 +50,7 @@ const Login = ({ navigation }) => {
 
     if (data && data.LoginUserByEmail.success) {
       dispatch(LoginUser(data.LoginUserByEmail.user));
-      console.log(`🪵 Logged in ${data.LoginUserByEmail.user.name}...`);
+      console.log(`🪵 Logged in ${data.LoginUserByEmail.user.databaseId}...`);
       // navigation.navigate('Home');
     }
   }, [data]);
