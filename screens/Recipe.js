@@ -1,7 +1,7 @@
 import React from 'react';
 import { View, Text } from 'react-native';
 
-const Recipe = ({ navigation }) => {
+const Recipe = ({ recipe, navigation }) => {
   return (
     <View>
       <Text>Recipe Details</Text>

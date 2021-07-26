@@ -6,7 +6,7 @@ import { gql, useLazyQuery, useQuery, useMutation } from '@apollo/client';
 import { GET_MEALPLAN_FROM_DB, GENERATE_MEAL_PLAN } from '../queries/DBqueries';
 import { UpdateMealPlanState } from '../redux/slices/userSlice';
 
-const initOptions = {
+/* const initOptions = {
   addDays: false,
   ignoreLock: true,
   kcalLimit: null,
@@ -15,7 +15,7 @@ const initOptions = {
   lunchDistribution: null,
   dinnerDistribution: null,
   snackDistribution: null,
-};
+}; */
 
 const MealPlanner = ({ navigation }) => {
   const userId = useSelector(state => state.user.databaseId);
@@ -36,7 +36,7 @@ const MealPlanner = ({ navigation }) => {
   });
   const [generateMealPlan, { loading: generateLoading, error: generateError }] =
     useMutation(GENERATE_MEAL_PLAN);
-  const [options, setOptions] = useState(initOptions);
+  const [options, setOptions] = useState(null);
 
   const handleMealPlanClick = async () => {
     console.log('🥦 Generating meal plan...');
@@ -46,11 +46,11 @@ const MealPlanner = ({ navigation }) => {
           userId,
           addDays: false,
           ignoreLock: true,
-          kcalLimit: null,
+          /*  kcalLimit: null,
           breakfastDistribution: 0.3,
           lunchDistribution: 0.3,
           dinnerDistribution: 0.3,
-          snackDistribution: 0.1,
+          snackDistribution: 0.1, */
         },
       });
 

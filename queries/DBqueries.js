@@ -8,27 +8,6 @@ export const GET_ALL_USERS = gql`
   }
 `;
 
-/* export const GET_MEALPLAN_FROM_DB = gql`
-  query GetMealPlanFromDb($userId: ID!) {
-    getMealPlanFromDb(userId: $userId) {
-      id
-      mealPlan {
-        day
-        date
-        calories
-        meals {
-          id
-          calories
-          meal
-          recipe {
-            name
-          }
-        }
-      }
-    }
-  }
-`; */
-
 export const GET_MEALPLAN_FROM_DB = gql`
   query GetMealPlanFromDb($userId: ID!) {
     getMealPlanFromDb(userId: $userId) {
@@ -135,6 +114,8 @@ export const LOGIN_USER = gql`
         databaseId
         name
         email
+        favoriteRecipes
+        restrictions
         profile {
           birthdate
           biologicalSex
@@ -260,6 +241,25 @@ export const SWAP_MEALPLAN_RECIPE = gql`
           }
         }
       }
+    }
+  }
+`;
+
+export const GET_ALL_RESTRICTIONS = gql`
+  query {
+    getAllRestrictions {
+      id
+      name
+      subcategory
+      slugname
+    }
+  }
+`;
+
+export const PROFILE_RESTRICTIONS_UPDATE = gql`
+  mutation ProfileRestrictionsUpdate($userId: ID!, $restrictions: [String]!) {
+    profileRestrictionsUpdate(userId: $userId, restrictions: $restrictions) {
+      success
     }
   }
 `;

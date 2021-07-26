@@ -3,6 +3,7 @@ import MealPlanGenerator from './MealPlanGenerator';
 import MealPlanList from './MealPlanList';
 import MealCard from './MealCard';
 import SwapCard from './SwapCard';
+import Restriction from './Restriction';
 
 export {
   DayPlanContainer,
@@ -10,4 +11,5 @@ export {
   MealPlanList,
   MealCard,
   SwapCard,
+  Restriction,
 };
