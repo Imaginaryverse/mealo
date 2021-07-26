@@ -109,7 +109,7 @@ const Signup = ({ navigation }) => {
           </View>
         )}
         {loading ? (
-          <Text>Registering user...</Text>
+          <Text>Creating your account...</Text>
         ) : (
           <TouchableOpacity onPress={handleSignup}>
             <Text>Sign up</Text>
