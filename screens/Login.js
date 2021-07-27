@@ -9,7 +9,7 @@ import {
   Pressable,
 } from 'react-native';
 
-import { LOGIN_USER, GET_MEALPLAN_FROM_DB } from '../queries/DBqueries';
+import { LOGIN_USER } from '../queries/DBqueries';
 import { LoginUser } from '../redux/slices/userSlice';
 import { useLazyQuery } from '@apollo/client';
 
