@@ -1,5 +1,15 @@
 import React, { useState, useEffect } from 'react';
-import { View, Text, Image, StyleSheet, Pressable } from 'react-native';
+import {
+  View,
+  ScrollView,
+  Text,
+  Image,
+  StyleSheet,
+  Pressable,
+  Dimensions,
+  Linking,
+  Button,
+} from 'react-native';
 import { useSelector, useDispatch } from 'react-redux';
 import { useMutation } from '@apollo/client';
 import {
@@ -55,25 +65,11 @@ const Recipe = ({ route, navigation }) => {
   }, [favorites]);
 
   return (
-    <View>
-      <Text>
-        {name} ({totalTime})
-      </Text>
+    <ScrollView>
       <View>
         <Image source={{ uri: mainImage }} style={styles.img} />
       </View>
-
-      {/* <Text>Time: {totalTime}</Text> */}
-      {/* <Text>{ingredientsCount} Ingredients</Text> */}
-      <Text>Ingredients ({ingredientsCount}):</Text>
-      {ingredientLines.map((ingredient, index) => (
-        <Text key={index}>• {ingredient}</Text>
-      ))}
-      <Text>
-        {instructions.length
-          ? `Instructions: ${instructions}`
-          : `Instructions for the recipe can be found at: ${source.recipeUrl} `}
-      </Text>
+      <Text style={styles.title}>{name}</Text>
       <Pressable
         onPress={() => {
           handleFavoriteClick();
@@ -83,14 +79,47 @@ const Recipe = ({ route, navigation }) => {
           {inFavorites ? 'Remove from Favorites' : 'Add to Favorites'}
         </Text>
       </Pressable>
-    </View>
+
+      {/* <Text>Time: {totalTime}</Text> */}
+      {/* <Text>{ingredientsCount} Ingredients</Text> */}
+      <Text>
+        {ingredientsCount} Ingredients • {totalTime}
+      </Text>
+      {ingredientLines.map((ingredient, index) => (
+        <Text key={index}>• {ingredient}</Text>
+      ))}
+      <View>
+        <Text>Instructions:</Text>
+        {instructions.length ? (
+          instructions.map(el => <Text>{el}</Text>)
+        ) : (
+          <>
+            <Text>See instructions in link below</Text>
+            <Button
+              onPress={() => Linking.openURL(source.recipeUrl)}
+              title='Open in browser'
+            />
+          </>
+        )}
+      </View>
+      <View>
+        <Text>Nutrients Per Serving:</Text>
+        <Text>Protein: {nutrientsPerServing.protein}g</Text>
+        <Text>Fiber: {nutrientsPerServing.fiber}g</Text>
+        <Text>Fat: {nutrientsPerServing.fat}g</Text>
+        <Text>Sugar: {nutrientsPerServing.sugar}g</Text>
+      </View>
+    </ScrollView>
   );
 };
 
 const styles = StyleSheet.create({
+  title: {
+    fontSize: 25,
+  },
   img: {
-    height: 150,
-    width: 150,
+    height: Dimensions.get('screen').width - 100,
+    width: Dimensions.get('screen').width,
   },
 });
 export default Recipe;
