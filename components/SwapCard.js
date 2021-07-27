@@ -1,10 +1,16 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { View, Text, Button, StyleSheet, TouchableOpacity } from 'react-native';
 import { useLazyQuery } from '@apollo/client';
+import Icon from 'react-native-vector-icons/Ionicons';
 
 const SwapCard = ({ recipe, onPressSelect, selectedId, isOriginal }) => {
+  const [showMore, setShowMore] = useState(false);
+
   return (
-    <TouchableOpacity>
+    <TouchableOpacity
+      onPress={() => setShowMore(!showMore)}
+      style={styles.touchable}
+    >
       <View style={styles.mealCard}>
         <View style={styles.mealCardInfo}>
           <Text>{recipe.name}</Text>
@@ -13,6 +19,11 @@ const SwapCard = ({ recipe, onPressSelect, selectedId, isOriginal }) => {
             Calories per Serving:{' '}
             {Math.floor(recipe.nutrientsPerServing.calories)}
           </Text>
+          {showMore && (
+            <View>
+              <Text>{recipe.ingredientsCount}</Text>
+            </View>
+          )}
         </View>
         {!isOriginal && (
           <View>
@@ -24,22 +35,24 @@ const SwapCard = ({ recipe, onPressSelect, selectedId, isOriginal }) => {
           </View>
         )}
       </View>
+      <Icon name={showMore ? 'ios-chevron-up' : 'ios-chevron-down'} size={25} />
     </TouchableOpacity>
   );
 };
 
 const styles = StyleSheet.create({
-  mealCard: {
-    width: '90%',
-    flexDirection: 'row',
-
-    margin: 5,
-
+  touchable: {
     borderColor: 'black',
     borderWidth: 1,
   },
+  mealCard: {
+    width: '90%',
+    flexDirection: 'row',
+    margin: 5,
+  },
   mealCardInfo: {
     width: '80%',
+    // flexDirection: 'row',
   },
 });
 

@@ -2,9 +2,19 @@ import React, { useState, useEffect } from 'react';
 // import { MealPlanList, MealPlanGenerator } from '../components/index';
 import MealPlanList from '../components/MealPlanList';
 import MealPlanGenerator from '../components/MealPlanGenerator';
+import { FAB } from '../components';
 import { useSelector, useDispatch } from 'react-redux';
-import { View, Text, StyleSheet, Button, Pressable, Alert } from 'react-native';
-import { FAB, Icon } from 'react-native-elements';
+import {
+  View,
+  Text,
+  StyleSheet,
+  Button,
+  Pressable,
+  Alert,
+  Dimensions,
+  TouchableOpacity,
+} from 'react-native';
+import { Icon } from 'react-native-elements';
 import { gql, useLazyQuery, useQuery, useMutation } from '@apollo/client';
 import { GET_MEALPLAN_FROM_DB, GENERATE_MEAL_PLAN } from '../queries/DBqueries';
 import { UpdateMealPlanState } from '../redux/slices/userSlice';
@@ -101,8 +111,8 @@ const MealPlanner = ({ navigation }) => {
   */
   const handleFabPress = () =>
     Alert.alert(
-      'Generate new meal plan?',
-      'Clicking OK will take you to the Mealplan generator.',
+      'WARNING!',
+      'Clicking OK will reset your meal plan and take you to the Mealplan generator!',
       [
         {
           text: 'Cancel',
@@ -116,10 +126,7 @@ const MealPlanner = ({ navigation }) => {
     <View style={styles.container}>
       {mealPlan && !showGenerator ? (
         <View>
-          <FAB
-            onPress={() => handleFabPress()}
-            icon={<Icon name='arrow-right' size={15} color='white' />}
-          />
+          <FAB handlePress={handleFabPress} />
           <MealPlanList mealPlan={mealPlan} navigation={navigation} />
         </View>
       ) : (
@@ -131,9 +138,18 @@ const MealPlanner = ({ navigation }) => {
 
 const styles = StyleSheet.create({
   container: {
+    height: Dimensions.get('screen').height,
+    width: Dimensions.get('screen').width,
     marginTop: 20,
     marginBottom: 0,
   },
+  /* fab: {
+    position: 'absolute',
+    top: 15,
+    right: 15,
+    zIndex: 10,
+    backgroundColor: 'yellow',
+  }, */
 });
 
 export default MealPlanner;
