@@ -88,6 +88,7 @@ const MealPlanner = ({ navigation }) => {
     if (data && data.getMealPlanFromDb) {
       console.log(`💰 ${new Date().toLocaleTimeString()}: Cached meal plan...`);
       dispatch(UpdateMealPlanState(data.getMealPlanFromDb.mealPlan));
+      setShowGenerator(false);
     }
   }, [data]);
 

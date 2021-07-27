@@ -10,6 +10,7 @@ import {
   Linking,
   Button,
 } from 'react-native';
+import Icon from 'react-native-vector-icons/Ionicons';
 import { useSelector, useDispatch } from 'react-redux';
 import { useMutation } from '@apollo/client';
 import {
@@ -66,30 +67,36 @@ const Recipe = ({ route, navigation }) => {
 
   return (
     <ScrollView>
-      <View>
-        <Image source={{ uri: mainImage }} style={styles.img} />
+      <Image source={{ uri: mainImage }} style={styles.img} />
+      <View style={styles.titleContainer}>
+        <Text style={styles.title}>{name}</Text>
+        <Pressable
+          onPress={() => {
+            handleFavoriteClick();
+          }}
+        >
+          {inFavorites ? (
+            <View style={styles.fav}>
+              <Icon name='ios-heart' color='red' size={25} />
+            </View>
+          ) : (
+            <View style={styles.fav}>
+              <Icon name='ios-heart-outline' color='red' size={25} />
+            </View>
+          )}
+        </Pressable>
       </View>
-      <Text style={styles.title}>{name}</Text>
-      <Pressable
-        onPress={() => {
-          handleFavoriteClick();
-        }}
-      >
+      <View style={styles.ingredientsContainer}>
         <Text>
-          {inFavorites ? 'Remove from Favorites' : 'Add to Favorites'}
+          {ingredientsCount} Ingredients • {numberOfServings} Servings
         </Text>
-      </Pressable>
+        {ingredientLines.map((ingredient, index) => (
+          <Text key={index}>• {ingredient}</Text>
+        ))}
+      </View>
 
-      {/* <Text>Time: {totalTime}</Text> */}
-      {/* <Text>{ingredientsCount} Ingredients</Text> */}
-      <Text>
-        {ingredientsCount} Ingredients • {totalTime}
-      </Text>
-      {ingredientLines.map((ingredient, index) => (
-        <Text key={index}>• {ingredient}</Text>
-      ))}
-      <View>
-        <Text>Instructions:</Text>
+      <View style={styles.instructionsContainer}>
+        <Text>{totalTime}</Text>
         {instructions.length ? (
           instructions.map(el => <Text>{el}</Text>)
         ) : (
@@ -102,8 +109,8 @@ const Recipe = ({ route, navigation }) => {
           </>
         )}
       </View>
-      <View>
-        <Text>Nutrients Per Serving:</Text>
+      <View style={styles.nutrientsContainer}>
+        <Text>Nutrients Per Serving</Text>
         <Text>Protein: {nutrientsPerServing.protein}g</Text>
         <Text>Fiber: {nutrientsPerServing.fiber}g</Text>
         <Text>Fat: {nutrientsPerServing.fat}g</Text>
@@ -114,12 +121,44 @@ const Recipe = ({ route, navigation }) => {
 };
 
 const styles = StyleSheet.create({
+  titleContainer: {
+    flex: 1,
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
   title: {
     fontSize: 25,
+    textAlign: 'center',
+    marginRight: 8,
   },
   img: {
     height: Dimensions.get('screen').width - 100,
     width: Dimensions.get('screen').width,
+  },
+  fav: {
+    flex: 1,
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  ingredientsContainer: {
+    borderColor: 'black',
+    borderWidth: 1,
+    padding: 5,
+    margin: 5,
+  },
+  instructionsContainer: {
+    borderColor: 'black',
+    borderWidth: 1,
+    padding: 5,
+    margin: 5,
+  },
+  nutrientsContainer: {
+    borderColor: 'black',
+    borderWidth: 1,
+    padding: 5,
+    margin: 5,
   },
 });
 export default Recipe;

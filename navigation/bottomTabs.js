@@ -21,7 +21,11 @@ const BottomTabNavigator = () => {
         component={HomeStack}
         options={{
           tabBarIcon: ({ focused, color, size }) => (
-            <Icon name='ios-home-outline' size={30} />
+            <Icon
+              name={focused ? 'ios-home' : 'ios-home-outline'}
+              size={30}
+              color={focused ? 'red' : 'black'}
+            />
           ),
         }}
       />
@@ -29,8 +33,12 @@ const BottomTabNavigator = () => {
         name='Mealplanner'
         component={MealPlanStack}
         options={{
-          tabBarIcon: ({ color, size }) => (
-            <Icon name='ios-restaurant-outline' size={25} />
+          tabBarIcon: ({ focused, color, size }) => (
+            <Icon
+              name={focused ? 'ios-restaurant' : 'ios-restaurant-outline'}
+              size={25}
+              color={focused ? 'red' : 'black'}
+            />
           ),
         }}
       />
@@ -38,8 +46,12 @@ const BottomTabNavigator = () => {
         name='Favorites'
         component={FavoritesStack}
         options={{
-          tabBarIcon: ({ color, size }) => (
-            <Icon name='ios-heart-outline' size={25} />
+          tabBarIcon: ({ focused, color, size }) => (
+            <Icon
+              name={focused ? 'ios-heart' : 'ios-heart-outline'}
+              size={25}
+              color={focused ? 'red' : 'black'}
+            />
           ),
         }}
       />
@@ -47,8 +59,12 @@ const BottomTabNavigator = () => {
         name='Profile'
         component={ProfileStack}
         options={{
-          tabBarIcon: ({ color, size }) => (
-            <Icon name='ios-person-outline' size={25} />
+          tabBarIcon: ({ focused, color, size }) => (
+            <Icon
+              name={focused ? 'ios-person' : 'ios-person-outline'}
+              size={25}
+              color={focused ? 'red' : 'black'}
+            />
           ),
         }}
       />

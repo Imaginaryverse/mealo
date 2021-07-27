@@ -17,11 +17,13 @@ const DayPlanContainer = ({ dayPlan, navigation }) => {
   }
   return (
     <View style={styles.dayPlanContainer}>
-      <Text>
-        Day {dayPlan.day} ({getDayOfWeek(dayPlan.date)})
-      </Text>
-      <Text>Date: {dayPlan.date.substring(0, 10)}</Text>
-      <Text>Calories: {Math.floor(dayPlan.calories)}</Text>
+      <View style={styles.dayInfoContainer}>
+        <Text>
+          Day {dayPlan.day} ({getDayOfWeek(dayPlan.date)})
+        </Text>
+        <Text>Date: {dayPlan.date.substring(0, 10)}</Text>
+        <Text>{Math.floor(dayPlan.calories)} kcal Calories</Text>
+      </View>
       <View style={styles.mealsContainer}>
         <FlatList
           data={dayPlan.meals}
@@ -41,16 +43,15 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-
-    padding: 10,
     marginBottom: 10,
+  },
+  dayInfoContainer: {
+    backgroundColor: 'tomato',
   },
   mealsContainer: {
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-
-    padding: 10,
   },
 });
 

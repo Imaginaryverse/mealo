@@ -48,9 +48,7 @@ const styles = StyleSheet.create({
   mealCard: {
     flexDirection: 'row',
     width: Dimensions.get('screen').width - 15,
-
-    marginBottom: 5,
-
+    marginBottom: 10,
     borderColor: 'black',
     borderWidth: 1,
   },
@@ -58,15 +56,16 @@ const styles = StyleSheet.create({
     width: 100,
     height: 100,
   },
-  /* rightContainer: {
-    flexDirection: 'row',
-  }, */
+  rightContainer: {
+    flex: 1,
+    justifyContent: 'space-between',
+  },
   mealCardInfo: {
     width: '80%',
   },
   btnContainer: {
     flexDirection: 'row',
-    justifyContent: 'space-between',
+    justifyContent: 'space-around',
   },
 });
 
