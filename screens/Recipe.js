@@ -111,9 +111,11 @@ const Recipe = ({ route, navigation }) => {
       </View>
       <View style={styles.detailContainer}>
         <Text>Nutrients Per Serving</Text>
+        <Text>Calories: {Math.floor(nutrientsPerServing.calories)} kcal</Text>
         <Text>Protein: {nutrientsPerServing.protein}g</Text>
-        <Text>Fiber: {nutrientsPerServing.fiber}g</Text>
+        <Text>Carbs: {nutrientsPerServing.carbs}g</Text>
         <Text>Fat: {nutrientsPerServing.fat}g</Text>
+        <Text>Fiber: {nutrientsPerServing.fiber}g</Text>
         <Text>Sugar: {nutrientsPerServing.sugar}g</Text>
       </View>
     </ScrollView>

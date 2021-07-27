@@ -53,6 +53,7 @@ const MealPlanner = ({ navigation }) => {
   const [showGenerator, setShowGenerator] = useState(false);
 
   const handleMealPlanClick = async () => {
+    setShowGenerator(false);
     console.log('🥦 Generating meal plan...');
     try {
       const res = await generateMealPlan({
@@ -77,13 +78,6 @@ const MealPlanner = ({ navigation }) => {
     }
   };
 
-  /* useEffect(() => {
-    if (!mealPlan) {
-      console.log('🥦 No meal plan. Fetching from DB...');
-      getMealPlanFromDb();
-    }
-  }, [mealPlan]); */
-
   useEffect(() => {
     if (data && data.getMealPlanFromDb) {
       console.log(`💰 ${new Date().toLocaleTimeString()}: Cached meal plan...`);
@@ -97,14 +91,6 @@ const MealPlanner = ({ navigation }) => {
       console.log('Error on generating', generateError);
     }
   }, [generateError]);
-
-  if (dbLoading) {
-    return (
-      <View styles={styles.container}>
-        <Text>Loading meal plan...</Text>
-      </View>
-    );
-  }
 
   /* 
       {generateLoading && <Text>Generating meal plan...</Text>}
@@ -123,6 +109,15 @@ const MealPlanner = ({ navigation }) => {
         { text: 'OK', onPress: () => setShowGenerator(true) },
       ]
     );
+
+  if (generateLoading || dbLoading) {
+    return (
+      <View style={styles.container}>
+        <Text>Loading...</Text>
+      </View>
+    );
+  }
+
   return (
     <View style={styles.container}>
       {mealPlan && !showGenerator ? (

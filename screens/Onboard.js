@@ -8,6 +8,7 @@ import { UPDATE_USER_PROFILE } from '../queries/DBqueries';
 import { useSelector, useDispatch } from 'react-redux';
 import { formatDate } from '../utils';
 import { UpdateUserProfileState } from '../redux/slices/userSlice';
+import { set } from 'react-native-reanimated';
 
 const Onboard = ({ navigation }) => {
   const currentDate = new Date();
@@ -29,6 +30,42 @@ const Onboard = ({ navigation }) => {
 
   const [activityLevel, setActivityLevel] = useState(0);
   const [weightGoal, setWeightGoal] = useState('');
+  const [selectedActivityLevel, setSelectedActivityLevel] = useState('');
+  const [selectedWeightGoal, setSelectedWeightGoal] = useState('');
+
+  const setActivityState = value => {
+    switch (value) {
+      case '1 - 2 times per week':
+        setActivityLevel('EXERCISE_1');
+        break;
+      case '3+ times per week':
+        setActivityLevel('EXERCISE_2');
+        break;
+      default:
+        setActivityLevel('NOT_ACTIVE');
+    }
+    setSelectedActivityLevel(value);
+  };
+
+  const setWeightGoalState = value => {
+    switch (value) {
+      case '0.25kg':
+        setWeightGoal('GOAL_1');
+        break;
+      case '0.5kg':
+        setWeightGoal('GOAL_2');
+        break;
+      case '0.75kg':
+        setWeightGoal('GOAL_3');
+        break;
+      case '2kg':
+        setWeightGoal('GOAL_4');
+        break;
+      default:
+        setWeightGoal('MAINTAIN');
+    }
+    setSelectedWeightGoal(value);
+  };
 
   const onSave = () => {
     const profile = {
@@ -114,26 +151,6 @@ const Onboard = ({ navigation }) => {
     }
   };
 
-  /* useEffect(() => {
-    console.log({
-      biologicalSex,
-      birthdate,
-      height,
-      weight,
-      targetWeight,
-      activityLevel,
-      weightGoal,
-    });
-  }, [
-    biologicalSex,
-    birthdate,
-    height,
-    weight,
-    targetWeight,
-    activityLevel,
-    weightGoal,
-  ]); */
-
   return (
     <View style={styles.container}>
       <Text>Onboarding</Text>
@@ -141,7 +158,6 @@ const Onboard = ({ navigation }) => {
         <Text>Biological Sex: {biologicalSex}</Text>
         <RNPickerSelect
           onValueChange={value => setBiologicalSex(value)}
-          // placeholder={{ label: 'sex', value: null }}
           items={[
             { label: 'Male', value: 'MALE' },
             { label: 'Female', value: 'FEMALE' },
@@ -149,27 +165,26 @@ const Onboard = ({ navigation }) => {
         />
         <View>
           <Text>Birthdate:</Text>
-          <TextInput
-            placeholder='DD'
-            defaultValue={`${birthdate.day}`}
-            onChangeText={num => updateBirthdate('day', num)}
-            maxLength={2}
-            keyboardType='number-pad'
-          />
-          <TextInput
-            placeholder='MM'
-            defaultValue={`${birthdate.month}`}
-            onChangeText={num => updateBirthdate('month', num)}
-            maxLength={2}
-            keyboardType='number-pad'
-          />
-          <TextInput
-            placeholder='YYYY'
-            defaultValue={`${birthdate.year}`}
-            onChangeText={num => updateBirthdate('year', num)}
-            maxLength={4}
-            keyboardType='number-pad'
-          />
+          <View style={styles.dateContainer}>
+            <TextInput
+              placeholder='YYYY'
+              onChangeText={num => updateBirthdate('year', num)}
+              maxLength={4}
+              keyboardType='number-pad'
+            />
+            <TextInput
+              placeholder='MM'
+              onChangeText={num => updateBirthdate('month', num)}
+              maxLength={2}
+              keyboardType='number-pad'
+            />
+            <TextInput
+              placeholder='DD'
+              onChangeText={num => updateBirthdate('day', num)}
+              maxLength={2}
+              keyboardType='number-pad'
+            />
+          </View>
         </View>
 
         <Input
@@ -194,27 +209,26 @@ const Onboard = ({ navigation }) => {
           onChangeText={value => setTargetWeight(value)}
           keyboardType='number-pad'
         />
-        <Text>Activity Level: {activityLevel}</Text>
+        <Text>Activity Level: {selectedActivityLevel}</Text>
         <RNPickerSelect
-          onValueChange={value => setActivityLevel(value)}
-          // placeholder={{ label: 'sex', value: null }}
+          onValueChange={value => setActivityState(value)}
           items={[
-            { label: 'Not Active', value: 'NOT_ACTIVE' },
-            { label: '1 - 2 times per week', value: 'EXERCISE_1' },
-            { label: '3+ times per week', value: 'EXERCISE_2' },
+            { label: 'Not Active', value: 'Not Active' },
+            { label: '1 - 2 times per week', value: '1 - 2 times per week' },
+            { label: '3+ times per week', value: '3+ times per week' },
           ]}
         />
 
-        <Text>Weight Goal: {weightGoal}</Text>
+        <Text>Weight Goal: {selectedWeightGoal}</Text>
         <RNPickerSelect
-          onValueChange={value => setWeightGoal(value)}
+          onValueChange={value => setWeightGoalState(value)}
           // placeholder={{ label: 'sex', value: null }}
           items={[
-            { label: 'Maintain', value: 'MAINTAIN' },
-            { label: '0.25kg', value: 'GOAL_1' },
-            { label: '0.5kg', value: 'GOAL_2' },
-            { label: '0.75kg', value: 'GOAL_3' },
-            { label: '2kg', value: 'GOAL_4' },
+            { label: 'Maintain', value: 'Maintain' },
+            { label: '0.25kg', value: '0.25kg' },
+            { label: '0.5kg', value: '0.5kg' },
+            { label: '0.75kg', value: '0.75kg' },
+            { label: '2kg', value: '2kg' },
           ]}
         />
       </View>
@@ -228,6 +242,9 @@ const Onboard = ({ navigation }) => {
 const styles = StyleSheet.create({
   container: {
     marginTop: 20,
+  },
+  dateContainer: {
+    flexDirection: 'row',
   },
 });
 

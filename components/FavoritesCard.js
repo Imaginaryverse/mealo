@@ -17,11 +17,14 @@ const FavoritesCard = ({ recipe, navigation }) => {
         <Image source={{ uri: recipe.mainImage }} style={styles.img} />
         <View style={styles.mealCardInfo}>
           <Text>{recipe.name}</Text>
-          <Text>Time: {recipe.totalTime}</Text>
           <Text>
+            {Math.floor(recipe.nutrientsPerServing.calories)} kcal •{' '}
+            {recipe.totalTime}
+          </Text>
+          {/* <Text>
             Calories per Serving:{' '}
             {Math.floor(recipe.nutrientsPerServing.calories)}
-          </Text>
+          </Text> */}
         </View>
       </View>
     </TouchableOpacity>
@@ -30,18 +33,18 @@ const FavoritesCard = ({ recipe, navigation }) => {
 
 const styles = StyleSheet.create({
   mealCard: {
-    width: '90%',
-    flexDirection: 'row',
+    flex: 1,
     margin: 5,
     borderColor: 'black',
     borderWidth: 1,
+    width: 180,
   },
   mealCardInfo: {
     width: '80%',
   },
   img: {
-    height: 100,
-    width: 100,
+    height: 180,
+    width: 180,
   },
 });
 

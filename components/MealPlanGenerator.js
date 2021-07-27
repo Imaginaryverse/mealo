@@ -25,7 +25,7 @@ const MealPlanGenerator = ({ handleMealPlanClick }) => {
     updateRestrictions,
     { loading: updateLoading, error: updateError, data: updateData },
   ] = useMutation(PROFILE_RESTRICTIONS_UPDATE);
-  const [showRestrictions, setShowRestrictions] = useState(false);
+
   const [selectedRestrictions, setSelectedRestrictions] = useState(
     user.restrictions || []
   );
@@ -38,23 +38,21 @@ const MealPlanGenerator = ({ handleMealPlanClick }) => {
         restrictions: selectedRestrictions,
       },
     });
-    setShowRestrictions(!showRestrictions);
   };
 
   return (
     <View style={styles.container}>
-      <Pressable
-        onPress={() => setShowRestrictions(!showRestrictions)}
-        style={styles.restrictionsContainer}
-      >
-        <Text>Dietary Restrictions:</Text>
-        <Icon
-          name={showRestrictions ? 'ios-chevron-up' : 'ios-chevron-down'}
-          size={25}
-        />
-      </Pressable>
-      {showRestrictions && (
-        <View>
+      <Text>Meal Plan Generator</Text>
+
+      <Text>
+        If you have any dietary restrictions, select them and click the save
+        button. When you are ready, click 'Generate Meal Plan' and we will try
+        to generate a meal plan for you!
+      </Text>
+
+      <Text>Dietary Restrictions:</Text>
+      <View>
+        {data && (
           <FlatList
             data={data.getAllRestrictions}
             renderItem={({ item }) => (
@@ -67,9 +65,11 @@ const MealPlanGenerator = ({ handleMealPlanClick }) => {
             numColumns={4}
             keyExtractor={(item, i) => i.toString()}
           />
+        )}
+        {user.restrictions !== selectedRestrictions && (
           <Button title='Save' onPress={() => onRestrictionSave()} />
-        </View>
-      )}
+        )}
+      </View>
 
       <Pressable onPress={() => handleMealPlanClick()}>
         <Text>Generate Meal Plan</Text>

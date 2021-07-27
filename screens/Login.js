@@ -61,7 +61,7 @@ const Login = ({ navigation }) => {
   return (
     <View>
       {!showLogin ? (
-        <Text>Loggin in...</Text>
+        <Text>Logging in...</Text>
       ) : (
         <View>
           <TextInput

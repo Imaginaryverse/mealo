@@ -21,6 +21,42 @@ const EditProfile = ({ navigation }) => {
 
   const [activityLevel, setActivityLevel] = useState(profile.activityLevel);
   const [weightGoal, setWeightGoal] = useState(profile.weeklyWeightGoal);
+  const [selectedActivityLevel, setSelectedActivityLevel] = useState('');
+  const [selectedWeightGoal, setSelectedWeightGoal] = useState('');
+
+  const setActivityState = value => {
+    switch (value) {
+      case '1 - 2 times per week':
+        setActivityLevel('EXERCISE_1');
+        break;
+      case '3+ times per week':
+        setActivityLevel('EXERCISE_2');
+        break;
+      default:
+        setActivityLevel('NOT_ACTIVE');
+    }
+    setSelectedActivityLevel(value);
+  };
+
+  const setWeightGoalState = value => {
+    switch (value) {
+      case '0.25kg':
+        setWeightGoal('GOAL_1');
+        break;
+      case '0.5kg':
+        setWeightGoal('GOAL_2');
+        break;
+      case '0.75kg':
+        setWeightGoal('GOAL_3');
+        break;
+      case '2kg':
+        setWeightGoal('GOAL_4');
+        break;
+      default:
+        setWeightGoal('MAINTAIN');
+    }
+    setSelectedWeightGoal(value);
+  };
 
   const onSave = () => {
     const updatedProfile = {
@@ -98,25 +134,25 @@ const EditProfile = ({ navigation }) => {
           onChangeText={value => setTargetWeight(value)}
           keyboardType='number-pad'
         />
-        <Text>Activity Level: {activityLevel}</Text>
+        <Text>Activity Level: {selectedActivityLevel}</Text>
         <RNPickerSelect
-          onValueChange={value => setActivityLevel(value)}
+          onValueChange={value => setActivityState(value)}
           items={[
-            { label: 'Not Active', value: 'NOT_ACTIVE' },
-            { label: '1 - 2 times per week', value: 'EXERCISE_1' },
-            { label: '3+ times per week', value: 'EXERCISE_2' },
+            { label: 'Not Active', value: 'Not Active' },
+            { label: '1 - 2 times per week', value: '1 - 2 times per week' },
+            { label: '3+ times per week', value: '3+ times per week' },
           ]}
         />
 
-        <Text>Weight Goal: {weightGoal}</Text>
+        <Text>Weekly Weight Goal: {selectedWeightGoal}</Text>
         <RNPickerSelect
-          onValueChange={value => setWeightGoal(value)}
+          onValueChange={value => setWeightGoalState(value)}
           items={[
-            { label: 'Maintain', value: 'MAINTAIN' },
-            { label: '0.25kg', value: 'GOAL_1' },
-            { label: '0.5kg', value: 'GOAL_2' },
-            { label: '0.75kg', value: 'GOAL_3' },
-            { label: '2kg', value: 'GOAL_4' },
+            { label: 'Maintain', value: 'Maintain' },
+            { label: '0.25kg', value: '0.25kg' },
+            { label: '0.5kg', value: '0.5kg' },
+            { label: '0.75kg', value: '0.75kg' },
+            { label: '2kg', value: '2kg' },
           ]}
         />
       </View>

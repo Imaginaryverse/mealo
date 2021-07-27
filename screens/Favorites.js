@@ -15,10 +15,11 @@ const Favorites = ({ navigation }) => {
     <View style={styles.container}>
       {data && data.getRecipesByIds ? (
         <View>
-          <Text>Your Recipes:</Text>
+          <Text>Your Favorite Recipes</Text>
           <FlatList
             data={data.getRecipesByIds}
-            keyExtractor={(item, i) => i.toString()}
+            keyExtractor={(item, index) => index.toString()}
+            numColumns={2}
             renderItem={({ item }) => (
               <FavoritesCard recipe={item} navigation={navigation} />
             )}

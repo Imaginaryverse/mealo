@@ -13,6 +13,7 @@ import {
   TouchableOpacity,
 } from 'react-native';
 import Carousel from 'react-native-snap-carousel';
+import Icon from 'react-native-vector-icons/Ionicons';
 import { getCurrentDate, getDayOfWeek, capitalizeName } from '../utils';
 import { UpdateMealPlanState } from '../redux/slices/userSlice';
 import { GET_MEALPLAN_FROM_DB } from '../queries/DBqueries';
@@ -54,7 +55,19 @@ const Home = ({ navigation }) => {
     >
       <View style={styles.item}>
         <Text>{capitalizeName(item.meal)}</Text>
-        <Text>{item.recipe.name}</Text>
+        <View style={styles.titleContainer}>
+          <Text>{item.recipe.name}</Text>
+
+          {favorites.includes(item.recipe.id) ? (
+            <View style={styles.fav}>
+              <Icon name='ios-heart' color='red' size={20} />
+            </View>
+          ) : (
+            <View style={styles.fav}>
+              <Icon name='ios-heart-outline' color='red' size={20} />
+            </View>
+          )}
+        </View>
         <View>
           <Image source={{ uri: item.recipe.mainImage }} style={styles.image} />
         </View>
@@ -87,7 +100,6 @@ const Home = ({ navigation }) => {
             <Text>Fat: {Math.floor(item.recipe.nutrientsPerServing.fat)}g</Text>
           </View>
         </View>
-        {favorites.includes(item.recipe.id) && <Text>FAVORITE</Text>}
       </View>
     </TouchableOpacity>
   );
@@ -147,6 +159,10 @@ const styles = StyleSheet.create({
     justifyContent: 'flex-start',
     alignItems: 'center',
     paddingTop: 20,
+  },
+  titleContainer: {
+    flex: 1,
+    flexDirection: 'row',
   },
   carouselContainer: {
     flex: 1,
