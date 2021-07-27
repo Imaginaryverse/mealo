@@ -5,6 +5,7 @@ import { sortMealPlanByDay } from './sortMealPlanByDay';
 import { getCurrentDate } from './getCurrentDate';
 import { getDayOfWeek } from './getDayOfWeek';
 import { getUserAge } from './getUserAge';
+import { capitalizeName } from './capitalizeName';
 
 export {
   validatePassword,
@@ -14,4 +15,5 @@ export {
   getCurrentDate,
   getDayOfWeek,
   getUserAge,
+  capitalizeName,
 };
