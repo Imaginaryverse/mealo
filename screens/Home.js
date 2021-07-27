@@ -55,7 +55,9 @@ const Home = ({ navigation }) => {
   }, [currentDayPlan]); */
 
   const renderItem = ({ item, index }) => (
-    <TouchableOpacity>
+    <TouchableOpacity
+      onPress={() => navigation.navigate('Recipe', { recipe: item.recipe })}
+    >
       <View style={styles.item}>
         <Text>{capitalizeName(item.meal)}</Text>
         <Text>{item.recipe.name}</Text>
