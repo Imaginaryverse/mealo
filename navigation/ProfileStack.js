@@ -8,7 +8,7 @@ const ProfileStack = () => {
   return (
     <Stack.Navigator initialRouteName={'Profile'}>
       <Stack.Screen
-        name='MealPlanner'
+        name='Profile'
         component={Profile}
         options={{ headerShown: false }}
       />

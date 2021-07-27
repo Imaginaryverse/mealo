@@ -44,13 +44,13 @@ const EditProfile = ({ navigation }) => {
 
   useEffect(() => {
     if (data && data.updateUserProfile) {
-      console.log('👤 Profile saved...');
-
       // TODO: FIX HERE! birthdate doesn't work on profile page
 
-      /* dispatch(
+      dispatch(
         UpdateUserProfileState({
           userId: user.databaseId,
+          biologicalSex: profile.biologicalSex,
+          birthdate: profile.birthdate,
           height: Number(height),
           startingWeight: Number(weight),
           targetWeight: Number(targetWeight),
@@ -62,7 +62,8 @@ const EditProfile = ({ navigation }) => {
           dcig: data.updateUserProfile.dcig,
           tdee: data.updateUserProfile.tdee,
         })
-      ); */
+      );
+      console.log('👤 Profile saved...');
       navigation.navigate('Profile');
     }
   }, [data]);
