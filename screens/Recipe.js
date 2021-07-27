@@ -86,7 +86,7 @@ const Recipe = ({ route, navigation }) => {
           )}
         </Pressable>
       </View>
-      <View style={styles.ingredientsContainer}>
+      <View style={styles.detailContainer}>
         <Text>
           {ingredientsCount} Ingredients • {numberOfServings} Servings
         </Text>
@@ -95,7 +95,7 @@ const Recipe = ({ route, navigation }) => {
         ))}
       </View>
 
-      <View style={styles.instructionsContainer}>
+      <View style={styles.detailContainer}>
         <Text>{totalTime}</Text>
         {instructions.length ? (
           instructions.map(el => <Text>{el}</Text>)
@@ -109,7 +109,7 @@ const Recipe = ({ route, navigation }) => {
           </>
         )}
       </View>
-      <View style={styles.nutrientsContainer}>
+      <View style={styles.detailContainer}>
         <Text>Nutrients Per Serving</Text>
         <Text>Protein: {nutrientsPerServing.protein}g</Text>
         <Text>Fiber: {nutrientsPerServing.fiber}g</Text>
@@ -142,19 +142,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
   },
-  ingredientsContainer: {
-    borderColor: 'black',
-    borderWidth: 1,
-    padding: 5,
-    margin: 5,
-  },
-  instructionsContainer: {
-    borderColor: 'black',
-    borderWidth: 1,
-    padding: 5,
-    margin: 5,
-  },
-  nutrientsContainer: {
+  detailContainer: {
     borderColor: 'black',
     borderWidth: 1,
     padding: 5,
