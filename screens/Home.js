@@ -7,19 +7,25 @@ import {
   TextInput,
   StyleSheet,
   Button,
+  Image,
   Pressable,
+  Dimensions,
+  TouchableOpacity,
 } from 'react-native';
-import { getCurrentDate, getDayOfWeek } from '../utils';
+import Carousel from 'react-native-snap-carousel';
+import { getCurrentDate, getDayOfWeek, capitalizeName } from '../utils';
 import { UpdateMealPlanState } from '../redux/slices/userSlice';
 import { GET_MEALPLAN_FROM_DB } from '../queries/DBqueries';
 
-const Home = () => {
+const Home = ({ navigation }) => {
   const user = useSelector(state => state.user);
+  const favorites = useSelector(state => state.user.favoriteRecipes);
   const mealPlan = useSelector(state => state.mealPlan);
   const [currentDayPlan, setCurrentDayPlan] = useState(null);
   const [getMealPlanFromDb, { loading, error, data }] =
     useLazyQuery(GET_MEALPLAN_FROM_DB);
   const dispatch = useDispatch();
+  const [activeIndex, setActiveIndex] = useState(0);
 
   useEffect(() => {
     if (!mealPlan) {
@@ -48,26 +54,69 @@ const Home = () => {
     }
   }, [currentDayPlan]); */
 
+  const renderItem = ({ item, index }) => (
+    <TouchableOpacity>
+      <View style={styles.item}>
+        <Text>{capitalizeName(item.meal)}</Text>
+        <Text>{item.recipe.name}</Text>
+        <View>
+          <Image source={{ uri: item.recipe.mainImage }} style={styles.image} />
+        </View>
+        <View style={styles.tags}>
+          <Text style={styles.tag}>
+            {item.recipe.ingredientsCount} Ingredients
+          </Text>
+          <Text style={styles.tag}>{item.recipe.totalTime}</Text>
+        </View>
+        <View style={styles.nutrientContainer}>
+          <View style={styles.nutrientColumn}>
+            <Text>
+              Calories: {Math.floor(item.recipe.nutrientsPerServing.calories)}{' '}
+              kcal
+            </Text>
+            <Text>
+              Sugar: {Math.floor(item.recipe.nutrientsPerServing.sugar)}g
+            </Text>
+            <Text>
+              Fiber: {Math.floor(item.recipe.nutrientsPerServing.fiber)}g
+            </Text>
+          </View>
+          <View style={styles.nutrientColumn}>
+            <Text>
+              Protein: {Math.floor(item.recipe.nutrientsPerServing.protein)}g
+            </Text>
+            <Text>
+              Carbs: {Math.floor(item.recipe.nutrientsPerServing.carbs)}g
+            </Text>
+            <Text>Fat: {Math.floor(item.recipe.nutrientsPerServing.fat)}g</Text>
+          </View>
+        </View>
+        {favorites.includes(item.recipe.id) && <Text>FAVORITE</Text>}
+      </View>
+    </TouchableOpacity>
+  );
+
   return (
     <View style={styles.container}>
-      <Text>Welcome {user.name}!</Text>
+      <Text style={styles.h1}>Welcome {user.name}!</Text>
       {currentDayPlan ? (
         <View>
-          <Text>Your meal plan for today:</Text>
-          {currentDayPlan && (
-            <View>
-              <Text>
-                Day {currentDayPlan.day} ({getDayOfWeek()})
-              </Text>
-              <Text>Calories: {Math.floor(currentDayPlan.calories)} kcal</Text>
-            </View>
-          )}
+          <Text style={styles.h2}>{getDayOfWeek()}'s meal plan:</Text>
+
+          <View style={styles.carouselContainer}>
+            <Carousel
+              layout={'default'}
+              data={currentDayPlan.meals}
+              sliderWidth={Dimensions.get('window').width}
+              itemWidth={320}
+              renderItem={renderItem}
+              onSnapToItem={index => setActiveIndex(index)}
+            />
+          </View>
         </View>
       ) : (
         <View>
-          <Text>
-            Once you have generated a meal plan you'll see today's meals here
-          </Text>
+          <Text>No plan!</Text>
         </View>
       )}
     </View>
@@ -76,7 +125,49 @@ const Home = () => {
 
 const styles = StyleSheet.create({
   container: {
+    flex: 1,
+    paddingTop: 30,
     marginTop: 20,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  carouselContainer: {
+    flex: 1,
+    flexDirection: 'row',
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  item: {
+    height: 440,
+    padding: 50,
+    borderColor: 'black',
+    borderWidth: 1,
+  },
+  image: {
+    width: 200,
+    height: 200,
+  },
+  h1: {
+    fontSize: 22,
+  },
+  h2: {
+    fontSize: 18,
+  },
+  tags: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+  },
+  tag: {
+    backgroundColor: 'linen',
+  },
+  nutrientContainer: {
+    flexDirection: 'row',
+  },
+  nutrientColumn: {
+    flexDirection: 'column',
+    marginRight: 5,
+    /* justifyContent: 'center',
+    alignItems: 'center', */
   },
 });
 
