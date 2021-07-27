@@ -7,6 +7,7 @@ import {
   StyleSheet,
   Dimensions,
 } from 'react-native';
+import { capitalizeName } from '../utils';
 import { useLazyQuery } from '@apollo/client';
 
 const MealCard = ({ meal, navigation }) => {
@@ -15,9 +16,11 @@ const MealCard = ({ meal, navigation }) => {
       <Image source={{ uri: meal.recipe.mainImage }} style={styles.image} />
       <View style={styles.rightContainer}>
         <View style={styles.mealCardInfo}>
-          <Text>Meal: {meal.meal}</Text>
+          <Text>{capitalizeName(meal.meal)}</Text>
           <Text>{meal.recipe.name}</Text>
-          <Text>Calories: {Math.floor(meal.calories)} kcal</Text>
+          <Text>
+            {meal.recipe.ingredientsCount} ingredients • {meal.recipe.totalTime}
+          </Text>
         </View>
         <View style={styles.btnContainer}>
           <Button

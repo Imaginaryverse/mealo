@@ -48,16 +48,6 @@ const Home = ({ navigation }) => {
     }
   }, [mealPlan]);
 
-  useEffect(() => {
-    console.log(user);
-  }, []);
-
-  /* useEffect(() => {
-    if (currentDayPlan) {
-      console.log('🥗', currentDayPlan);
-    }
-  }, [currentDayPlan]); */
-
   const renderItem = ({ item, index }) => (
     <TouchableOpacity
       onPress={() => navigation.navigate('Recipe', { recipe: item.recipe })}
@@ -102,11 +92,30 @@ const Home = ({ navigation }) => {
     </TouchableOpacity>
   );
 
+  if (loading) {
+    return (
+      <View style={styles.container}>
+        <Text>Loading...</Text>
+      </View>
+    );
+  }
+
+  if (!loading && !mealPlan) {
+    return (
+      <View style={styles.container}>
+        <View style={styles.homeContent}>
+          <Text style={styles.h1}>Welcome {capitalizeName(user.name)}!</Text>
+          <Text>You don't have a meal plan. Generate one!</Text>
+        </View>
+      </View>
+    );
+  }
+
   return (
     <View style={styles.container}>
-      <Text style={styles.h1}>Welcome {user.name}!</Text>
-      {currentDayPlan ? (
-        <View>
+      {currentDayPlan && (
+        <View style={styles.homeContent}>
+          <Text style={styles.h1}>Welcome {capitalizeName(user.name)}!</Text>
           <Text style={styles.h2}>{getDayOfWeek()}'s meal plan:</Text>
 
           <View style={styles.carouselContainer}>
@@ -120,10 +129,6 @@ const Home = ({ navigation }) => {
             />
           </View>
         </View>
-      ) : (
-        <View>
-          <Text>No plan!</Text>
-        </View>
       )}
     </View>
   );
@@ -136,6 +141,12 @@ const styles = StyleSheet.create({
     marginTop: 20,
     justifyContent: 'center',
     alignItems: 'center',
+  },
+  homeContent: {
+    flex: 1,
+    justifyContent: 'flex-start',
+    alignItems: 'center',
+    paddingTop: 20,
   },
   carouselContainer: {
     flex: 1,

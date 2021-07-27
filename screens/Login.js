@@ -17,7 +17,8 @@ const Login = ({ navigation }) => {
   const [email, setEmail] = useState('');
   const [loginErrorMsg, setLoginErrorMsg] = useState(null);
   const [password, setPassword] = useState('');
-  const [loginUser, { loading, data }] = useLazyQuery(LOGIN_USER, {
+  const [showLogin, setShowLogin] = useState(true);
+  const [loginUser, { loading, data, called }] = useLazyQuery(LOGIN_USER, {
     fetchPolicy: 'network-only',
   });
 
@@ -37,6 +38,7 @@ const Login = ({ navigation }) => {
     loginUser({ variables: { email, password } });
     setEmail('');
     setPassword('');
+    setShowLogin(false);
   };
 
   useEffect(() => {
@@ -45,39 +47,39 @@ const Login = ({ navigation }) => {
 
   useEffect(() => {
     if (data && !data.LoginUserByEmail.success) {
+      setShowLogin(true);
       displayLoginErrorMsg(data.LoginUserByEmail.message);
     }
 
     if (data && data.LoginUserByEmail.success) {
+      setShowLogin(false);
       dispatch(LoginUser(data.LoginUserByEmail.user));
       console.log(`🪵 Logged in ${data.LoginUserByEmail.user.databaseId}...`);
-      // navigation.navigate('Home');
     }
   }, [data]);
 
   return (
     <View>
-      <Text>Login</Text>
-      <TextInput
-        placeholder='email'
-        defaultValue={email}
-        onChangeText={text => setEmail(text)}
-      />
-      <TextInput
-        placeholder='password'
-        secureTextEntry={true}
-        defaultValue={password}
-        onChangeText={text => setPassword(text)}
-      />
-      {loginErrorMsg && (
-        <View>
-          <Text>{loginErrorMsg}</Text>
-        </View>
-      )}
-      {loading ? (
+      {!showLogin ? (
         <Text>Loggin in...</Text>
       ) : (
         <View>
+          <TextInput
+            placeholder='email'
+            defaultValue={email}
+            onChangeText={text => setEmail(text)}
+          />
+          <TextInput
+            placeholder='password'
+            secureTextEntry={true}
+            defaultValue={password}
+            onChangeText={text => setPassword(text)}
+          />
+          {loginErrorMsg && (
+            <View>
+              <Text>{loginErrorMsg}</Text>
+            </View>
+          )}
           <Button title='Log in' onPress={() => handleLogin()} />
           <Button
             title='Create Account'
