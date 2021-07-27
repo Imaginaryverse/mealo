@@ -6,7 +6,7 @@ import { useQuery, useLazyQuery } from '@apollo/client';
 import { GET_RECIPES_BY_IDS } from '../queries/DBqueries';
 
 const Favorites = ({ navigation }) => {
-  const favorites = useSelector(state => state.user.favoriteRecipes);
+  const favorites = useSelector(state => state.user.favoriteRecipes) || [];
   const { loading, error, data } = useQuery(GET_RECIPES_BY_IDS, {
     variables: { ids: favorites },
   });

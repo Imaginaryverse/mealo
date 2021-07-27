@@ -11,7 +11,7 @@ import { UpdateUserFavoritesState } from '../redux/slices/userSlice';
 const Recipe = ({ route, navigation }) => {
   const dispatch = useDispatch();
   const user = useSelector(state => state.user);
-  const favorites = user.favoriteRecipes;
+  const favorites = user.favoriteRecipes || [];
   const { recipe } = route.params;
   const {
     id,

@@ -6,7 +6,9 @@ const Restriction = ({
   selectedRestrictions,
   setSelectedRestrictions,
 }) => {
-  const initialStatus = selectedRestrictions.includes(restriction.id);
+  const initialStatus = selectedRestrictions
+    ? selectedRestrictions.includes(restriction.id)
+    : false;
   const [checked, setChecked] = useState(initialStatus);
 
   const handlePress = () => {

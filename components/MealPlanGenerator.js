@@ -27,7 +27,7 @@ const MealPlanGenerator = ({ handleMealPlanClick }) => {
   ] = useMutation(PROFILE_RESTRICTIONS_UPDATE);
   const [showRestrictions, setShowRestrictions] = useState(false);
   const [selectedRestrictions, setSelectedRestrictions] = useState(
-    user.restrictions
+    user.restrictions || []
   );
 
   const onRestrictionSave = () => {

@@ -19,7 +19,7 @@ import { GET_MEALPLAN_FROM_DB } from '../queries/DBqueries';
 
 const Home = ({ navigation }) => {
   const user = useSelector(state => state.user);
-  const favorites = useSelector(state => state.user.favoriteRecipes);
+  const favorites = useSelector(state => state.user.favoriteRecipes) || [];
   const mealPlan = useSelector(state => state.mealPlan);
   const [currentDayPlan, setCurrentDayPlan] = useState(null);
   const [getMealPlanFromDb, { loading, error, data }] =
@@ -47,6 +47,10 @@ const Home = ({ navigation }) => {
       setCurrentDayPlan(dp);
     }
   }, [mealPlan]);
+
+  useEffect(() => {
+    console.log(user);
+  }, []);
 
   /* useEffect(() => {
     if (currentDayPlan) {
