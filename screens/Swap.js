@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { View, Text, FlatList, Button } from 'react-native';
+import { View, Text, FlatList, Button, ScrollView } from 'react-native';
 import { useSelector, useDispatch } from 'react-redux';
 import { useQuery, useMutation, useLazyQuery } from '@apollo/client';
 import {
@@ -60,10 +60,8 @@ const Swap = ({ navigation, route }) => {
   }
 
   return (
-    <View>
+    <ScrollView>
       <Text>Swap Recipes HERE</Text>
-      <Text>mealId: {mealId}</Text>
-      <Text>selected ID: {selectedId}</Text>
       <SwapCard
         recipe={recipe}
         selectedId={selectedId}
@@ -91,7 +89,7 @@ const Swap = ({ navigation, route }) => {
       ) : (
         <Button title='Confirm' onPress={() => onConfirm()} />
       )}
-    </View>
+    </ScrollView>
   );
 };
 

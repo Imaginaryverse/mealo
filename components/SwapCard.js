@@ -1,5 +1,14 @@
 import React, { useState } from 'react';
-import { View, Text, Button, StyleSheet, TouchableOpacity } from 'react-native';
+import {
+  View,
+  Text,
+  Button,
+  StyleSheet,
+  Image,
+  TouchableOpacity,
+  Dimensions,
+} from 'react-native';
+import RadioButton from './RadioButton';
 import { useLazyQuery } from '@apollo/client';
 import Icon from 'react-native-vector-icons/Ionicons';
 
@@ -10,28 +19,46 @@ const SwapCard = ({ recipe, onPressSelect, selectedId, isOriginal }) => {
     <TouchableOpacity
       onPress={() => setShowMore(!showMore)}
       style={styles.touchable}
+      style={styles.mealCard}
     >
-      <View style={styles.mealCard}>
-        <View style={styles.mealCardInfo}>
+      <View style={styles.topContainer}>
+        <Image source={{ uri: recipe.mainImage }} style={styles.image} />
+        <View style={styles.topInfo}>
+          <Text>{recipe.mealTags[0]}</Text>
           <Text>{recipe.name}</Text>
-          <Text>Time: {recipe.totalTime}</Text>
           <Text>
-            Calories per Serving:{' '}
-            {Math.floor(recipe.nutrientsPerServing.calories)}
+            {Math.floor(recipe.nutrientsPerServing.calories)} kcal •{' '}
+            {recipe.totalTime}
           </Text>
-          {showMore && (
-            <View>
-              <Text>{recipe.ingredientsCount}</Text>
-            </View>
-          )}
         </View>
         {!isOriginal && (
+          <View style={styles.selectContainer}>
+            <TouchableOpacity onPress={() => onPressSelect(recipe.id)}>
+              <Icon
+                size={24}
+                name={
+                  recipe.id === selectedId
+                    ? 'ios-radio-button-on'
+                    : 'ios-radio-button-off'
+                }
+              />
+            </TouchableOpacity>
+            <Text>Select</Text>
+          </View>
+        )}
+      </View>
+      <View style={styles.extraDetails}>
+        {showMore && (
           <View>
-            {recipe.id === selectedId ? (
-              <Text>👍</Text>
-            ) : (
-              <Button title='Select' onPress={() => onPressSelect(recipe.id)} />
-            )}
+            <Text>Time: {recipe.totalTime}</Text>
+            <Text>
+              Calories per Serving:{' '}
+              {Math.floor(recipe.nutrientsPerServing.calories)}
+            </Text>
+            <Text>Ingredients: {recipe.ingredientsCount}</Text>
+            {recipe.ingredientLines.map((ingredient, index) => (
+              <Text key={index}>• {ingredient}</Text>
+            ))}
           </View>
         )}
       </View>
@@ -41,16 +68,33 @@ const SwapCard = ({ recipe, onPressSelect, selectedId, isOriginal }) => {
 };
 
 const styles = StyleSheet.create({
-  touchable: {
+  mealCard: {
+    width: Dimensions.get('screen').width - 10,
+    margin: 5,
+    justifyContent: 'center',
+    alignItems: 'center',
     borderColor: 'black',
     borderWidth: 1,
   },
-  mealCard: {
-    width: '90%',
+  topContainer: {
+    flex: 1,
+    width: '100%',
     flexDirection: 'row',
-    margin: 5,
+    backgroundColor: 'yellow',
   },
-  mealCardInfo: {
+  image: {
+    width: 100,
+    height: 100,
+  },
+  topInfo: {
+    width: 180,
+  },
+  selectContainer: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  extraDetails: {
     width: '80%',
     // flexDirection: 'row',
   },
