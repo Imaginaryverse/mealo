@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, Text, StyleSheet, FlatList } from 'react-native';
+import { View, Text, StyleSheet, FlatList, Dimensions } from 'react-native';
 import { getDayOfWeek } from '../utils';
 import MealCard from './MealCard';
 
@@ -37,6 +37,7 @@ const DayPlanContainer = ({ dayPlan, navigation }) => {
 
 const styles = StyleSheet.create({
   dayPlanContainer: {
+    height: Dimensions.get('screen').height - 60,
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
@@ -44,7 +45,7 @@ const styles = StyleSheet.create({
     padding: 10,
     marginBottom: 10,
 
-    backgroundColor: 'linen',
+    backgroundColor: 'tomato',
   },
   mealsContainer: {
     flex: 1,

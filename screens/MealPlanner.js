@@ -3,7 +3,8 @@ import React, { useState, useEffect } from 'react';
 import MealPlanList from '../components/MealPlanList';
 import MealPlanGenerator from '../components/MealPlanGenerator';
 import { useSelector, useDispatch } from 'react-redux';
-import { View, Text, StyleSheet, Button, Pressable } from 'react-native';
+import { View, Text, StyleSheet, Button, Pressable, Alert } from 'react-native';
+import { FAB, Icon } from 'react-native-elements';
 import { gql, useLazyQuery, useQuery, useMutation } from '@apollo/client';
 import { GET_MEALPLAN_FROM_DB, GENERATE_MEAL_PLAN } from '../queries/DBqueries';
 import { UpdateMealPlanState } from '../redux/slices/userSlice';
@@ -39,6 +40,7 @@ const MealPlanner = ({ navigation }) => {
   const [generateMealPlan, { loading: generateLoading, error: generateError }] =
     useMutation(GENERATE_MEAL_PLAN);
   const [options, setOptions] = useState(null);
+  const [showGenerator, setShowGenerator] = useState(false);
 
   const handleMealPlanClick = async () => {
     console.log('🥦 Generating meal plan...');
@@ -85,18 +87,44 @@ const MealPlanner = ({ navigation }) => {
     }
   }, [generateError]);
 
+  if (dbLoading) {
+    return (
+      <View styles={styles.container}>
+        <Text>Loading meal plan...</Text>
+      </View>
+    );
+  }
+
+  /* 
+      {generateLoading && <Text>Generating meal plan...</Text>}
+      {generateError && <Text>Error</Text>}
+  */
+  const handleFabPress = () =>
+    Alert.alert(
+      'Generate new meal plan?',
+      'Clicking OK will take you to the Mealplan generator.',
+      [
+        {
+          text: 'Cancel',
+          onPress: () => console.log('Cancel Pressed'),
+          style: 'cancel',
+        },
+        { text: 'OK', onPress: () => setShowGenerator(true) },
+      ]
+    );
   return (
     <View style={styles.container}>
-      <Text>MEAL PLANNER</Text>
-      {mealPlan ? (
-        <MealPlanList mealPlan={mealPlan} navigation={navigation} />
-      ) : dbLoading ? (
-        <Text>Loading meal plan...</Text>
+      {mealPlan && !showGenerator ? (
+        <View>
+          <FAB
+            onPress={() => handleFabPress()}
+            icon={<Icon name='arrow-right' size={15} color='white' />}
+          />
+          <MealPlanList mealPlan={mealPlan} navigation={navigation} />
+        </View>
       ) : (
         <MealPlanGenerator handleMealPlanClick={handleMealPlanClick} />
       )}
-      {generateLoading && <Text>Generating meal plan...</Text>}
-      {generateError && <Text>Error</Text>}
     </View>
   );
 };
@@ -104,7 +132,7 @@ const MealPlanner = ({ navigation }) => {
 const styles = StyleSheet.create({
   container: {
     marginTop: 20,
-    marginBottom: 30,
+    marginBottom: 0,
   },
 });
 
