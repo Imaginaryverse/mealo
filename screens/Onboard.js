@@ -1,5 +1,13 @@
 import React, { useState, useEffect } from 'react';
-import { View, Text, TextInput, Pressable, StyleSheet } from 'react-native';
+import {
+  View,
+  Text,
+  TextInput,
+  Pressable,
+  StyleSheet,
+  Dimensions,
+  TouchableOpacity,
+} from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import { Input, Slider, Switch } from 'react-native-elements';
 import RNPickerSelect from 'react-native-picker-select';
@@ -68,6 +76,18 @@ const Onboard = ({ navigation }) => {
   };
 
   const onSave = () => {
+    if (
+      biologicalSex === '' ||
+      birthdate === '' ||
+      height === '' ||
+      weight === '' ||
+      targetWeight === '' ||
+      activityLevel === '' ||
+      weightGoal === ''
+    ) {
+      console.log('empty field(s)');
+      return;
+    }
     const profile = {
       userId,
       biologicalSex,
@@ -153,37 +173,43 @@ const Onboard = ({ navigation }) => {
 
   return (
     <View style={styles.container}>
-      <Text>Onboarding</Text>
-      <View>
-        <Text>Biological Sex: {biologicalSex}</Text>
-        <RNPickerSelect
-          onValueChange={value => setBiologicalSex(value)}
-          items={[
-            { label: 'Male', value: 'MALE' },
-            { label: 'Female', value: 'FEMALE' },
-          ]}
-        />
+      <View style={styles.inputContainer}>
+        <View style={styles.pickerContainer}>
+          <Text style={styles.optionName}>Biological Sex: {biologicalSex}</Text>
+          <RNPickerSelect
+            onValueChange={value => setBiologicalSex(value)}
+            items={[
+              { label: 'Male', value: 'MALE' },
+              { label: 'Female', value: 'FEMALE' },
+            ]}
+          />
+        </View>
         <View>
-          <Text>Birthdate:</Text>
-          <View style={styles.dateContainer}>
-            <TextInput
-              placeholder='YYYY'
-              onChangeText={num => updateBirthdate('year', num)}
-              maxLength={4}
-              keyboardType='number-pad'
-            />
-            <TextInput
-              placeholder='MM'
-              onChangeText={num => updateBirthdate('month', num)}
-              maxLength={2}
-              keyboardType='number-pad'
-            />
-            <TextInput
-              placeholder='DD'
-              onChangeText={num => updateBirthdate('day', num)}
-              maxLength={2}
-              keyboardType='number-pad'
-            />
+          <View style={styles.pickerContainer}>
+            <Text style={styles.optionName}>Birthdate:</Text>
+            <View style={styles.dateContainer}>
+              <TextInput
+                style={styles.input}
+                placeholder='YYYY'
+                onChangeText={num => updateBirthdate('year', num)}
+                maxLength={4}
+                keyboardType='number-pad'
+              />
+              <TextInput
+                style={styles.input}
+                placeholder='MM'
+                onChangeText={num => updateBirthdate('month', num)}
+                maxLength={2}
+                keyboardType='number-pad'
+              />
+              <TextInput
+                style={styles.input}
+                placeholder='DD'
+                onChangeText={num => updateBirthdate('day', num)}
+                maxLength={2}
+                keyboardType='number-pad'
+              />
+            </View>
           </View>
         </View>
 
@@ -209,42 +235,95 @@ const Onboard = ({ navigation }) => {
           onChangeText={value => setTargetWeight(value)}
           keyboardType='number-pad'
         />
-        <Text>Activity Level: {selectedActivityLevel}</Text>
-        <RNPickerSelect
-          onValueChange={value => setActivityState(value)}
-          items={[
-            { label: 'Not Active', value: 'Not Active' },
-            { label: '1 - 2 times per week', value: '1 - 2 times per week' },
-            { label: '3+ times per week', value: '3+ times per week' },
-          ]}
-        />
+        <View style={styles.pickerContainer}>
+          <Text style={styles.optionName}>
+            Activity Level: {selectedActivityLevel}
+          </Text>
+          <RNPickerSelect
+            onValueChange={value => setActivityState(value)}
+            items={[
+              { label: 'Not Active', value: 'Not Active' },
+              { label: '1 - 2 times per week', value: '1 - 2 times per week' },
+              { label: '3+ times per week', value: '3+ times per week' },
+            ]}
+          />
+        </View>
 
-        <Text>Weight Goal: {selectedWeightGoal}</Text>
-        <RNPickerSelect
-          onValueChange={value => setWeightGoalState(value)}
-          // placeholder={{ label: 'sex', value: null }}
-          items={[
-            { label: 'Maintain', value: 'Maintain' },
-            { label: '0.25kg', value: '0.25kg' },
-            { label: '0.5kg', value: '0.5kg' },
-            { label: '0.75kg', value: '0.75kg' },
-            { label: '2kg', value: '2kg' },
-          ]}
-        />
+        <View style={styles.pickerContainer}>
+          <Text style={styles.optionName}>
+            Weight Goal: {selectedWeightGoal}
+          </Text>
+          <RNPickerSelect
+            onValueChange={value => setWeightGoalState(value)}
+            // placeholder={{ label: 'sex', value: null }}
+            items={[
+              { label: 'Maintain', value: 'Maintain' },
+              { label: '0.25kg', value: '0.25kg' },
+              { label: '0.5kg', value: '0.5kg' },
+              { label: '0.75kg', value: '0.75kg' },
+              { label: '2kg', value: '2kg' },
+            ]}
+          />
+        </View>
       </View>
-      <Pressable onPress={() => onSave()}>
-        <Text>Save Profile</Text>
-      </Pressable>
+      <TouchableOpacity style={styles.btn} onPress={() => onSave()}>
+        <Text style={styles.btnText}>Create Profile</Text>
+      </TouchableOpacity>
     </View>
   );
 };
 
 const styles = StyleSheet.create({
   container: {
+    width: Dimensions.get('screen').width,
+    alignItems: 'center',
     marginTop: 20,
+  },
+  inputContainer: {
+    width: Dimensions.get('screen').width - 50,
+  },
+  inputTag: {
+    color: 'grey',
+    fontWeight: '700',
+  },
+  input: {
+    height: 40,
+    borderWidth: 1,
+    borderRadius: 8,
+    borderColor: 'grey',
+    padding: 8,
+    marginTop: 3,
+    marginBottom: 10,
+    marginRight: 5,
   },
   dateContainer: {
     flexDirection: 'row',
+    marginLeft: 10,
+  },
+  optionName: {
+    marginLeft: 10,
+    fontSize: 16,
+    color: 'grey',
+    fontWeight: '700',
+  },
+  btn: {
+    flexDirection: 'row',
+    borderRadius: 12,
+    marginTop: 10,
+    borderWidth: 1.5,
+    backgroundColor: 'linen',
+    width: 180,
+    padding: 8,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  btnText: {
+    color: 'grey',
+    fontSize: 16,
+    textAlign: 'center',
+  },
+  pickerContainer: {
+    marginBottom: 15,
   },
 });
 

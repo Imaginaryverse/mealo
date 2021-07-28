@@ -1,5 +1,12 @@
 import React, { useState, useEffect } from 'react';
-import { View, Text, FlatList, Button, ScrollView } from 'react-native';
+import {
+  View,
+  Text,
+  FlatList,
+  Button,
+  ScrollView,
+  StyleSheet,
+} from 'react-native';
 import { useSelector, useDispatch } from 'react-redux';
 import { useQuery, useMutation, useLazyQuery } from '@apollo/client';
 import {
@@ -61,7 +68,7 @@ const Swap = ({ navigation, route }) => {
 
   return (
     <ScrollView>
-      <Text>Swap Recipes HERE</Text>
+      <Text style={styles.headers}>Your Current Meal</Text>
       <SwapCard
         recipe={recipe}
         selectedId={selectedId}
@@ -69,7 +76,7 @@ const Swap = ({ navigation, route }) => {
         isOriginal={true}
       />
       <View>
-        <Text>Swap your meal out with one of these options!</Text>
+        <Text style={styles.headers}>Alternative Meals</Text>
         <FlatList
           data={data.recipeSwapOptions}
           renderItem={({ item }) => (
@@ -92,5 +99,13 @@ const Swap = ({ navigation, route }) => {
     </ScrollView>
   );
 };
+
+const styles = StyleSheet.create({
+  headers: {
+    margin: 5,
+    textAlign: 'center',
+    fontSize: 16,
+  },
+});
 
 export default Swap;

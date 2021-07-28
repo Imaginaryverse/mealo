@@ -58,6 +58,7 @@ const Login = ({ navigation }) => {
       setShowLogin(false);
       dispatch(LoginUser(data.LoginUserByEmail.user));
       console.log(`🪵 Logged in ${data.LoginUserByEmail.user.databaseId}...`);
+      navigation.navigate('Home');
     }
   }, [data]);
 
@@ -75,12 +76,14 @@ const Login = ({ navigation }) => {
             style={styles.background}
           >
             <View style={styles.inputContainer}>
+              <Text style={styles.inputTag}>Email</Text>
               <TextInput
                 style={styles.input}
                 placeholder='Email'
                 defaultValue={email}
                 onChangeText={text => setEmail(text)}
               />
+              <Text style={styles.inputTag}>Password</Text>
               <TextInput
                 style={styles.input}
                 placeholder='Password'
@@ -131,8 +134,13 @@ const styles = StyleSheet.create({
   input: {
     borderWidth: 1,
     borderRadius: 8,
+    borderColor: 'grey',
     padding: 5,
     marginTop: 5,
+  },
+  inputTag: {
+    color: 'grey',
+    fontWeight: '700',
   },
   btnContainer: {
     marginTop: 10,
@@ -141,15 +149,16 @@ const styles = StyleSheet.create({
   },
   btn: {
     borderRadius: 12,
+    borderColor: 'grey',
     marginTop: 5,
     borderWidth: 1.5,
     backgroundColor: 'linen',
-    width: Dimensions.get('screen').width / 2.5,
-    padding: 5,
+    width: 180,
+    padding: 8,
   },
   btnText: {
     color: 'grey',
-    fontSize: 20,
+    fontSize: 16,
     textAlign: 'center',
   },
 });

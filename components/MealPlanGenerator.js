@@ -7,6 +7,7 @@ import {
   FlatList,
   Button,
   Dimensions,
+  TouchableOpacity,
 } from 'react-native';
 import { useQuery, useMutation } from '@apollo/client';
 import { useSelector, useDispatch } from 'react-redux';
@@ -70,16 +71,18 @@ const MealPlanGenerator = ({ handleMealPlanClick }) => {
         </View>
         {user.restrictions !== selectedRestrictions && (
           <View style={styles.saveBtn}>
-            <Button title='Save' onPress={() => onRestrictionSave()} />
+            <TouchableOpacity
+              style={styles.btn}
+              onPress={() => onRestrictionSave()}
+            >
+              <Text style={styles.btnText}>Save</Text>
+            </TouchableOpacity>
           </View>
         )}
       </View>
 
-      <Pressable
-        style={styles.generateBtn}
-        onPress={() => handleMealPlanClick()}
-      >
-        <Text>Generate</Text>
+      <Pressable style={styles.btn} onPress={() => handleMealPlanClick()}>
+        <Text style={styles.btnText}>Generate</Text>
       </Pressable>
     </View>
   );
@@ -126,16 +129,21 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     marginTop: 13,
   },
-  saveBtn: {
-    marginTop: 13,
-    marginBottom: 10,
+  btn: {
+    flexDirection: 'row',
+    borderRadius: 12,
+    marginTop: 10,
+    borderWidth: 1.5,
+    backgroundColor: 'linen',
+    width: 180,
+    padding: 8,
+    justifyContent: 'center',
+    alignItems: 'center',
   },
-  generateBtn: {
-    margin: 10,
-    padding: 10,
-    borderRadius: 10,
-    backgroundColor: 'green',
-    // zIndex: 2,
+  btnText: {
+    color: 'black',
+    fontSize: 16,
+    textAlign: 'center',
   },
 });
 

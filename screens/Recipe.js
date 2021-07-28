@@ -9,6 +9,7 @@ import {
   Dimensions,
   Linking,
   Button,
+  TouchableOpacity,
 } from 'react-native';
 import Icon from 'react-native-vector-icons/Ionicons';
 import { useSelector, useDispatch } from 'react-redux';
@@ -75,19 +76,17 @@ const Recipe = ({ route, navigation }) => {
             handleFavoriteClick();
           }}
         >
-          {inFavorites ? (
-            <View style={styles.fav}>
-              <Icon name='ios-heart' color='red' size={25} />
-            </View>
-          ) : (
-            <View style={styles.fav}>
-              <Icon name='ios-heart-outline' color='red' size={25} />
-            </View>
-          )}
+          <View style={styles.fav}>
+            <Icon
+              name={inFavorites ? 'ios-heart' : 'ios-heart-outline'}
+              color='red'
+              size={25}
+            />
+          </View>
         </Pressable>
       </View>
       <View style={styles.detailContainer}>
-        <Text>
+        <Text style={styles.tags}>
           {ingredientsCount} Ingredients • {numberOfServings} Servings
         </Text>
         {ingredientLines.map((ingredient, index) => (
@@ -96,27 +95,50 @@ const Recipe = ({ route, navigation }) => {
       </View>
 
       <View style={styles.detailContainer}>
-        <Text>{totalTime}</Text>
+        <Text style={styles.tags}>{totalTime}</Text>
         {instructions.length ? (
           instructions.map(el => <Text>{el}</Text>)
         ) : (
           <>
             <Text>See instructions in link below</Text>
-            <Button
+
+            <TouchableOpacity
+              style={styles.btn}
               onPress={() => Linking.openURL(source.recipeUrl)}
-              title='Open in browser'
-            />
+            >
+              <Text>Open in browser</Text>
+            </TouchableOpacity>
           </>
         )}
       </View>
       <View style={styles.detailContainer}>
-        <Text>Nutrients Per Serving</Text>
-        <Text>Calories: {Math.floor(nutrientsPerServing.calories)} kcal</Text>
-        <Text>Protein: {nutrientsPerServing.protein}g</Text>
-        <Text>Carbs: {nutrientsPerServing.carbs}g</Text>
-        <Text>Fat: {nutrientsPerServing.fat}g</Text>
-        <Text>Fiber: {nutrientsPerServing.fiber}g</Text>
-        <Text>Sugar: {nutrientsPerServing.sugar}g</Text>
+        <Text style={styles.tags}>Nutrients Per Serving</Text>
+        <View style={styles.detailRow}>
+          <Text style={styles.detailName}>Calories</Text>
+          <Text style={styles.detailValue}>
+            {Math.floor(nutrientsPerServing.calories)} kcal
+          </Text>
+        </View>
+        <View style={styles.detailRow}>
+          <Text style={styles.detailName}>Protein</Text>
+          <Text style={styles.detailValue}>{nutrientsPerServing.protein}g</Text>
+        </View>
+        <View style={styles.detailRow}>
+          <Text style={styles.detailName}>Carbs</Text>
+          <Text style={styles.detailValue}>{nutrientsPerServing.carbs}g</Text>
+        </View>
+        <View style={styles.detailRow}>
+          <Text style={styles.detailName}>Fat</Text>
+          <Text style={styles.detailValue}>{nutrientsPerServing.fat}g</Text>
+        </View>
+        <View style={styles.detailRow}>
+          <Text style={styles.detailName}>Fiber</Text>
+          <Text style={styles.detailValue}>{nutrientsPerServing.fiber}g</Text>
+        </View>
+        <View style={styles.detailRow}>
+          <Text style={styles.detailName}>Sugar</Text>
+          <Text style={styles.detailValue}>{nutrientsPerServing.sugar}g</Text>
+        </View>
       </View>
     </ScrollView>
   );
@@ -124,15 +146,17 @@ const Recipe = ({ route, navigation }) => {
 
 const styles = StyleSheet.create({
   titleContainer: {
-    flex: 1,
+    width: Dimensions.get('screen').width,
     flexDirection: 'row',
-    alignItems: 'center',
     justifyContent: 'center',
+    alignItems: 'center',
+    marginTop: 5,
   },
   title: {
-    fontSize: 25,
+    width: '85%',
+    fontSize: 24,
     textAlign: 'center',
-    marginRight: 8,
+    marginRight: 5,
   },
   img: {
     height: Dimensions.get('screen').width - 100,
@@ -140,15 +164,49 @@ const styles = StyleSheet.create({
   },
   fav: {
     flex: 1,
-    flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'center',
   },
   detailContainer: {
     borderColor: 'black',
     borderWidth: 1,
+    padding: 10,
+    margin: 10,
+    borderWidth: 1,
+    borderColor: '#ddd',
+    borderRadius: 12,
+    shadowColor: '#bbb',
+    shadowOffset: {
+      width: 2,
+      height: 2,
+    },
+    shadowOpacity: 0.1,
+    shadowRadius: 4,
+
+    elevation: 2,
+    backgroundColor: 'white',
+  },
+  btn: {
+    width: 150,
+    marginTop: 5,
     padding: 5,
-    margin: 5,
+    borderRadius: 12,
+    borderWidth: 1.5,
+    backgroundColor: 'linen',
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  tags: {
+    color: 'grey',
+    marginBottom: 5,
+  },
+  detailRow: {
+    flexDirection: 'row',
+  },
+  detailName: {
+    fontWeight: 'bold',
+    color: 'grey',
+    marginRight: 5,
   },
 });
 export default Recipe;

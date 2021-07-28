@@ -85,25 +85,45 @@ const Home = ({ navigation }) => {
         </View>
         <View style={styles.nutrientContainer}>
           <View style={styles.nutrientColumn}>
-            <Text>
-              Calories: {Math.floor(item.recipe.nutrientsPerServing.calories)}{' '}
-              kcal
-            </Text>
-            <Text>
-              Sugar: {Math.floor(item.recipe.nutrientsPerServing.sugar)}g
-            </Text>
-            <Text>
-              Fiber: {Math.floor(item.recipe.nutrientsPerServing.fiber)}g
-            </Text>
+            <View style={styles.detailRow}>
+              <Text style={styles.detailName}>Calories</Text>
+              <Text style={styles.detailValue}>
+                {Math.floor(item.recipe.nutrientsPerServing.calories)} kcal
+              </Text>
+            </View>
+
+            <View style={styles.detailRow}>
+              <Text style={styles.detailName}>Protein</Text>
+              <Text style={styles.detailValue}>
+                {Math.floor(item.recipe.nutrientsPerServing.protein)}g
+              </Text>
+            </View>
+            <View style={styles.detailRow}>
+              <Text style={styles.detailName}>Fiber</Text>
+              <Text style={styles.detailValue}>
+                {Math.floor(item.recipe.nutrientsPerServing.fiber)}g
+              </Text>
+            </View>
           </View>
           <View style={styles.nutrientColumn}>
-            <Text>
-              Protein: {Math.floor(item.recipe.nutrientsPerServing.protein)}g
-            </Text>
-            <Text>
-              Carbs: {Math.floor(item.recipe.nutrientsPerServing.carbs)}g
-            </Text>
-            <Text>Fat: {Math.floor(item.recipe.nutrientsPerServing.fat)}g</Text>
+            <View style={styles.detailRow}>
+              <Text style={styles.detailName}>Carbs</Text>
+              <Text style={styles.detailValue}>
+                {Math.floor(item.recipe.nutrientsPerServing.carbs)}g
+              </Text>
+            </View>
+            <View style={styles.detailRow}>
+              <Text style={styles.detailName}>Fat</Text>
+              <Text style={styles.detailValue}>
+                {Math.floor(item.recipe.nutrientsPerServing.fat)}g
+              </Text>
+            </View>
+            <View style={styles.detailRow}>
+              <Text style={styles.detailName}>Sugar</Text>
+              <Text style={styles.detailValue}>
+                {Math.floor(item.recipe.nutrientsPerServing.sugar)}g
+              </Text>
+            </View>
           </View>
         </View>
       </View>
@@ -139,7 +159,7 @@ const Home = ({ navigation }) => {
 
           <TouchableOpacity
             style={styles.ctaBtn}
-            onPress={() => navigation.navigate('Mealplanner')}
+            onPress={() => navigation.navigate('Meal Plan')}
           >
             <Text style={styles.ctaText}>GENERATE MEAL PLAN</Text>
           </TouchableOpacity>
@@ -273,6 +293,7 @@ const styles = StyleSheet.create({
     color: 'grey',
   },
   tag: {
+    color: 'grey',
     backgroundColor: 'linen',
   },
   nutrientContainer: {
@@ -284,6 +305,14 @@ const styles = StyleSheet.create({
     marginRight: 5,
     /* justifyContent: 'center',
     alignItems: 'center', */
+  },
+  detailRow: {
+    flexDirection: 'row',
+  },
+  detailName: {
+    fontWeight: 'bold',
+    color: 'grey',
+    marginRight: 5,
   },
 });
 

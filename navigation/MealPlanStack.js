@@ -9,7 +9,6 @@ const MealPlanStack = () => {
   return (
     <Stack.Navigator initialRouteName={'MealPlanner'}>
       <Stack.Screen
-        headerMode='screen'
         name='MealPlanner'
         component={MealPlanner}
         options={{

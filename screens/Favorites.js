@@ -14,7 +14,7 @@ const Favorites = ({ navigation }) => {
   return (
     <View style={styles.container}>
       {data && data.getRecipesByIds ? (
-        <View>
+        <View style={{ alignItems: 'center' }}>
           <FlatList
             data={data.getRecipesByIds}
             keyExtractor={(item, index) => index.toString()}

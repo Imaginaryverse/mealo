@@ -73,7 +73,9 @@ const SwapCard = ({ recipe, onPressSelect, selectedId, isOriginal }) => {
       <View style={styles.extraDetails}>
         {showMore && (
           <View style={{ paddingTop: 10, paddingBottom: 25 }}>
-            <Text>{recipe.ingredientsCount} Ingredients</Text>
+            <Text style={styles.mealTags}>
+              {recipe.ingredientsCount} Ingredients
+            </Text>
             {recipe.ingredientLines.map((ingredient, index) => (
               <Text key={index}>• {ingredient}</Text>
             ))}

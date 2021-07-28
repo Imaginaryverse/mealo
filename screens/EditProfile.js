@@ -1,7 +1,15 @@
 import React, { useState, useEffect } from 'react';
 import RNPickerSelect from 'react-native-picker-select';
 import { useSelector, useDispatch } from 'react-redux';
-import { View, Text, StyleSheet, Pressable } from 'react-native';
+import {
+  View,
+  Text,
+  StyleSheet,
+  Pressable,
+  Dimensions,
+  TouchableOpacity,
+  KeyboardAvoidingView,
+} from 'react-native';
 import { Input } from 'react-native-elements';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import { useMutation } from '@apollo/client';
@@ -80,8 +88,6 @@ const EditProfile = ({ navigation }) => {
 
   useEffect(() => {
     if (data && data.updateUserProfile) {
-      // TODO: FIX HERE! birthdate doesn't work on profile page
-
       dispatch(
         UpdateUserProfileState({
           userId: user.databaseId,
@@ -105,15 +111,15 @@ const EditProfile = ({ navigation }) => {
   }, [data]);
 
   return (
-    <View style={styles.container}>
-      <Text>Edit Profile</Text>
-      <View>
+    <KeyboardAvoidingView style={styles.container}>
+      <View style={styles.inputContainer}>
         <Input
           label='Height (cm)'
           placeholder={profile.height ? `${profile.height}` : 'Height'}
           leftIcon={<Icon name='user' size={24} color='black' />}
           onChangeText={value => setHeight(value)}
           keyboardType='number-pad'
+          style={styles.inputField}
         />
         <Input
           label='Weight (kg)'
@@ -134,38 +140,78 @@ const EditProfile = ({ navigation }) => {
           onChangeText={value => setTargetWeight(value)}
           keyboardType='number-pad'
         />
-        <Text>Activity Level: {selectedActivityLevel}</Text>
-        <RNPickerSelect
-          onValueChange={value => setActivityState(value)}
-          items={[
-            { label: 'Not Active', value: 'Not Active' },
-            { label: '1 - 2 times per week', value: '1 - 2 times per week' },
-            { label: '3+ times per week', value: '3+ times per week' },
-          ]}
-        />
+        <View style={styles.pickerContainer}>
+          <Text style={styles.optionName}>
+            Activity Level: {selectedActivityLevel}
+          </Text>
+          <RNPickerSelect
+            onValueChange={value => setActivityState(value)}
+            items={[
+              { label: 'Not Active', value: 'Not Active' },
+              { label: '1 - 2 times per week', value: '1 - 2 times per week' },
+              { label: '3+ times per week', value: '3+ times per week' },
+            ]}
+          />
+        </View>
 
-        <Text>Weekly Weight Goal: {selectedWeightGoal}</Text>
-        <RNPickerSelect
-          onValueChange={value => setWeightGoalState(value)}
-          items={[
-            { label: 'Maintain', value: 'Maintain' },
-            { label: '0.25kg', value: '0.25kg' },
-            { label: '0.5kg', value: '0.5kg' },
-            { label: '0.75kg', value: '0.75kg' },
-            { label: '2kg', value: '2kg' },
-          ]}
-        />
+        <View style={styles.pickerContainer}>
+          <Text style={styles.optionName}>
+            Weekly Weight Goal: {selectedWeightGoal}
+          </Text>
+          <RNPickerSelect
+            onValueChange={value => setWeightGoalState(value)}
+            items={[
+              { label: 'Maintain', value: 'Maintain' },
+              { label: '0.25kg', value: '0.25kg' },
+              { label: '0.5kg', value: '0.5kg' },
+              { label: '0.75kg', value: '0.75kg' },
+              { label: '2kg', value: '2kg' },
+            ]}
+          />
+        </View>
       </View>
-      <Pressable onPress={() => onSave()}>
-        <Text>Save Profile</Text>
-      </Pressable>
-    </View>
+      <TouchableOpacity style={styles.btn} onPress={() => onSave()}>
+        <Text style={styles.btnText}>Save Profile</Text>
+      </TouchableOpacity>
+    </KeyboardAvoidingView>
   );
 };
 
 const styles = StyleSheet.create({
   container: {
     marginTop: 20,
+    alignItems: 'center',
+  },
+  inputContainer: {
+    width: Dimensions.get('screen').width - 20,
+  },
+  inputField: {
+    // width: Dimensions.get('screen').width - 20,
+  },
+  pickerContainer: {
+    marginBottom: 15,
+  },
+  btn: {
+    flexDirection: 'row',
+    borderRadius: 12,
+    marginTop: 10,
+    borderWidth: 1.5,
+    backgroundColor: 'linen',
+    width: Dimensions.get('screen').width / 2.5,
+    padding: 10,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  btnText: {
+    color: 'black',
+    fontSize: 20,
+    textAlign: 'center',
+  },
+  optionName: {
+    marginLeft: 10,
+    fontSize: 16,
+    color: 'grey',
+    fontWeight: '700',
   },
 });
 
