@@ -6,13 +6,19 @@ import {
   Button,
   StyleSheet,
   Dimensions,
+  TouchableOpacity,
 } from 'react-native';
 import { capitalizeName } from '../utils';
 import { useLazyQuery } from '@apollo/client';
+import Icon from 'react-native-vector-icons/Ionicons';
 
 const MealCard = ({ meal, navigation }) => {
   return (
-    <View style={styles.mealCard}>
+    <TouchableOpacity
+      onPress={() => navigation.navigate('Recipe', { recipe: meal.recipe })}
+      style={styles.mealCard}
+    >
+      {/* <View style={styles.mealCard}> */}
       <Image source={{ uri: meal.recipe.mainImage }} style={styles.image} />
       <View style={styles.rightContainer}>
         <View style={styles.mealCardInfo}>
@@ -23,49 +29,77 @@ const MealCard = ({ meal, navigation }) => {
           </Text>
         </View>
         <View style={styles.btnContainer}>
-          <Button
-            title='Swap'
+          <TouchableOpacity
             onPress={() =>
               navigation.navigate('Swap', {
                 recipe: meal.recipe,
                 mealId: meal.id,
               })
             }
-          />
-          <Button
-            title='Details'
-            onPress={() =>
-              navigation.navigate('Recipe', { recipe: meal.recipe })
-            }
-          />
+          >
+            <Icon name='ios-swap-horizontal' size={25} />
+            <Text style={styles.iconText}>Swap</Text>
+          </TouchableOpacity>
         </View>
       </View>
-    </View>
+      {/* </View> */}
+    </TouchableOpacity>
   );
 };
 
 const styles = StyleSheet.create({
   mealCard: {
     flexDirection: 'row',
-    width: Dimensions.get('screen').width - 15,
-    marginBottom: 10,
+    alignItems: 'center',
+    width: Dimensions.get('screen').width - 20,
+    /*     height: 128, */
+    padding: 8,
+    marginBottom: 13,
     borderColor: 'black',
     borderWidth: 1,
+    borderColor: '#ddd',
+    borderRadius: 12,
+    shadowColor: '#bbb',
+    shadowOffset: {
+      width: 2,
+      height: 2,
+    },
+    shadowOpacity: 0.1,
+    shadowRadius: 4,
+
+    elevation: 2,
+    backgroundColor: 'white',
   },
   image: {
-    width: 100,
-    height: 100,
+    width: 110,
+    height: 110,
+    borderWidth: 1,
+    borderColor: '#ddd',
+    borderRadius: 12,
   },
   rightContainer: {
     flex: 1,
+    height: '100%',
+    flexDirection: 'row',
     justifyContent: 'space-between',
+    alignItems: 'flex-start',
+    marginLeft: 8,
+    // backgroundColor: 'red',
   },
   mealCardInfo: {
+    flex: 1,
+    // height: '100',
     width: '80%',
+    marginBottom: 8,
+    justifyContent: 'space-between',
+    backgroundColor: 'red',
   },
   btnContainer: {
     flexDirection: 'row',
     justifyContent: 'space-around',
+  },
+  iconText: {
+    fontSize: 10,
   },
 });
 

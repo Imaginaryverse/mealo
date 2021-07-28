@@ -136,8 +136,12 @@ const styles = StyleSheet.create({
   container: {
     height: Dimensions.get('screen').height,
     width: Dimensions.get('screen').width,
+
     marginTop: 20,
     marginBottom: 0,
+
+    justifyContent: 'flex-start',
+    alignItems: 'center',
   },
   /* fab: {
     position: 'absolute',
