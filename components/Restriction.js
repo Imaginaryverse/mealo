@@ -30,7 +30,7 @@ const Restriction = ({
         onPress={handlePress}
         style={
           checked
-            ? styles.pressedRestrictionContainer
+            ? { ...styles.restrictionContainer, backgroundColor: 'chocolate' }
             : styles.restrictionContainer
         }
       >
@@ -42,26 +42,14 @@ const Restriction = ({
 
 const styles = StyleSheet.create({
   restrictionText: {
-    fontSize: 16,
-  },
-  pressedRestrictionContainer: {
-    borderRadius: 10,
-    elevation: 3,
-    backgroundColor: 'chocolate',
-    shadowOffset: { width: 1, height: 1 },
-    shadowColor: '#333',
-    shadowOpacity: 0.3,
-    shadowRadius: 2,
-    marginHorizontal: 4,
-    marginVertical: 6,
-    justifyContent: 'space-between',
-    flexDirection: 'row',
-    alignItems: 'center',
-    padding: 5,
-    width: '100%',
+    fontSize: 14,
   },
   restrictionContainer: {
-    borderRadius: 10,
+    paddingLeft: 10,
+    paddingRight: 10,
+    height: 30,
+    marginLeft: 5,
+    marginRight: 5,
     elevation: 3,
     backgroundColor: '#eee',
     shadowOffset: { width: 1, height: 1 },
@@ -70,11 +58,13 @@ const styles = StyleSheet.create({
     shadowRadius: 2,
     marginHorizontal: 4,
     marginVertical: 6,
-    justifyContent: 'space-between',
+    justifyContent: 'center',
     flexDirection: 'row',
     alignItems: 'center',
-    padding: 5,
-    width: '100%',
+
+    borderRadius: 12,
+    borderColor: '#aaa',
+    borderWidth: 1,
   },
 });
 

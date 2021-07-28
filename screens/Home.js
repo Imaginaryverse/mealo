@@ -11,12 +11,15 @@ import {
   Pressable,
   Dimensions,
   TouchableOpacity,
+  ImageBackground,
 } from 'react-native';
 import Carousel from 'react-native-snap-carousel';
 import Icon from 'react-native-vector-icons/Ionicons';
 import { getCurrentDate, getDayOfWeek, capitalizeName } from '../utils';
 import { UpdateMealPlanState } from '../redux/slices/userSlice';
 import { GET_MEALPLAN_FROM_DB } from '../queries/DBqueries';
+/* import placeholderImage from '../assets/ph.jpg';
+const placeholderUri = Image.resolveAssetSource(placeholderImage).uri; */
 
 const Home = ({ navigation }) => {
   const user = useSelector(state => state.user);
@@ -52,11 +55,14 @@ const Home = ({ navigation }) => {
   const renderItem = ({ item, index }) => (
     <TouchableOpacity
       onPress={() => navigation.navigate('Recipe', { recipe: item.recipe })}
+      style={styles.itemContainer}
     >
       <View style={styles.item}>
-        <Text>{capitalizeName(item.meal)}</Text>
+        <Text style={styles.mealTag}>{capitalizeName(item.meal)}</Text>
         <View style={styles.titleContainer}>
-          <Text>{item.recipe.name}</Text>
+          <View style={styles.recipeNameContainer}>
+            <Text style={styles.recipeName}>{item.recipe.name}</Text>
+          </View>
 
           {favorites.includes(item.recipe.id) ? (
             <View style={styles.fav}>
@@ -117,7 +123,26 @@ const Home = ({ navigation }) => {
       <View style={styles.container}>
         <View style={styles.homeContent}>
           <Text style={styles.h1}>Welcome {capitalizeName(user.name)}!</Text>
-          <Text>You don't have a meal plan. Generate one!</Text>
+
+          <Image
+            style={styles.ctaImage}
+            source={{
+              uri: 'https://image.flaticon.com/icons/png/512/776/776452.png',
+            }}
+          />
+          <Text style={styles.noPlanText}>
+            Seems like you don't have a meal plan.
+          </Text>
+          <Text style={styles.noPlanText}>
+            Click the button below to start generating!
+          </Text>
+
+          <TouchableOpacity
+            style={styles.ctaBtn}
+            onPress={() => navigation.navigate('Mealplanner')}
+          >
+            <Text style={styles.ctaText}>GENERATE MEAL PLAN</Text>
+          </TouchableOpacity>
         </View>
       </View>
     );
@@ -160,9 +185,26 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     paddingTop: 20,
   },
-  titleContainer: {
-    flex: 1,
-    flexDirection: 'row',
+  ctaBtn: {
+    height: 60,
+    width: 280,
+    padding: 20,
+
+    marginTop: 40,
+    marginBottom: 40,
+
+    borderColor: '#bbb',
+    borderWidth: 1.6,
+    borderRadius: 12,
+
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  ctaText: {
+    fontSize: 22,
+  },
+  noPlanText: {
+    fontSize: 18,
   },
   carouselContainer: {
     flex: 1,
@@ -170,18 +212,56 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
   },
+  itemContainer: {
+    justifyContent: 'flex-start',
+    alignItems: 'center',
+    marginTop: 20,
+    marginBottom: 20,
+    backgroundColor: 'white',
+
+    borderColor: '#bbb',
+    borderWidth: 1.6,
+    borderRadius: 12,
+    shadowColor: '#000',
+    shadowOffset: {
+      width: 5,
+      height: 5,
+    },
+    shadowOpacity: 0.36,
+    shadowRadius: 6.68,
+
+    elevation: 11,
+  },
   item: {
     height: 440,
-    padding: 50,
-    borderColor: 'black',
-    borderWidth: 1,
+    padding: 20,
+  },
+  titleContainer: {
+    flexDirection: 'row',
+    marginBottom: 10,
+  },
+  recipeNameContainer: {
+    width: 200,
+  },
+  recipeName: {
+    fontSize: 18,
+  },
+  ctaImage: {
+    height: 220,
+    width: 220,
+    marginTop: 60,
+    marginBottom: 40,
   },
   image: {
-    width: 200,
-    height: 200,
+    width: 220,
+    height: 220,
+    borderRadius: 12,
+    borderColor: '#ccc',
+    borderWidth: 1.2,
+    marginBottom: 15,
   },
   h1: {
-    fontSize: 22,
+    fontSize: 26,
   },
   h2: {
     fontSize: 18,
@@ -190,11 +270,15 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-between',
   },
+  mealTag: {
+    color: 'grey',
+  },
   tag: {
     backgroundColor: 'linen',
   },
   nutrientContainer: {
     flexDirection: 'row',
+    justifyContent: 'space-between',
   },
   nutrientColumn: {
     flexDirection: 'column',

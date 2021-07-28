@@ -9,7 +9,7 @@ import Icon from 'react-native-vector-icons/Ionicons';
 
 const Tab = createBottomTabNavigator();
 
-const BottomTabNavigator = () => {
+const BottomTabNavigator = ({ navigation }) => {
   return (
     <Tab.Navigator
       tabBarOptions={{
@@ -19,6 +19,7 @@ const BottomTabNavigator = () => {
       <Tab.Screen
         name='Home'
         component={HomeStack}
+        navigation={navigation}
         options={{
           tabBarIcon: ({ focused, color, size }) => (
             <Icon
@@ -27,6 +28,7 @@ const BottomTabNavigator = () => {
               color={focused ? 'red' : 'black'}
             />
           ),
+          unmountOnBlur: true,
         }}
       />
       <Tab.Screen

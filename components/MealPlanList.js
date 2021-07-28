@@ -10,6 +10,7 @@ const MealPlanList = ({ mealPlan, navigation }) => {
 
   return (
     <View>
+      <Text style={styles.pageHeader}>Your Meal Plan</Text>
       <FlatList
         data={sortMealPlanByDay(mealPlan)}
         renderItem={renderItem}
@@ -18,5 +19,12 @@ const MealPlanList = ({ mealPlan, navigation }) => {
     </View>
   );
 };
+
+const styles = StyleSheet.create({
+  pageHeader: {
+    fontSize: 22,
+    color: 'black',
+  },
+});
 
 export default MealPlanList;

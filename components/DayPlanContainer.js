@@ -39,17 +39,17 @@ const DayPlanContainer = ({ dayPlan, navigation }) => {
 
 const styles = StyleSheet.create({
   dayPlanContainer: {
-    height: Dimensions.get('screen').height - 60,
+    // height: Dimensions.get('screen').height - 60,
     flex: 1,
-    justifyContent: 'center',
+    justifyContent: 'flex-start',
     alignItems: 'center',
     marginBottom: 10,
+    backgroundColor: 'olive',
   },
   dayInfoContainer: {
     backgroundColor: 'tomato',
   },
   mealsContainer: {
-    flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
   },

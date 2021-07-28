@@ -6,6 +6,7 @@ import {
   Pressable,
   FlatList,
   Button,
+  Dimensions,
 } from 'react-native';
 import { useQuery, useMutation } from '@apollo/client';
 import { useSelector, useDispatch } from 'react-redux';
@@ -42,37 +43,43 @@ const MealPlanGenerator = ({ handleMealPlanClick }) => {
 
   return (
     <View style={styles.container}>
-      <Text>Meal Plan Generator</Text>
+      <Text style={styles.pageHeader}>Meal Plan Generator</Text>
+      <View style={styles.instructionsContainer}>
+        <Text style={styles.instructionsText}>
+          1. Select your dietary restrictions (optional)
+        </Text>
+        <Text style={styles.instructionsText}>2. Press 'Save' when done</Text>
+        <Text style={styles.instructionsText}>
+          3. Press 'Generate' to generate your meal plan
+        </Text>
+      </View>
 
-      <Text>
-        If you have any dietary restrictions, select them and click the save
-        button. When you are ready, click 'Generate Meal Plan' and we will try
-        to generate a meal plan for you!
-      </Text>
-
-      <Text>Dietary Restrictions:</Text>
-      <View>
-        {data && (
-          <FlatList
-            data={data.getAllRestrictions}
-            renderItem={({ item }) => (
+      <View style={styles.restrictionsContainer}>
+        <Text style={styles.restrictionsTitle}>Dietary Restrictions</Text>
+        <View style={styles.restrictionsList}>
+          {data &&
+            data.getAllRestrictions &&
+            data.getAllRestrictions.map((restriction, index) => (
               <Restriction
-                restriction={item}
+                restriction={restriction}
                 selectedRestrictions={selectedRestrictions}
                 setSelectedRestrictions={setSelectedRestrictions}
+                key={index}
               />
-            )}
-            numColumns={4}
-            keyExtractor={(item, i) => i.toString()}
-          />
-        )}
+            ))}
+        </View>
         {user.restrictions !== selectedRestrictions && (
-          <Button title='Save' onPress={() => onRestrictionSave()} />
+          <View style={styles.saveBtn}>
+            <Button title='Save' onPress={() => onRestrictionSave()} />
+          </View>
         )}
       </View>
 
-      <Pressable onPress={() => handleMealPlanClick()}>
-        <Text>Generate Meal Plan</Text>
+      <Pressable
+        style={styles.generateBtn}
+        onPress={() => handleMealPlanClick()}
+      >
+        <Text>Generate</Text>
       </Pressable>
     </View>
   );
@@ -81,11 +88,54 @@ const MealPlanGenerator = ({ handleMealPlanClick }) => {
 const styles = StyleSheet.create({
   container: {
     marginTop: 20,
+    alignItems: 'center',
+  },
+  pageHeader: {
+    fontSize: 22,
+    color: 'black',
+  },
+  instructionsContainer: {
+    padding: 10,
+    marginTop: 20,
+    marginBottom: 20,
+    borderRadius: 12,
+    borderColor: '#ccc',
+    borderWidth: 1.2,
+    backgroundColor: '#eee',
+  },
+  instructionsText: {
+    color: '#555',
   },
   restrictionsContainer: {
-    flexDirection: 'row',
-    justifyContent: 'center',
+    width: Dimensions.get('screen').width - 20,
+    padding: 10,
+    borderRadius: 12,
+    borderColor: '#aaa',
+    borderWidth: 1.2,
+
+    justifyContent: 'flex-start',
     alignItems: 'center',
+  },
+  restrictionsTitle: {
+    fontSize: 16,
+  },
+  restrictionsList: {
+    flexWrap: 'wrap',
+    flexDirection: 'row',
+    justifyContent: 'space-around',
+    alignItems: 'center',
+    marginTop: 13,
+  },
+  saveBtn: {
+    marginTop: 13,
+    marginBottom: 10,
+  },
+  generateBtn: {
+    margin: 10,
+    padding: 10,
+    borderRadius: 10,
+    backgroundColor: 'green',
+    // zIndex: 2,
   },
 });
 
