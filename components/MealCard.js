@@ -37,7 +37,7 @@ const MealCard = ({ meal, navigation }) => {
               })
             }
           >
-            <Icon name='ios-swap-horizontal' size={25} />
+            <Icon name='ios-swap-horizontal' size={25} color='#ffad0a' />
             <Text style={styles.iconText}>Swap</Text>
           </TouchableOpacity>
         </View>

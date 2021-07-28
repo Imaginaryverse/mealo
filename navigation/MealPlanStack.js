@@ -13,11 +13,25 @@ const MealPlanStack = () => {
         component={MealPlanner}
         options={{
           title: 'Meal Plan',
-          //headerRight: () => <FAB handlePress={handlePress} />,
+          headerStyle: { backgroundColor: '#89b337' },
         }}
       />
-      <Stack.Screen name='Recipe' component={Recipe} headerMode='screen' />
-      <Stack.Screen name='Swap' component={Swap} headerMode='screen' />
+      <Stack.Screen
+        name='Recipe'
+        component={Recipe}
+        headerMode='screen'
+        options={{
+          headerStyle: { backgroundColor: '#89b337' },
+        }}
+      />
+      <Stack.Screen
+        name='Swap'
+        component={Swap}
+        headerMode='screen'
+        options={{
+          headerStyle: { backgroundColor: '#89b337' },
+        }}
+      />
     </Stack.Navigator>
   );
 };

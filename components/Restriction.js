@@ -30,11 +30,19 @@ const Restriction = ({
         onPress={handlePress}
         style={
           checked
-            ? { ...styles.restrictionContainer, backgroundColor: 'chocolate' }
+            ? { ...styles.restrictionContainer, backgroundColor: '#ccc' }
             : styles.restrictionContainer
         }
       >
-        <Text style={styles.restrictionText}>{restriction.name}</Text>
+        <Text
+          style={
+            checked
+              ? { ...styles.restrictionText, color: '#5e5e5e' }
+              : styles.restrictionText
+          }
+        >
+          {restriction.name}
+        </Text>
       </TouchableOpacity>
     </View>
   );
@@ -43,6 +51,7 @@ const Restriction = ({
 const styles = StyleSheet.create({
   restrictionText: {
     fontSize: 14,
+    color: 'black',
   },
   restrictionContainer: {
     paddingLeft: 10,
@@ -50,7 +59,7 @@ const styles = StyleSheet.create({
     height: 30,
     marginLeft: 5,
     marginRight: 5,
-    elevation: 3,
+    elevation: 2,
     backgroundColor: '#eee',
     shadowOffset: { width: 1, height: 1 },
     shadowColor: '#333',

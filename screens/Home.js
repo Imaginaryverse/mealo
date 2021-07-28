@@ -154,14 +154,14 @@ const Home = ({ navigation }) => {
             Seems like you don't have a meal plan.
           </Text>
           <Text style={styles.noPlanText}>
-            Click the button below to start generating!
+            Press the button below to start!
           </Text>
 
           <TouchableOpacity
-            style={styles.ctaBtn}
+            style={styles.btn}
             onPress={() => navigation.navigate('Meal Plan')}
           >
-            <Text style={styles.ctaText}>GENERATE MEAL PLAN</Text>
+            <Text style={styles.btnText}>Generate Meal Plan</Text>
           </TouchableOpacity>
         </View>
       </View>
@@ -204,7 +204,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     paddingTop: 20,
   },
-  ctaBtn: {
+  /* ctaBtn: {
     height: 60,
     width: 280,
     padding: 20,
@@ -221,7 +221,7 @@ const styles = StyleSheet.create({
   },
   ctaText: {
     fontSize: 22,
-  },
+  }, */
   noPlanText: {
     fontSize: 18,
   },
@@ -264,6 +264,7 @@ const styles = StyleSheet.create({
   },
   recipeName: {
     fontSize: 18,
+    color: '#37392E',
   },
   ctaImage: {
     height: 220,
@@ -311,8 +312,27 @@ const styles = StyleSheet.create({
   },
   detailName: {
     fontWeight: 'bold',
-    color: 'grey',
+    color: '#37392E',
     marginRight: 5,
+  },
+  btn: {
+    height: 50,
+    borderRadius: 12,
+    borderColor: 'gray',
+    marginTop: 20,
+    borderWidth: 1.5,
+    // backgroundColor: '#9AC544',
+    // backgroundColor: '#89b337',
+    backgroundColor: '#FFC757',
+    width: 220,
+    padding: 8,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  btnText: {
+    color: '#37392E',
+    fontSize: 20,
+    textAlign: 'center',
   },
 });
 

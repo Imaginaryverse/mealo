@@ -10,9 +10,17 @@ const FavoritesStack = () => {
       <Stack.Screen
         name='Favorites'
         component={Favorites}
-        options={{ headerShown: true, title: 'Favorites' }}
+        options={{
+          headerShown: true,
+          title: 'Favorites',
+          headerStyle: { backgroundColor: '#89b337' },
+        }}
       />
-      <Stack.Screen name='Recipe' component={Recipe} />
+      <Stack.Screen
+        name='Recipe'
+        component={Recipe}
+        options={{ headerStyle: { backgroundColor: '#89b337' } }}
+      />
     </Stack.Navigator>
   );
 };

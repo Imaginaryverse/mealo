@@ -12,13 +12,13 @@ const FAB = ({ handlePress }) => {
 
 const styles = StyleSheet.create({
   fab: {
-    height: 35,
-    width: 35,
+    height: 40,
+    width: 40,
     position: 'absolute',
     top: 10,
     left: 15,
     zIndex: 10,
-    borderRadius: 35,
+    borderRadius: 40,
     justifyContent: 'center',
     alignItems: 'center',
     borderWidth: 1.2,

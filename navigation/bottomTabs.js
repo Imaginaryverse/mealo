@@ -13,9 +13,16 @@ const BottomTabNavigator = ({ navigation }) => {
   return (
     <Tab.Navigator
       tabBarOptions={{
-        activeTintColor: 'red',
+        activeTintColor: 'white',
+        inactiveTintColor: 'black',
         keyboardHidesTabBar: true,
         animationEnabled: false,
+        style: {
+          backgroundColor: '#89b337',
+          height: 55,
+          paddingTop: 5,
+          paddingBottom: 5,
+        },
       }}
     >
       <Tab.Screen
@@ -27,7 +34,7 @@ const BottomTabNavigator = ({ navigation }) => {
             <Icon
               name={focused ? 'ios-home' : 'ios-home-outline'}
               size={30}
-              color={focused ? 'red' : 'black'}
+              color={focused ? 'white' : 'black'}
             />
           ),
           unmountOnBlur: true,
@@ -41,7 +48,7 @@ const BottomTabNavigator = ({ navigation }) => {
             <Icon
               name={focused ? 'ios-restaurant' : 'ios-restaurant-outline'}
               size={25}
-              color={focused ? 'red' : 'black'}
+              color={focused ? 'white' : 'black'}
             />
           ),
         }}
@@ -54,7 +61,7 @@ const BottomTabNavigator = ({ navigation }) => {
             <Icon
               name={focused ? 'ios-heart' : 'ios-heart-outline'}
               size={25}
-              color={focused ? 'red' : 'black'}
+              color={focused ? 'white' : 'black'}
             />
           ),
         }}
@@ -67,7 +74,7 @@ const BottomTabNavigator = ({ navigation }) => {
             <Icon
               name={focused ? 'ios-person' : 'ios-person-outline'}
               size={25}
-              color={focused ? 'red' : 'black'}
+              color={focused ? 'white' : 'black'}
             />
           ),
         }}

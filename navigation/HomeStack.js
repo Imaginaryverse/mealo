@@ -11,14 +11,18 @@ const HomeStack = () => {
       <Stack.Screen
         name='Home'
         component={Home}
-        options={{ headerShown: true }}
+        options={{
+          headerShown: true,
+          headerStyle: { backgroundColor: '#89b337' },
+        }}
       />
-      <Stack.Screen name='Recipe' component={Recipe} />
-      {/* <Stack.Screen
-        name='MealPlanner'
-        component={MealPlanStack}
-        options={{ headerShown: false }}
-      /> */}
+      <Stack.Screen
+        name='Recipe'
+        component={Recipe}
+        options={{
+          headerStyle: { backgroundColor: '#89b337' },
+        }}
+      />
     </Stack.Navigator>
   );
 };

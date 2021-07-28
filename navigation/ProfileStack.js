@@ -10,9 +10,18 @@ const ProfileStack = () => {
       <Stack.Screen
         name='Profile'
         component={Profile}
-        options={{ headerShown: true }}
+        options={{
+          headerShown: true,
+          headerStyle: { backgroundColor: '#89b337' },
+        }}
       />
-      <Stack.Screen name='EditProfile' component={EditProfile} />
+      <Stack.Screen
+        name='EditProfile'
+        component={EditProfile}
+        options={{
+          headerStyle: { backgroundColor: '#89b337' },
+        }}
+      />
     </Stack.Navigator>
   );
 };

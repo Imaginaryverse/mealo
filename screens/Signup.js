@@ -88,14 +88,14 @@ const Signup = ({ navigation }) => {
         <Text style={styles.inputTag}>Name</Text>
         <TextInput
           style={styles.input}
-          placeholder='name'
+          placeholder='Name'
           defaultValue={name}
           onChangeText={text => setName(text)}
         />
         <Text style={styles.inputTag}>Email</Text>
         <TextInput
           style={styles.input}
-          placeholder='email'
+          placeholder='Email'
           defaultValue={email}
           onChangeText={text => setEmail(text)}
         />
@@ -107,7 +107,7 @@ const Signup = ({ navigation }) => {
         <Text style={styles.inputTag}>Password</Text>
         <TextInput
           style={styles.input}
-          placeholder='password'
+          placeholder='Password'
           secureTextEntry={true}
           defaultValue={password}
           onChangeText={text => setPassword(text)}
@@ -115,7 +115,7 @@ const Signup = ({ navigation }) => {
         <Text style={styles.inputTag}>Confirm Password</Text>
         <TextInput
           style={styles.input}
-          placeholder='confirm password'
+          placeholder='Confirm Password'
           secureTextEntry={true}
           defaultValue={confirmPassword}
           onChangeText={text => setConfirmPassword(text)}
@@ -153,7 +153,7 @@ const styles = StyleSheet.create({
     borderColor: 'grey',
     marginTop: 10,
     borderWidth: 1.5,
-    backgroundColor: 'linen',
+    backgroundColor: '#FFC757',
     width: 180,
     padding: 8,
     justifyContent: 'center',

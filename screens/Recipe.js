@@ -100,7 +100,9 @@ const Recipe = ({ route, navigation }) => {
           instructions.map(el => <Text>{el}</Text>)
         ) : (
           <>
-            <Text>See instructions in link below</Text>
+            <Text style={{ alignSelf: 'center' }}>
+              See instructions in link below
+            </Text>
 
             <TouchableOpacity
               style={styles.btn}
@@ -113,31 +115,47 @@ const Recipe = ({ route, navigation }) => {
       </View>
       <View style={styles.detailContainer}>
         <Text style={styles.tags}>Nutrients Per Serving</Text>
-        <View style={styles.detailRow}>
-          <Text style={styles.detailName}>Calories</Text>
-          <Text style={styles.detailValue}>
-            {Math.floor(nutrientsPerServing.calories)} kcal
-          </Text>
-        </View>
-        <View style={styles.detailRow}>
-          <Text style={styles.detailName}>Protein</Text>
-          <Text style={styles.detailValue}>{nutrientsPerServing.protein}g</Text>
-        </View>
-        <View style={styles.detailRow}>
-          <Text style={styles.detailName}>Carbs</Text>
-          <Text style={styles.detailValue}>{nutrientsPerServing.carbs}g</Text>
-        </View>
-        <View style={styles.detailRow}>
-          <Text style={styles.detailName}>Fat</Text>
-          <Text style={styles.detailValue}>{nutrientsPerServing.fat}g</Text>
-        </View>
-        <View style={styles.detailRow}>
-          <Text style={styles.detailName}>Fiber</Text>
-          <Text style={styles.detailValue}>{nutrientsPerServing.fiber}g</Text>
-        </View>
-        <View style={styles.detailRow}>
-          <Text style={styles.detailName}>Sugar</Text>
-          <Text style={styles.detailValue}>{nutrientsPerServing.sugar}g</Text>
+
+        <View style={styles.columnsContainer}>
+          <View style={styles.detailColumn}>
+            <View style={styles.detailRow}>
+              <Text style={styles.detailName}>Calories</Text>
+              <Text style={styles.detailValue}>
+                {Math.floor(nutrientsPerServing.calories)} kcal
+              </Text>
+            </View>
+            <View style={styles.detailRow}>
+              <Text style={styles.detailName}>Protein</Text>
+              <Text style={styles.detailValue}>
+                {nutrientsPerServing.protein}g
+              </Text>
+            </View>
+            <View style={styles.detailRow}>
+              <Text style={styles.detailName}>Carbs</Text>
+              <Text style={styles.detailValue}>
+                {nutrientsPerServing.carbs}g
+              </Text>
+            </View>
+          </View>
+
+          <View style={styles.detailColumn}>
+            <View style={styles.detailRow}>
+              <Text style={styles.detailName}>Fat</Text>
+              <Text style={styles.detailValue}>{nutrientsPerServing.fat}g</Text>
+            </View>
+            <View style={styles.detailRow}>
+              <Text style={styles.detailName}>Fiber</Text>
+              <Text style={styles.detailValue}>
+                {nutrientsPerServing.fiber}g
+              </Text>
+            </View>
+            <View style={styles.detailRow}>
+              <Text style={styles.detailName}>Sugar</Text>
+              <Text style={styles.detailValue}>
+                {nutrientsPerServing.sugar}g
+              </Text>
+            </View>
+          </View>
         </View>
       </View>
     </ScrollView>
@@ -170,7 +188,7 @@ const styles = StyleSheet.create({
   detailContainer: {
     borderColor: 'black',
     borderWidth: 1,
-    padding: 10,
+    padding: 13,
     margin: 10,
     borderWidth: 1,
     borderColor: '#ddd',
@@ -186,15 +204,42 @@ const styles = StyleSheet.create({
     elevation: 2,
     backgroundColor: 'white',
   },
+  columnsContainer: {
+    paddingRight: 85,
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+  },
+  /* nutrientsContainer: {
+    flexDirection: 'row',
+    borderColor: 'black',
+    borderWidth: 1,
+    padding: 10,
+    margin: 10,
+    borderWidth: 1,
+    borderColor: '#ddd',
+    borderRadius: 12,
+    shadowColor: '#bbb',
+    shadowOffset: {
+      width: 2,
+      height: 2,
+    },
+    shadowOpacity: 0.1,
+    shadowRadius: 4,
+
+    elevation: 2,
+    backgroundColor: 'white',
+  }, */
   btn: {
     width: 150,
     marginTop: 5,
     padding: 5,
     borderRadius: 12,
     borderWidth: 1.5,
-    backgroundColor: 'linen',
+    borderColor: 'gray',
+    backgroundColor: '#FFC757',
     justifyContent: 'center',
     alignItems: 'center',
+    alignSelf: 'center',
   },
   tags: {
     color: 'grey',

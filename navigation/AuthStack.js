@@ -9,17 +9,37 @@ const Stack = createStackNavigator();
 const AuthStack = () => {
   return (
     <Stack.Navigator initialRouteName={'Login'}>
-      <Stack.Screen name='Login' component={Login} />
-      <Stack.Screen name='Signup' component={Signup} />
+      <Stack.Screen
+        name='Login'
+        component={Login}
+        options={{
+          headerShown: false,
+          headerStyle: { backgroundColor: '#89b337' },
+        }}
+      />
+      <Stack.Screen
+        name='Signup'
+        component={Signup}
+        options={{
+          title: 'Create Account',
+          headerStyle: { backgroundColor: '#89b337' },
+        }}
+      />
       <Stack.Screen
         name='Onboard'
         component={Onboard}
-        options={{ headerShown: true }}
+        options={{
+          headerShown: true,
+          headerStyle: { backgroundColor: '#89b337' },
+        }}
       />
       <Stack.Screen
         name='Home'
         component={BottomTabNavigator}
-        options={{ headerShown: true }}
+        options={{
+          headerShown: true,
+          headerStyle: { backgroundColor: '#89b337' },
+        }}
       />
     </Stack.Navigator>
   );

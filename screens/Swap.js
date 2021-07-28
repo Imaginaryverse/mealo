@@ -55,7 +55,7 @@ const Swap = ({ navigation, route }) => {
   if (loading && !data) {
     return (
       <View>
-        <Text>Loading...</Text>
+        <Text style={{ fontFamily: 'Roboto-Regular' }}>Loading...</Text>
       </View>
     );
   }
@@ -63,7 +63,9 @@ const Swap = ({ navigation, route }) => {
   if (error) {
     return (
       <View>
-        <Text>Oops! Couldn't find any similar recipes</Text>
+        <Text style={{ fontFamily: 'Roboto-Regular' }}>
+          Oops! Couldn't find any similar recipes
+        </Text>
       </View>
     );
   }
@@ -103,7 +105,9 @@ const Swap = ({ navigation, route }) => {
       </View>
 
       {confirmLoading ? (
-        <Text>Updating meal plan. Please wait...</Text>
+        <Text style={{ fontFamily: 'Roboto-Regular' }}>
+          Updating meal plan. Please wait...
+        </Text>
       ) : (
         <TouchableOpacity style={styles.btn} onPress={() => onConfirm()}>
           <Text style={styles.btnText}>Confirm</Text>
@@ -118,6 +122,7 @@ const styles = StyleSheet.create({
     margin: 5,
     textAlign: 'center',
     fontSize: 16,
+    fontFamily: 'WorkSans-Regular',
   },
   btn: {
     flexDirection: 'row',
@@ -125,7 +130,7 @@ const styles = StyleSheet.create({
     marginTop: 20,
     marginBottom: 30,
     borderWidth: 1.5,
-    backgroundColor: 'linen',
+    backgroundColor: '#FFC757',
     width: 130,
     padding: 8,
     justifyContent: 'center',
@@ -136,6 +141,7 @@ const styles = StyleSheet.create({
     color: 'black',
     fontSize: 16,
     textAlign: 'center',
+    //fontFamily: 'Roboto-Bold',
   },
 });
 
