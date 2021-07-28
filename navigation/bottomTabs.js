@@ -32,7 +32,7 @@ const BottomTabNavigator = ({ navigation }) => {
         }}
       />
       <Tab.Screen
-        name='Mealplanner'
+        name='Meal Plan'
         component={MealPlanStack}
         options={{
           tabBarIcon: ({ focused, color, size }) => (

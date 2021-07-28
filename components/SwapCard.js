@@ -7,6 +7,8 @@ import {
   Image,
   TouchableOpacity,
   Dimensions,
+  Animated,
+  Easing,
 } from 'react-native';
 import RadioButton from './RadioButton';
 import { useLazyQuery } from '@apollo/client';
@@ -14,6 +16,25 @@ import Icon from 'react-native-vector-icons/Ionicons';
 
 const SwapCard = ({ recipe, onPressSelect, selectedId, isOriginal }) => {
   const [showMore, setShowMore] = useState(false);
+
+  /*
+   const toggleShowMore = () => {
+    if (showMore) {
+      Animated.timing(animatedController, {
+        duration: 300,
+        toValue: 0,
+        easing: Easing.bezier(0.4, 0.0, 0.2, 1),
+      }).start();
+    } else {
+      Animated.timing(animatedController, {
+        duration: 300,
+        toValue: 1,
+        easing: Easing.bezier(0.4, 0.0, 0.2, 1),
+      }).start();
+    }
+    setShowMore(!ShowMore);
+  };
+   */
 
   return (
     <TouchableOpacity
@@ -24,9 +45,11 @@ const SwapCard = ({ recipe, onPressSelect, selectedId, isOriginal }) => {
       <View style={styles.topContainer}>
         <Image source={{ uri: recipe.mainImage }} style={styles.image} />
         <View style={styles.topInfo}>
-          <Text>{recipe.mealTags[0]}</Text>
-          <Text>{recipe.name}</Text>
-          <Text>
+          <Text style={styles.mealTag}>
+            {recipe.mealTags.length ? recipe.mealTags[0] : 'Food'}
+          </Text>
+          <Text style={styles.mealName}>{recipe.name}</Text>
+          <Text style={styles.mealTags}>
             {Math.floor(recipe.nutrientsPerServing.calories)} kcal •{' '}
             {recipe.totalTime}
           </Text>
@@ -49,45 +72,73 @@ const SwapCard = ({ recipe, onPressSelect, selectedId, isOriginal }) => {
       </View>
       <View style={styles.extraDetails}>
         {showMore && (
-          <View>
-            <Text>Time: {recipe.totalTime}</Text>
-            <Text>
-              Calories per Serving:{' '}
-              {Math.floor(recipe.nutrientsPerServing.calories)}
-            </Text>
-            <Text>Ingredients: {recipe.ingredientsCount}</Text>
+          <View style={{ paddingTop: 10, paddingBottom: 25 }}>
+            <Text>{recipe.ingredientsCount} Ingredients</Text>
             {recipe.ingredientLines.map((ingredient, index) => (
               <Text key={index}>• {ingredient}</Text>
             ))}
           </View>
         )}
       </View>
-      <Icon name={showMore ? 'ios-chevron-up' : 'ios-chevron-down'} size={25} />
+      <Icon
+        name={showMore ? 'ios-chevron-up' : 'ios-chevron-down'}
+        size={25}
+        style={styles.chevron}
+      />
     </TouchableOpacity>
   );
 };
 
 const styles = StyleSheet.create({
   mealCard: {
+    padding: 8,
     width: Dimensions.get('screen').width - 10,
     margin: 5,
     justifyContent: 'center',
     alignItems: 'center',
-    borderColor: 'black',
     borderWidth: 1,
+    borderColor: '#ddd',
+    borderRadius: 12,
+    shadowColor: '#bbb',
+    shadowOffset: {
+      width: 2,
+      height: 2,
+    },
+    shadowOpacity: 0.1,
+    shadowRadius: 4,
+
+    elevation: 2,
+    backgroundColor: 'white',
   },
   topContainer: {
     flex: 1,
     width: '100%',
+
     flexDirection: 'row',
-    backgroundColor: 'yellow',
   },
   image: {
-    width: 100,
-    height: 100,
+    width: 110,
+    height: 110,
+    borderWidth: 1,
+    borderColor: '#ddd',
+    borderRadius: 12,
   },
   topInfo: {
     width: 180,
+    marginLeft: 8,
+    //flex: 1,
+    justifyContent: 'flex-start',
+  },
+  mealTag: {
+    color: 'grey',
+    fontWeight: 'bold',
+  },
+  mealName: {
+    fontSize: 16,
+    fontWeight: '700',
+  },
+  mealTags: {
+    color: 'grey',
   },
   selectContainer: {
     flex: 1,
@@ -95,8 +146,11 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   extraDetails: {
-    width: '80%',
-    // flexDirection: 'row',
+    width: '98%',
+  },
+  chevron: {
+    position: 'absolute',
+    bottom: 0,
   },
 });
 

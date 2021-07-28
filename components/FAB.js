@@ -5,7 +5,7 @@ import Icon from 'react-native-vector-icons/Ionicons';
 const FAB = ({ handlePress }) => {
   return (
     <TouchableOpacity style={styles.fab} onPress={handlePress}>
-      <Icon name='ios-newspaper-outline' size={25} color='#01a699' />
+      <Icon name='ios-newspaper-outline' size={25} color='black' />
     </TouchableOpacity>
   );
 };
@@ -15,8 +15,8 @@ const styles = StyleSheet.create({
     height: 35,
     width: 35,
     position: 'absolute',
-    top: 30,
-    right: 15,
+    top: 10,
+    left: 15,
     zIndex: 10,
     borderRadius: 35,
     justifyContent: 'center',

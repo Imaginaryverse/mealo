@@ -10,7 +10,7 @@ const MealPlanList = ({ mealPlan, navigation }) => {
 
   return (
     <View>
-      <Text style={styles.pageHeader}>Your Meal Plan</Text>
+      {/* <Text style={styles.pageHeader}>Your Meal Plan</Text> */}
       <FlatList
         data={sortMealPlanByDay(mealPlan)}
         renderItem={renderItem}

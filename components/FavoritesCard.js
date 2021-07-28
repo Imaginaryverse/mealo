@@ -7,44 +7,73 @@ import {
   StyleSheet,
   TouchableOpacity,
 } from 'react-native';
-
 const FavoritesCard = ({ recipe, navigation }) => {
   return (
     <TouchableOpacity
       onPress={() => navigation.navigate('Recipe', { recipe: recipe })}
+      style={styles.mealCard}
     >
-      <View style={styles.mealCard}>
-        <Image source={{ uri: recipe.mainImage }} style={styles.img} />
-        <View style={styles.mealCardInfo}>
-          <Text>{recipe.name}</Text>
-          <Text>
-            {Math.floor(recipe.nutrientsPerServing.calories)} kcal •{' '}
-            {recipe.totalTime}
-          </Text>
-          {/* <Text>
-            Calories per Serving:{' '}
-            {Math.floor(recipe.nutrientsPerServing.calories)}
-          </Text> */}
-        </View>
+      {/* <View style={styles.mealCard}> */}
+      <Image source={{ uri: recipe.mainImage }} style={styles.img} />
+      <View style={styles.mealCardInfo}>
+        <Text style={styles.recipeName}>{recipe.name}</Text>
+        <Text style={styles.tags}>
+          {Math.floor(recipe.nutrientsPerServing.calories)} kcal •{' '}
+          {recipe.totalTime}
+        </Text>
       </View>
+      {/* </View> */}
     </TouchableOpacity>
   );
 };
 
 const styles = StyleSheet.create({
   mealCard: {
-    flex: 1,
+    // flex: 1,
     margin: 5,
     borderColor: 'black',
     borderWidth: 1,
-    width: 180,
+    width: 182,
+    borderWidth: 1,
+    borderColor: '#ddd',
+    borderRadius: 12,
+    shadowColor: '#bbb',
+    shadowOffset: {
+      width: 2,
+      height: 2,
+    },
+    shadowOpacity: 0.1,
+    shadowRadius: 4,
+
+    alignContent: 'center',
+
+    elevation: 2,
+    backgroundColor: 'white',
   },
   mealCardInfo: {
-    width: '80%',
+    flexGrow: 1,
+    width: 180,
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    marginTop: 5,
+    marginBottom: 8,
   },
   img: {
     height: 180,
     width: 180,
+    //borderWidth: 1,
+    //borderColor: '#ddd',
+    //borderRadius: 12,
+    borderTopLeftRadius: 12,
+    borderTopRightRadius: 12,
+  },
+  recipeName: {
+    fontWeight: '700',
+    textAlign: 'center',
+  },
+  tags: {
+    color: 'grey',
+    fontSize: 13,
   },
 });
 

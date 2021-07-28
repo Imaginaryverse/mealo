@@ -174,8 +174,7 @@ const Home = ({ navigation }) => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    paddingTop: 30,
-    marginTop: 20,
+    paddingTop: 10,
     justifyContent: 'center',
     alignItems: 'center',
   },
@@ -230,7 +229,7 @@ const styles = StyleSheet.create({
     shadowOpacity: 0.36,
     shadowRadius: 6.68,
 
-    elevation: 11,
+    elevation: 5,
   },
   item: {
     height: 440,

@@ -23,8 +23,8 @@ const MealCard = ({ meal, navigation }) => {
       <View style={styles.rightContainer}>
         <View style={styles.mealCardInfo}>
           <Text>{capitalizeName(meal.meal)}</Text>
-          <Text>{meal.recipe.name}</Text>
-          <Text>
+          <Text style={styles.mealName}>{meal.recipe.name}</Text>
+          <Text style={styles.mealTags}>
             {meal.recipe.ingredientsCount} ingredients • {meal.recipe.totalTime}
           </Text>
         </View>
@@ -52,10 +52,9 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     width: Dimensions.get('screen').width - 20,
-    /*     height: 128, */
+    height: 128,
     padding: 8,
-    marginBottom: 13,
-    borderColor: 'black',
+    marginBottom: 10,
     borderWidth: 1,
     borderColor: '#ddd',
     borderRadius: 12,
@@ -82,21 +81,33 @@ const styles = StyleSheet.create({
     height: '100%',
     flexDirection: 'row',
     justifyContent: 'space-between',
-    alignItems: 'flex-start',
+    alignItems: 'flex-end',
     marginLeft: 8,
     // backgroundColor: 'red',
   },
   mealCardInfo: {
-    flex: 1,
-    // height: '100',
-    width: '80%',
+    paddingTop: 6,
+    height: 110,
+    width: '90%',
     marginBottom: 8,
-    justifyContent: 'space-between',
-    backgroundColor: 'red',
+    justifyContent: 'flex-start',
+    // backgroundColor: 'red',
+  },
+  mealName: {
+    marginTop: 5,
+    marginBottom: 5,
+    fontSize: 16,
+    fontWeight: '700',
+  },
+  mealTags: {
+    color: 'grey',
   },
   btnContainer: {
     flexDirection: 'row',
     justifyContent: 'space-around',
+    position: 'absolute',
+    right: 5,
+    bottom: 5,
   },
   iconText: {
     fontSize: 10,

@@ -15,7 +15,6 @@ const Favorites = ({ navigation }) => {
     <View style={styles.container}>
       {data && data.getRecipesByIds ? (
         <View>
-          <Text>Your Favorite Recipes</Text>
           <FlatList
             data={data.getRecipesByIds}
             keyExtractor={(item, index) => index.toString()}
@@ -37,6 +36,11 @@ const Favorites = ({ navigation }) => {
 const styles = StyleSheet.create({
   container: {
     marginTop: 20,
+  },
+  headerText: {
+    textAlign: 'center',
+    fontSize: 22,
+    color: 'black',
   },
 });
 

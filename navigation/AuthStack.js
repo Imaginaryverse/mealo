@@ -14,12 +14,12 @@ const AuthStack = () => {
       <Stack.Screen
         name='Onboard'
         component={Onboard}
-        options={{ headerShown: false }}
+        options={{ headerShown: true }}
       />
       <Stack.Screen
         name='Home'
         component={BottomTabNavigator}
-        options={{ headerShown: false }}
+        options={{ headerShown: true }}
       />
     </Stack.Navigator>
   );

@@ -10,7 +10,7 @@ const FavoritesStack = () => {
       <Stack.Screen
         name='Favorites'
         component={Favorites}
-        options={{ headerShown: false }}
+        options={{ headerShown: true, title: 'Favorites' }}
       />
       <Stack.Screen name='Recipe' component={Recipe} />
     </Stack.Navigator>

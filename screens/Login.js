@@ -7,6 +7,9 @@ import {
   StyleSheet,
   Button,
   Pressable,
+  ImageBackground,
+  Dimensions,
+  TouchableOpacity,
 } from 'react-native';
 
 import { LOGIN_USER } from '../queries/DBqueries';
@@ -63,32 +66,92 @@ const Login = ({ navigation }) => {
       {!showLogin ? (
         <Text>Logging in...</Text>
       ) : (
-        <View>
-          <TextInput
-            placeholder='email'
-            defaultValue={email}
-            onChangeText={text => setEmail(text)}
-          />
-          <TextInput
-            placeholder='password'
-            secureTextEntry={true}
-            defaultValue={password}
-            onChangeText={text => setPassword(text)}
-          />
-          {loginErrorMsg && (
-            <View>
-              <Text>{loginErrorMsg}</Text>
+        <View style={styles.container}>
+          <ImageBackground
+            source={{
+              uri: 'https://images.unsplash.com/photo-1592417817098-8fd3d9eb14a5?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=668&q=80',
+            }}
+            resizeMode='cover'
+            style={styles.background}
+          >
+            <View style={styles.inputContainer}>
+              <TextInput
+                style={styles.input}
+                placeholder='Email'
+                defaultValue={email}
+                onChangeText={text => setEmail(text)}
+              />
+              <TextInput
+                style={styles.input}
+                placeholder='Password'
+                secureTextEntry={true}
+                defaultValue={password}
+                onChangeText={text => setPassword(text)}
+              />
             </View>
-          )}
-          <Button title='Log in' onPress={() => handleLogin()} />
-          <Button
-            title='Create Account'
-            onPress={() => navigation.navigate('Signup')}
-          />
+            {loginErrorMsg && (
+              <View>
+                <Text>{loginErrorMsg}</Text>
+              </View>
+            )}
+            <View style={styles.btnContainer}>
+              <TouchableOpacity
+                style={styles.btn}
+                onPress={() => handleLogin()}
+              >
+                <Text style={styles.btnText}>Log In</Text>
+              </TouchableOpacity>
+              <TouchableOpacity
+                style={styles.btn}
+                onPress={() => navigation.navigate('Signup')}
+              >
+                <Text style={styles.btnText}>Create Account</Text>
+              </TouchableOpacity>
+            </View>
+          </ImageBackground>
         </View>
       )}
     </View>
   );
 };
+
+const styles = StyleSheet.create({
+  container: {
+    marginTop: 20,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  background: {
+    height: Dimensions.get('screen').height,
+    width: Dimensions.get('screen').width,
+  },
+  inputContainer: {
+    margin: 20,
+  },
+  input: {
+    borderWidth: 1,
+    borderRadius: 8,
+    padding: 5,
+    marginTop: 5,
+  },
+  btnContainer: {
+    marginTop: 10,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  btn: {
+    borderRadius: 12,
+    marginTop: 5,
+    borderWidth: 1.5,
+    backgroundColor: 'linen',
+    width: Dimensions.get('screen').width / 2.5,
+    padding: 5,
+  },
+  btnText: {
+    color: 'grey',
+    fontSize: 20,
+    textAlign: 'center',
+  },
+});
 
 export default Login;
