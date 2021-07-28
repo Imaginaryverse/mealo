@@ -11,7 +11,7 @@ import {
   KeyboardAvoidingView,
 } from 'react-native';
 import { Input } from 'react-native-elements';
-import Icon from 'react-native-vector-icons/FontAwesome';
+import Icon from 'react-native-vector-icons/Ionicons';
 import { useMutation } from '@apollo/client';
 import { UpdateUserProfileState, LogoutUser } from '../redux/slices/userSlice';
 import { UPDATE_USER_PROFILE } from '../queries/DBqueries';
@@ -116,7 +116,7 @@ const EditProfile = ({ navigation }) => {
         <Input
           label='Height (cm)'
           placeholder={profile.height ? `${profile.height}` : 'Height'}
-          leftIcon={<Icon name='user' size={24} color='black' />}
+          leftIcon={<Icon name='ios-body' size={24} color='black' />}
           onChangeText={value => setHeight(value)}
           keyboardType='number-pad'
           style={styles.inputField}
@@ -126,7 +126,7 @@ const EditProfile = ({ navigation }) => {
           placeholder={
             profile.startingWeight ? `${profile.startingWeight}` : 'Weight'
           }
-          leftIcon={<Icon name='user' size={24} color='black' />}
+          leftIcon={<Icon name='ios-body' size={24} color='black' />}
           onChangeText={value => setWeight(value)}
           keyboardType='number-pad'
         />
@@ -136,7 +136,7 @@ const EditProfile = ({ navigation }) => {
           placeholder={
             profile.targetWeight ? `${profile.targetWeight}` : 'Target Weight'
           }
-          leftIcon={<Icon name='user' size={24} color='black' />}
+          leftIcon={<Icon name='ios-body' size={24} color='black' />}
           onChangeText={value => setTargetWeight(value)}
           keyboardType='number-pad'
         />
@@ -170,6 +170,10 @@ const EditProfile = ({ navigation }) => {
           />
         </View>
       </View>
+      <Text style={{ textAlign: 'center', width: 350 }}>
+        It is highly recommended that you generate a new meal plan after
+        updating your profile.
+      </Text>
       <TouchableOpacity style={styles.btn} onPress={() => onSave()}>
         <Text style={styles.btnText}>Save Profile</Text>
       </TouchableOpacity>
@@ -198,13 +202,13 @@ const styles = StyleSheet.create({
     borderWidth: 1.5,
     backgroundColor: 'linen',
     width: Dimensions.get('screen').width / 2.5,
-    padding: 10,
+    padding: 8,
     justifyContent: 'center',
     alignItems: 'center',
   },
   btnText: {
     color: 'black',
-    fontSize: 20,
+    fontSize: 16,
     textAlign: 'center',
   },
   optionName: {

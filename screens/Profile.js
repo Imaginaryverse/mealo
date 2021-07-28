@@ -72,7 +72,7 @@ const Profile = ({ navigation }) => {
         <Text>Edit Profile</Text>
       </TouchableOpacity>
       <TouchableOpacity style={styles.btn} onPress={() => handleSignOut()}>
-        <Text>Sign Out</Text>
+        <Text style={{ marginRight: 5 }}>Sign Out</Text>
         <Icon name='ios-log-out-outline' size={25} />
       </TouchableOpacity>
     </View>

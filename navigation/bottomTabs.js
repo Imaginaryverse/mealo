@@ -14,6 +14,8 @@ const BottomTabNavigator = ({ navigation }) => {
     <Tab.Navigator
       tabBarOptions={{
         activeTintColor: 'red',
+        keyboardHidesTabBar: true,
+        animationEnabled: false,
       }}
     >
       <Tab.Screen

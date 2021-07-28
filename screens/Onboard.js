@@ -8,7 +8,7 @@ import {
   Dimensions,
   TouchableOpacity,
 } from 'react-native';
-import Icon from 'react-native-vector-icons/FontAwesome';
+import Icon from 'react-native-vector-icons/Ionicons';
 import { Input, Slider, Switch } from 'react-native-elements';
 import RNPickerSelect from 'react-native-picker-select';
 import { useMutation } from '@apollo/client';
@@ -216,14 +216,14 @@ const Onboard = ({ navigation }) => {
         <Input
           label='Height (cm)'
           placeholder='Height'
-          leftIcon={<Icon name='user' size={24} color='black' />}
+          leftIcon={<Icon name='ios-body' size={24} color='black' />}
           onChangeText={value => setHeight(value)}
           keyboardType='number-pad'
         />
         <Input
           label='Weight (kg)'
           placeholder='Weight'
-          leftIcon={<Icon name='user' size={24} color='black' />}
+          leftIcon={<Icon name='ios-body' size={24} color='black' />}
           onChangeText={value => setWeight(value)}
           keyboardType='number-pad'
         />
@@ -231,7 +231,7 @@ const Onboard = ({ navigation }) => {
         <Input
           label='Target Weight (kg)'
           placeholder='Target Weight'
-          leftIcon={<Icon name='user' size={24} color='black' />}
+          leftIcon={<Icon name='ios-body' size={24} color='black' />}
           onChangeText={value => setTargetWeight(value)}
           keyboardType='number-pad'
         />

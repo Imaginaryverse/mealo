@@ -5,6 +5,8 @@ import {
   FlatList,
   Button,
   ScrollView,
+  TouchableOpacity,
+  Dimensions,
   StyleSheet,
 } from 'react-native';
 import { useSelector, useDispatch } from 'react-redux';
@@ -77,7 +79,16 @@ const Swap = ({ navigation, route }) => {
       />
       <View>
         <Text style={styles.headers}>Alternative Meals</Text>
-        <FlatList
+        {data.recipeSwapOptions.map((recipe, index) => (
+          <SwapCard
+            recipe={recipe}
+            selectedId={selectedId}
+            onPressSelect={onPressSelect}
+            isOriginal={false}
+            key={index}
+          />
+        ))}
+        {/* <FlatList
           data={data.recipeSwapOptions}
           renderItem={({ item }) => (
             <SwapCard
@@ -88,13 +99,15 @@ const Swap = ({ navigation, route }) => {
             />
           )}
           keyExtractor={(item, i) => i.toString()}
-        />
+        /> */}
       </View>
 
       {confirmLoading ? (
         <Text>Updating meal plan. Please wait...</Text>
       ) : (
-        <Button title='Confirm' onPress={() => onConfirm()} />
+        <TouchableOpacity style={styles.btn} onPress={() => onConfirm()}>
+          <Text style={styles.btnText}>Confirm</Text>
+        </TouchableOpacity>
       )}
     </ScrollView>
   );
@@ -105,6 +118,24 @@ const styles = StyleSheet.create({
     margin: 5,
     textAlign: 'center',
     fontSize: 16,
+  },
+  btn: {
+    flexDirection: 'row',
+    borderRadius: 12,
+    marginTop: 20,
+    marginBottom: 30,
+    borderWidth: 1.5,
+    backgroundColor: 'linen',
+    width: 130,
+    padding: 8,
+    justifyContent: 'center',
+    alignItems: 'center',
+    alignSelf: 'center',
+  },
+  btnText: {
+    color: 'black',
+    fontSize: 16,
+    textAlign: 'center',
   },
 });
 
