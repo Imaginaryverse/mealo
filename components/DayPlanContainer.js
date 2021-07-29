@@ -18,10 +18,10 @@ const DayPlanContainer = ({ dayPlan, navigation }) => {
   return (
     <View style={styles.dayPlanContainer}>
       <View style={styles.dayInfoContainer}>
-        <Text>
+        <Text style={styles.dayInfoTitle}>
           Day {dayPlan.day} ({getDayOfWeek(dayPlan.date)})
         </Text>
-        <Text>
+        <Text style={styles.dayInfoSub}>
           {dayPlan.date.substring(0, 10)} | {Math.floor(dayPlan.calories)} kcal
         </Text>
       </View>
@@ -55,6 +55,14 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     marginTop: 10,
     marginBottom: 10,
+  },
+  dayInfoTitle: {
+    fontWeight: '700',
+    fontSize: 18,
+  },
+  dayInfoSub: {
+    fontWeight: '700',
+    color: 'grey',
   },
   mealsContainer: {
     flex: 1,

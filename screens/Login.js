@@ -12,6 +12,7 @@ import {
   Dimensions,
   TouchableOpacity,
   KeyboardAvoidingView,
+  ActivityIndicator,
 } from 'react-native';
 
 import { LOGIN_USER } from '../queries/DBqueries';
@@ -68,7 +69,10 @@ const Login = ({ navigation }) => {
   return (
     <View>
       {!showLogin ? (
-        <Text>Logging in...</Text>
+        <View style={styles.loadingScreen}>
+          <Text>Logging in...</Text>
+          <ActivityIndicator size={100} color='#89b337' />
+        </View>
       ) : (
         <View style={styles.container}>
           {/* <ImageBackground
@@ -126,6 +130,11 @@ const styles = StyleSheet.create({
   container: {
     /* marginTop: 20, */
     width: Dimensions.get('screen').width,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  loadingScreen: {
+    paddingTop: 150,
     justifyContent: 'center',
     alignItems: 'center',
   },

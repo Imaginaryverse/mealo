@@ -69,11 +69,11 @@ const Profile = ({ navigation }) => {
         style={styles.btn}
         onPress={() => navigation.navigate('EditProfile')}
       >
-        <Text>Edit Profile</Text>
+        <Text style={styles.btnText}>Edit Profile</Text>
       </TouchableOpacity>
       <TouchableOpacity style={styles.btn} onPress={() => handleSignOut()}>
-        <Text style={{ marginRight: 5 }}>Sign Out</Text>
-        <Icon name='ios-log-out-outline' size={25} />
+        <Text style={styles.btnText}>Sign Out</Text>
+        <Icon name='ios-log-out-outline' size={25} style={{ marginLeft: 5 }} />
       </TouchableOpacity>
     </View>
   );
@@ -94,6 +94,7 @@ const styles = StyleSheet.create({
     borderRadius: 12,
     marginTop: 10,
     borderWidth: 1.5,
+    borderColor: 'grey',
     // backgroundColor: '#FEC05D',
     backgroundColor: '#FFC757',
     width: Dimensions.get('screen').width / 2.5,
@@ -102,8 +103,8 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   btnText: {
-    color: 'grey',
-    fontSize: 20,
+    color: 'black',
+    fontSize: 16,
     textAlign: 'center',
   },
   detailRow: {

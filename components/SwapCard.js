@@ -77,7 +77,9 @@ const SwapCard = ({ recipe, onPressSelect, selectedId, isOriginal }) => {
               {recipe.ingredientsCount} Ingredients
             </Text>
             {recipe.ingredientLines.map((ingredient, index) => (
-              <Text key={index}>• {ingredient}</Text>
+              <Text style={styles.ingredientText} key={index}>
+                • {ingredient}
+              </Text>
             ))}
           </View>
         )}
@@ -138,9 +140,13 @@ const styles = StyleSheet.create({
   mealName: {
     fontSize: 16,
     fontWeight: '700',
+    //fontFamily: 'Inter_600SemiBold',
   },
   mealTags: {
     color: 'grey',
+  },
+  ingredientText: {
+    //fontFamily: 'Roboto_400Regular',
   },
   selectContainer: {
     flex: 1,

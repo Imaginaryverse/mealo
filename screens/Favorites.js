@@ -1,6 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import { useSelector } from 'react-redux';
-import { View, Text, StyleSheet, FlatList } from 'react-native';
+import {
+  View,
+  Text,
+  StyleSheet,
+  FlatList,
+  ActivityIndicator,
+} from 'react-native';
 import { FavoritesCard } from '../components';
 import { useQuery, useLazyQuery } from '@apollo/client';
 import { GET_RECIPES_BY_IDS } from '../queries/DBqueries';
@@ -11,9 +17,26 @@ const Favorites = ({ navigation }) => {
     variables: { ids: favorites },
   });
 
+  if (loading) {
+    return (
+      <View style={styles.loadingContainer}>
+        <Text>Loading...</Text>
+        <ActivityIndicator size={80} color='#89b337' />
+      </View>
+    );
+  }
+
+  if (data && !data.getRecipesByIds.length) {
+    return (
+      <View style={styles.loadingContainer}>
+        <Text>No favorites saved</Text>
+      </View>
+    );
+  }
+
   return (
     <View style={styles.container}>
-      {data && data.getRecipesByIds ? (
+      {data && data.getRecipesByIds && (
         <View style={{ alignItems: 'center' }}>
           <FlatList
             data={data.getRecipesByIds}
@@ -24,10 +47,6 @@ const Favorites = ({ navigation }) => {
             )}
           />
         </View>
-      ) : (
-        <View>
-          <Text>No favorites!</Text>
-        </View>
       )}
     </View>
   );
@@ -36,6 +55,11 @@ const Favorites = ({ navigation }) => {
 const styles = StyleSheet.create({
   container: {
     marginTop: 20,
+  },
+  loadingContainer: {
+    paddingTop: 200,
+    justifyContent: 'center',
+    alignItems: 'center',
   },
   headerText: {
     textAlign: 'center',

@@ -170,7 +170,7 @@ const EditProfile = ({ navigation }) => {
           />
         </View>
       </View>
-      <Text style={{ textAlign: 'center', width: 350 }}>
+      <Text style={{ marginTop: 10, textAlign: 'center', width: 350 }}>
         It is highly recommended that you generate a new meal plan after
         updating your profile.
       </Text>
@@ -198,9 +198,11 @@ const styles = StyleSheet.create({
   btn: {
     flexDirection: 'row',
     borderRadius: 12,
-    marginTop: 10,
+    marginTop: 20,
     borderWidth: 1.5,
-    backgroundColor: 'linen',
+    borderColor: 'grey',
+    // backgroundColor: '#FEC05D',
+    backgroundColor: '#FFC757',
     width: Dimensions.get('screen').width / 2.5,
     padding: 8,
     justifyContent: 'center',

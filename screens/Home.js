@@ -12,6 +12,7 @@ import {
   Dimensions,
   TouchableOpacity,
   ImageBackground,
+  ActivityIndicator,
 } from 'react-native';
 import Carousel from 'react-native-snap-carousel';
 import Icon from 'react-native-vector-icons/Ionicons';
@@ -134,6 +135,7 @@ const Home = ({ navigation }) => {
     return (
       <View style={styles.container}>
         <Text>Loading...</Text>
+        <ActivityIndicator size={80} color='#89b337' />
       </View>
     );
   }
@@ -295,7 +297,7 @@ const styles = StyleSheet.create({
   },
   tag: {
     color: 'grey',
-    backgroundColor: 'linen',
+    // backgroundColor: 'linen',
   },
   nutrientContainer: {
     flexDirection: 'row',

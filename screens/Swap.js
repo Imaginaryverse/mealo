@@ -8,6 +8,7 @@ import {
   TouchableOpacity,
   Dimensions,
   StyleSheet,
+  ActivityIndicator,
 } from 'react-native';
 import { useSelector, useDispatch } from 'react-redux';
 import { useQuery, useMutation, useLazyQuery } from '@apollo/client';
@@ -54,8 +55,9 @@ const Swap = ({ navigation, route }) => {
 
   if (loading && !data) {
     return (
-      <View>
-        <Text style={{ fontFamily: 'Roboto-Regular' }}>Loading...</Text>
+      <View style={styles.loadingContainer}>
+        <Text>Loading...</Text>
+        <ActivityIndicator size={80} color='#89b337' />
       </View>
     );
   }
@@ -63,7 +65,13 @@ const Swap = ({ navigation, route }) => {
   if (error) {
     return (
       <View>
-        <Text style={{ fontFamily: 'Roboto-Regular' }}>
+        <Text
+          style={{
+            marginTop: 200,
+            textAlign: 'center',
+            //fontFamily: 'Roboto_400Regular',
+          }}
+        >
           Oops! Couldn't find any similar recipes
         </Text>
       </View>
@@ -105,9 +113,12 @@ const Swap = ({ navigation, route }) => {
       </View>
 
       {confirmLoading ? (
-        <Text style={{ fontFamily: 'Roboto-Regular' }}>
-          Updating meal plan. Please wait...
-        </Text>
+        <View style={styles.smallLoadingContainer}>
+          <Text style={{ marginBottom: 10 }}>
+            Updating meal plan. Please wait...
+          </Text>
+          <ActivityIndicator size={40} color='#89b337' />
+        </View>
       ) : (
         <TouchableOpacity style={styles.btn} onPress={() => onConfirm()}>
           <Text style={styles.btnText}>Confirm</Text>
@@ -122,7 +133,18 @@ const styles = StyleSheet.create({
     margin: 5,
     textAlign: 'center',
     fontSize: 16,
-    fontFamily: 'WorkSans-Regular',
+    //fontFamily: 'Inter_600SemiBold',
+  },
+  loadingContainer: {
+    paddingTop: 100,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  smallLoadingContainer: {
+    paddingTop: 20,
+    paddingBottom: 20,
+    justifyContent: 'center',
+    alignItems: 'center',
   },
   btn: {
     flexDirection: 'row',
@@ -141,7 +163,7 @@ const styles = StyleSheet.create({
     color: 'black',
     fontSize: 16,
     textAlign: 'center',
-    //fontFamily: 'Roboto-Bold',
+    //fontFamily: 'Roboto_400Regular',
   },
 });
 
