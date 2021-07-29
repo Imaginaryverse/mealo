@@ -1,7 +1,7 @@
 {
   "expo": {
-    "name": "enigma-effective-app",
-    "slug": "enigma-effective-app",
+    "name": "Mealo",
+    "slug": "mealo",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
@@ -23,10 +23,12 @@
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#FFFFFF"
-      }
+      },
+      "package": "io.expo.mealo"
     },
     "web": {
       "favicon": "./assets/favicon.png"
-    }
+    },
+    "description": "A personalised  mobile meal planning application that helps users plan their meals and reach their health goals.\nDeveloped by Yanwei Zhu, Yones Jamal Eddine and Anton Bertilsson as part of the final project for School of Applied Technology, spring 2021."
   }
 }
