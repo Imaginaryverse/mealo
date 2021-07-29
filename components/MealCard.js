@@ -3,13 +3,11 @@ import {
   View,
   Text,
   Image,
-  Button,
   StyleSheet,
   Dimensions,
   TouchableOpacity,
 } from 'react-native';
 import { capitalizeName } from '../utils';
-import { useLazyQuery } from '@apollo/client';
 import Icon from 'react-native-vector-icons/Ionicons';
 
 const MealCard = ({ meal, navigation }) => {
@@ -18,7 +16,6 @@ const MealCard = ({ meal, navigation }) => {
       onPress={() => navigation.navigate('Recipe', { recipe: meal.recipe })}
       style={styles.mealCard}
     >
-      {/* <View style={styles.mealCard}> */}
       <Image source={{ uri: meal.recipe.mainImage }} style={styles.image} />
       <View style={styles.rightContainer}>
         <View style={styles.mealCardInfo}>
@@ -42,7 +39,6 @@ const MealCard = ({ meal, navigation }) => {
           </TouchableOpacity>
         </View>
       </View>
-      {/* </View> */}
     </TouchableOpacity>
   );
 };
@@ -83,7 +79,6 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
     alignItems: 'flex-end',
     marginLeft: 8,
-    // backgroundColor: 'red',
   },
   mealCardInfo: {
     paddingTop: 6,
@@ -91,7 +86,6 @@ const styles = StyleSheet.create({
     width: '90%',
     marginBottom: 8,
     justifyContent: 'flex-start',
-    // backgroundColor: 'red',
   },
   mealName: {
     marginTop: 5,

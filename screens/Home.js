@@ -4,14 +4,10 @@ import { useLazyQuery } from '@apollo/client';
 import {
   View,
   Text,
-  TextInput,
   StyleSheet,
-  Button,
   Image,
-  Pressable,
   Dimensions,
   TouchableOpacity,
-  ImageBackground,
   ActivityIndicator,
 } from 'react-native';
 import Carousel from 'react-native-snap-carousel';
@@ -19,8 +15,6 @@ import Icon from 'react-native-vector-icons/Ionicons';
 import { getCurrentDate, getDayOfWeek, capitalizeName } from '../utils';
 import { UpdateMealPlanState } from '../redux/slices/userSlice';
 import { GET_MEALPLAN_FROM_DB } from '../queries/DBqueries';
-/* import placeholderImage from '../assets/ph.jpg';
-const placeholderUri = Image.resolveAssetSource(placeholderImage).uri; */
 
 const Home = ({ navigation }) => {
   const user = useSelector(state => state.user);
@@ -206,24 +200,6 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     paddingTop: 20,
   },
-  /* ctaBtn: {
-    height: 60,
-    width: 280,
-    padding: 20,
-
-    marginTop: 40,
-    marginBottom: 40,
-
-    borderColor: '#bbb',
-    borderWidth: 1.6,
-    borderRadius: 12,
-
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-  ctaText: {
-    fontSize: 22,
-  }, */
   noPlanText: {
     fontSize: 18,
   },
@@ -297,7 +273,6 @@ const styles = StyleSheet.create({
   },
   tag: {
     color: 'grey',
-    // backgroundColor: 'linen',
   },
   nutrientContainer: {
     flexDirection: 'row',
@@ -306,8 +281,6 @@ const styles = StyleSheet.create({
   nutrientColumn: {
     flexDirection: 'column',
     marginRight: 5,
-    /* justifyContent: 'center',
-    alignItems: 'center', */
   },
   detailRow: {
     flexDirection: 'row',
@@ -323,8 +296,6 @@ const styles = StyleSheet.create({
     borderColor: 'gray',
     marginTop: 20,
     borderWidth: 1.5,
-    // backgroundColor: '#9AC544',
-    // backgroundColor: '#89b337',
     backgroundColor: '#FFC757',
     width: 220,
     padding: 8,

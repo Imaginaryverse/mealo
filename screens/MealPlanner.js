@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react';
-// import { MealPlanList, MealPlanGenerator } from '../components/index';
 import MealPlanList from '../components/MealPlanList';
 import MealPlanGenerator from '../components/MealPlanGenerator';
 import { FAB } from '../components';
@@ -8,27 +7,13 @@ import {
   View,
   Text,
   StyleSheet,
-  Button,
-  Pressable,
   Alert,
   Dimensions,
-  TouchableOpacity,
+  ActivityIndicator,
 } from 'react-native';
-import { Icon } from 'react-native-elements';
 import { gql, useLazyQuery, useQuery, useMutation } from '@apollo/client';
 import { GET_MEALPLAN_FROM_DB, GENERATE_MEAL_PLAN } from '../queries/DBqueries';
 import { UpdateMealPlanState } from '../redux/slices/userSlice';
-
-/* const initOptions = {
-  addDays: false,
-  ignoreLock: true,
-  kcalLimit: null,
-  maxNumOfServings: null,
-  breakfastDistribution: null,
-  lunchDistribution: null,
-  dinnerDistribution: null,
-  snackDistribution: null,
-}; */
 
 const MealPlanner = ({ navigation }) => {
   const userId = useSelector(state => state.user.databaseId);
@@ -40,12 +25,6 @@ const MealPlanner = ({ navigation }) => {
   ] = useLazyQuery(GET_MEALPLAN_FROM_DB, {
     variables: { userId },
     fetchPolicy: 'cache-and-network',
-    /* onCompleted: data => {
-        console.log('onCompleted', data);
-        if(data.getMealPlanFromDb) {
-          dispatch(UpdateMealPlan(data.getMealPlanFromDb.mealPlan));
-        }
-      } */
   });
   const [generateMealPlan, { loading: generateLoading, error: generateError }] =
     useMutation(GENERATE_MEAL_PLAN);
@@ -54,23 +33,16 @@ const MealPlanner = ({ navigation }) => {
 
   const handleMealPlanClick = async () => {
     setShowGenerator(false);
-    console.log('🥦 Generating meal plan...');
     try {
       const res = await generateMealPlan({
         variables: {
           userId,
           addDays: false,
           ignoreLock: true,
-          /*  kcalLimit: null,
-          breakfastDistribution: 0.3,
-          lunchDistribution: 0.3,
-          dinnerDistribution: 0.3,
-          snackDistribution: 0.1, */
         },
       });
 
       if (res.data.generateMealPlan.success) {
-        console.log('🥦 Meal plan generated...');
         getMealPlanFromDb();
       }
     } catch (err) {
@@ -80,22 +52,11 @@ const MealPlanner = ({ navigation }) => {
 
   useEffect(() => {
     if (data && data.getMealPlanFromDb) {
-      console.log(`💰 ${new Date().toLocaleTimeString()}: Cached meal plan...`);
       dispatch(UpdateMealPlanState(data.getMealPlanFromDb.mealPlan));
       setShowGenerator(false);
     }
   }, [data]);
 
-  useEffect(() => {
-    if (generateError) {
-      console.log('Error on generating', generateError);
-    }
-  }, [generateError]);
-
-  /* 
-      {generateLoading && <Text>Generating meal plan...</Text>}
-      {generateError && <Text>Error</Text>}
-  */
   const handleFabPress = () =>
     Alert.alert(
       'WARNING!',
@@ -112,8 +73,9 @@ const MealPlanner = ({ navigation }) => {
 
   if (generateLoading || dbLoading) {
     return (
-      <View style={styles.container}>
+      <View style={styles.loadingContainer}>
         <Text>Loading...</Text>
+        <ActivityIndicator size={60} color='#89b337' />
       </View>
     );
   }
@@ -140,6 +102,11 @@ const styles = StyleSheet.create({
     marginBottom: 0,
 
     justifyContent: 'flex-start',
+    alignItems: 'center',
+  },
+  loadingContainer: {
+    paddingTop: 100,
+    justifyContent: 'center',
     alignItems: 'center',
   },
 });

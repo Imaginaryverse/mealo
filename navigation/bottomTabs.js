@@ -1,7 +1,6 @@
 import React from 'react';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import HomeStack from './HomeStack';
-import { Home } from '../screens';
 import MealPlanStack from './MealPlanStack';
 import FavoritesStack from './FavoritesStack';
 import ProfileStack from './ProfileStack';

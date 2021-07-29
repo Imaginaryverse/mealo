@@ -1,7 +1,6 @@
 import { createStackNavigator } from '@react-navigation/stack';
 import React from 'react';
 import { Home, Recipe } from '../screens';
-import MealPlanStack from './MealPlanStack';
 
 const Stack = createStackNavigator();
 

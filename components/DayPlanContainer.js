@@ -4,17 +4,6 @@ import { getDayOfWeek } from '../utils';
 import MealCard from './MealCard';
 
 const DayPlanContainer = ({ dayPlan, navigation }) => {
-  /*  const renderItem = ({ item }) => (
-    <MealCard meal={item} navigation={navigation} />
-  ); */
-
-  {
-    /* <View>
-      <Text>Meal: {item.meal}</Text>
-      <Text>Calories: {Math.floor(item.calories)}</Text>
-      <Text>{item.recipe.name}</Text>
-    </View> */
-  }
   return (
     <View style={styles.dayPlanContainer}>
       <View style={styles.dayInfoContainer}>

@@ -4,10 +4,8 @@ import {
   Text,
   StyleSheet,
   Pressable,
-  FlatList,
-  Button,
-  Dimensions,
   TouchableOpacity,
+  Dimensions,
 } from 'react-native';
 import { useQuery, useMutation } from '@apollo/client';
 import { useSelector, useDispatch } from 'react-redux';
@@ -17,7 +15,6 @@ import {
   PROFILE_RESTRICTIONS_UPDATE,
 } from '../queries/DBqueries';
 import { UpdateUserRestrictionsState } from '../redux/slices/userSlice';
-import Icon from 'react-native-vector-icons/Ionicons';
 
 const MealPlanGenerator = ({ handleMealPlanClick }) => {
   const user = useSelector(state => state.user);
@@ -135,10 +132,7 @@ const styles = StyleSheet.create({
     borderColor: 'gray',
     marginTop: 20,
     borderWidth: 1.5,
-    // backgroundColor: '#9AC544',
-    // backgroundColor: '#89b337',
     backgroundColor: '#FFC757',
-    // width: 180,
     paddingLeft: 30,
     paddingRight: 30,
     justifyContent: 'center',

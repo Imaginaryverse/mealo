@@ -2,39 +2,15 @@ import React, { useState } from 'react';
 import {
   View,
   Text,
-  Button,
   StyleSheet,
   Image,
   TouchableOpacity,
   Dimensions,
-  Animated,
-  Easing,
 } from 'react-native';
-import RadioButton from './RadioButton';
-import { useLazyQuery } from '@apollo/client';
 import Icon from 'react-native-vector-icons/Ionicons';
 
 const SwapCard = ({ recipe, onPressSelect, selectedId, isOriginal }) => {
   const [showMore, setShowMore] = useState(false);
-
-  /*
-   const toggleShowMore = () => {
-    if (showMore) {
-      Animated.timing(animatedController, {
-        duration: 300,
-        toValue: 0,
-        easing: Easing.bezier(0.4, 0.0, 0.2, 1),
-      }).start();
-    } else {
-      Animated.timing(animatedController, {
-        duration: 300,
-        toValue: 1,
-        easing: Easing.bezier(0.4, 0.0, 0.2, 1),
-      }).start();
-    }
-    setShowMore(!ShowMore);
-  };
-   */
 
   return (
     <TouchableOpacity

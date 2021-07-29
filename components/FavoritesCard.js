@@ -1,19 +1,11 @@
 import React from 'react';
-import {
-  View,
-  Text,
-  Button,
-  Image,
-  StyleSheet,
-  TouchableOpacity,
-} from 'react-native';
+import { View, Text, Image, StyleSheet, TouchableOpacity } from 'react-native';
 const FavoritesCard = ({ recipe, navigation }) => {
   return (
     <TouchableOpacity
       onPress={() => navigation.navigate('Recipe', { recipe: recipe })}
       style={styles.mealCard}
     >
-      {/* <View style={styles.mealCard}> */}
       <Image source={{ uri: recipe.mainImage }} style={styles.img} />
       <View style={styles.mealCardInfo}>
         <Text style={styles.recipeName}>{recipe.name}</Text>
@@ -22,14 +14,12 @@ const FavoritesCard = ({ recipe, navigation }) => {
           {recipe.totalTime}
         </Text>
       </View>
-      {/* </View> */}
     </TouchableOpacity>
   );
 };
 
 const styles = StyleSheet.create({
   mealCard: {
-    // flex: 1,
     margin: 5,
     borderColor: 'black',
     borderWidth: 1,
@@ -61,9 +51,6 @@ const styles = StyleSheet.create({
   img: {
     height: 180,
     width: 180,
-    //borderWidth: 1,
-    //borderColor: '#ddd',
-    //borderRadius: 12,
     borderTopLeftRadius: 12,
     borderTopRightRadius: 12,
   },

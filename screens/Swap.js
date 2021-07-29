@@ -2,11 +2,8 @@ import React, { useState, useEffect } from 'react';
 import {
   View,
   Text,
-  FlatList,
-  Button,
   ScrollView,
   TouchableOpacity,
-  Dimensions,
   StyleSheet,
   ActivityIndicator,
 } from 'react-native';
@@ -69,7 +66,6 @@ const Swap = ({ navigation, route }) => {
           style={{
             marginTop: 200,
             textAlign: 'center',
-            //fontFamily: 'Roboto_400Regular',
           }}
         >
           Oops! Couldn't find any similar recipes
@@ -98,18 +94,6 @@ const Swap = ({ navigation, route }) => {
             key={index}
           />
         ))}
-        {/* <FlatList
-          data={data.recipeSwapOptions}
-          renderItem={({ item }) => (
-            <SwapCard
-              recipe={item}
-              selectedId={selectedId}
-              onPressSelect={onPressSelect}
-              isOriginal={false}
-            />
-          )}
-          keyExtractor={(item, i) => i.toString()}
-        /> */}
       </View>
 
       {confirmLoading ? (
@@ -133,7 +117,6 @@ const styles = StyleSheet.create({
     margin: 5,
     textAlign: 'center',
     fontSize: 16,
-    //fontFamily: 'Inter_600SemiBold',
   },
   loadingContainer: {
     paddingTop: 100,
@@ -163,7 +146,6 @@ const styles = StyleSheet.create({
     color: 'black',
     fontSize: 16,
     textAlign: 'center',
-    //fontFamily: 'Roboto_400Regular',
   },
 });
 

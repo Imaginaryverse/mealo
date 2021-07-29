@@ -5,7 +5,6 @@ import {
   View,
   Text,
   StyleSheet,
-  Pressable,
   Dimensions,
   TouchableOpacity,
   KeyboardAvoidingView,
@@ -79,8 +78,6 @@ const EditProfile = ({ navigation }) => {
       goalsOn: true,
     };
 
-    console.log('👤 Updating profile...');
-
     updateProfile({
       variables: updatedProfile,
     });
@@ -105,7 +102,6 @@ const EditProfile = ({ navigation }) => {
           tdee: data.updateUserProfile.tdee,
         })
       );
-      console.log('👤 Profile saved...');
       navigation.navigate('Profile');
     }
   }, [data]);
@@ -189,9 +185,6 @@ const styles = StyleSheet.create({
   inputContainer: {
     width: Dimensions.get('screen').width - 20,
   },
-  inputField: {
-    // width: Dimensions.get('screen').width - 20,
-  },
   pickerContainer: {
     marginBottom: 15,
   },
@@ -201,7 +194,6 @@ const styles = StyleSheet.create({
     marginTop: 20,
     borderWidth: 1.5,
     borderColor: 'grey',
-    // backgroundColor: '#FEC05D',
     backgroundColor: '#FFC757',
     width: Dimensions.get('screen').width / 2.5,
     padding: 8,

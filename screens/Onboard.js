@@ -3,7 +3,6 @@ import {
   View,
   Text,
   TextInput,
-  Pressable,
   StyleSheet,
   Dimensions,
   TouchableOpacity,
@@ -16,7 +15,6 @@ import { UPDATE_USER_PROFILE } from '../queries/DBqueries';
 import { useSelector, useDispatch } from 'react-redux';
 import { formatDate } from '../utils';
 import { UpdateUserProfileState } from '../redux/slices/userSlice';
-import { set } from 'react-native-reanimated';
 
 const Onboard = ({ navigation }) => {
   const currentDate = new Date();
@@ -85,7 +83,6 @@ const Onboard = ({ navigation }) => {
       activityLevel === '' ||
       weightGoal === ''
     ) {
-      console.log('empty field(s)');
       return;
     }
     const profile = {
@@ -100,8 +97,6 @@ const Onboard = ({ navigation }) => {
       goalsOn: true,
     };
 
-    console.log('👤 Saving profile...');
-
     updateProfile({
       variables: profile,
     });
@@ -109,7 +104,6 @@ const Onboard = ({ navigation }) => {
 
   useEffect(() => {
     if (data && data.updateUserProfile) {
-      console.log('👤 Profile saved...');
       dispatch(
         UpdateUserProfileState({
           userId,
@@ -251,11 +245,10 @@ const Onboard = ({ navigation }) => {
 
         <View style={styles.pickerContainer}>
           <Text style={styles.optionName}>
-            Weight Goal: {selectedWeightGoal}
+            Weekly Weight Goal: {selectedWeightGoal}
           </Text>
           <RNPickerSelect
             onValueChange={value => setWeightGoalState(value)}
-            // placeholder={{ label: 'sex', value: null }}
             items={[
               { label: 'Maintain', value: 'Maintain' },
               { label: '0.25kg', value: '0.25kg' },
@@ -307,18 +300,16 @@ const styles = StyleSheet.create({
     fontWeight: '700',
   },
   btn: {
-    flexDirection: 'row',
     borderRadius: 12,
-    marginTop: 10,
+    borderColor: 'gray',
+    marginBottom: 10,
     borderWidth: 1.5,
-    backgroundColor: 'linen',
+    backgroundColor: '#FFC757',
     width: 180,
     padding: 8,
-    justifyContent: 'center',
-    alignItems: 'center',
   },
   btnText: {
-    color: 'grey',
+    color: '#37392E',
     fontSize: 16,
     textAlign: 'center',
   },

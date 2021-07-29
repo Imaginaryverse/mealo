@@ -6,9 +6,6 @@ import { userStore } from './redux/store';
 
 import NavigationEntry from './navigation/NavigationEntry';
 
-console.log(`🧩 ${new Date().toLocaleTimeString()}: Saved...`);
-
-// Initialize Apollo Client
 const client = new ApolloClient({
   uri: 'https://limitless-badlands-33344.herokuapp.com/graphql',
   cache: new InMemoryCache(),

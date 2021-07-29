@@ -8,7 +8,6 @@ import {
   Pressable,
   Dimensions,
   Linking,
-  Button,
   TouchableOpacity,
 } from 'react-native';
 import Icon from 'react-native-vector-icons/Ionicons';
@@ -209,26 +208,6 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-between',
   },
-  /* nutrientsContainer: {
-    flexDirection: 'row',
-    borderColor: 'black',
-    borderWidth: 1,
-    padding: 10,
-    margin: 10,
-    borderWidth: 1,
-    borderColor: '#ddd',
-    borderRadius: 12,
-    shadowColor: '#bbb',
-    shadowOffset: {
-      width: 2,
-      height: 2,
-    },
-    shadowOpacity: 0.1,
-    shadowRadius: 4,
-
-    elevation: 2,
-    backgroundColor: 'white',
-  }, */
   btn: {
     width: 150,
     marginTop: 5,

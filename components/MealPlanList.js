@@ -1,6 +1,6 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import DayPlanContainer from './DayPlanContainer';
-import { View, Text, FlatList, StyleSheet } from 'react-native';
+import { View, FlatList } from 'react-native';
 import { sortMealPlanByDay } from '../utils';
 
 const MealPlanList = ({ mealPlan, navigation }) => {
@@ -10,7 +10,6 @@ const MealPlanList = ({ mealPlan, navigation }) => {
 
   return (
     <View>
-      {/* <Text style={styles.pageHeader}>Your Meal Plan</Text> */}
       <FlatList
         data={sortMealPlanByDay(mealPlan)}
         renderItem={renderItem}
@@ -19,12 +18,5 @@ const MealPlanList = ({ mealPlan, navigation }) => {
     </View>
   );
 };
-
-const styles = StyleSheet.create({
-  pageHeader: {
-    fontSize: 22,
-    color: 'black',
-  },
-});
 
 export default MealPlanList;

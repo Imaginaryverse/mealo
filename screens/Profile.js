@@ -1,18 +1,14 @@
 import React, { useEffect } from 'react';
-import { gql, useQuery } from '@apollo/client';
 import {
   View,
   Text,
   StyleSheet,
-  Button,
   TouchableOpacity,
   Dimensions,
 } from 'react-native';
 import { getUserAge, capitalizeName } from '../utils';
-import { useMutation } from '@apollo/client';
 import { useSelector, useDispatch } from 'react-redux';
 import { LogoutUser } from '../redux/slices/userSlice';
-import { UPDATE_USER_PROFILE } from '../queries/DBqueries';
 import Icon from 'react-native-vector-icons/Ionicons';
 
 const Profile = ({ navigation }) => {
@@ -57,13 +53,6 @@ const Profile = ({ navigation }) => {
             {user.profile.startingWeight} kg
           </Text>
         </View>
-
-        {/*   <Text>Name: {capitalizeName(user.name)}</Text>
-        <Text>Age: {getUserAge(user.profile.birthdate)}</Text>
-        <Text>Sex: {user.profile.biologicalSex}</Text>
-        <Text>Birthdate: {user.profile.birthdate.substring(0, 10)}</Text>
-        <Text>Height: {user.profile.height} cm</Text>
-        <Text>Weight: {user.profile.startingWeight} kg</Text> */}
       </View>
       <TouchableOpacity
         style={styles.btn}
@@ -95,7 +84,6 @@ const styles = StyleSheet.create({
     marginTop: 10,
     borderWidth: 1.5,
     borderColor: 'grey',
-    // backgroundColor: '#FEC05D',
     backgroundColor: '#FFC757',
     width: Dimensions.get('screen').width / 2.5,
     padding: 10,

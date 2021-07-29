@@ -5,20 +5,15 @@ import {
   Text,
   TextInput,
   StyleSheet,
-  Button,
-  Pressable,
-  ImageBackground,
   Image,
   Dimensions,
   TouchableOpacity,
-  KeyboardAvoidingView,
   ActivityIndicator,
 } from 'react-native';
 
 import { LOGIN_USER } from '../queries/DBqueries';
 import { LoginUser } from '../redux/slices/userSlice';
 import { useLazyQuery } from '@apollo/client';
-import { CardStyleInterpolators } from '@react-navigation/stack';
 
 const Login = ({ navigation }) => {
   const [email, setEmail] = useState('');
@@ -49,10 +44,6 @@ const Login = ({ navigation }) => {
   };
 
   useEffect(() => {
-    loading && console.log('🪵 Logging in...');
-  }, [loading]);
-
-  useEffect(() => {
     if (data && !data.LoginUserByEmail.success) {
       setShowLogin(true);
       displayLoginErrorMsg(data.LoginUserByEmail.message);
@@ -61,7 +52,6 @@ const Login = ({ navigation }) => {
     if (data && data.LoginUserByEmail.success) {
       setShowLogin(false);
       dispatch(LoginUser(data.LoginUserByEmail.user));
-      console.log(`🪵 Logged in ${data.LoginUserByEmail.user.databaseId}...`);
       navigation.navigate('Home');
     }
   }, [data]);
@@ -75,13 +65,6 @@ const Login = ({ navigation }) => {
         </View>
       ) : (
         <View style={styles.container}>
-          {/* <ImageBackground
-            source={{
-              uri: 'https://images.unsplash.com/photo-1592417817098-8fd3d9eb14a5?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=668&q=80',
-            }}
-            resizeMode='cover'
-            style={styles.background}
-          > */}
           <Image
             style={styles.logo}
             source={require('../assets/logo_transparent.png')}
@@ -119,7 +102,6 @@ const Login = ({ navigation }) => {
               <Text style={styles.btnText}>Create Account</Text>
             </TouchableOpacity>
           </View>
-          {/* </ImageBackground> */}
         </View>
       )}
     </View>
@@ -128,7 +110,6 @@ const Login = ({ navigation }) => {
 
 const styles = StyleSheet.create({
   container: {
-    /* marginTop: 20, */
     width: Dimensions.get('screen').width,
     justifyContent: 'center',
     alignItems: 'center',
@@ -145,13 +126,11 @@ const styles = StyleSheet.create({
     top: 0,
   },
   background: {
-    // height: Dimensions.get('screen').height - 80,
     width: Dimensions.get('screen').width,
   },
   inputContainer: {
     marginTop: 200,
     width: Dimensions.get('screen').width - 80,
-    // position: 'absolute',
   },
   input: {
     borderWidth: 1,
@@ -175,8 +154,6 @@ const styles = StyleSheet.create({
     borderColor: 'gray',
     marginBottom: 10,
     borderWidth: 1.5,
-    // backgroundColor: '#9AC544',
-    // backgroundColor: '#89b337',
     backgroundColor: '#FFC757',
     width: 180,
     padding: 8,

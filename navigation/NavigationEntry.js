@@ -2,7 +2,6 @@ import React from 'react';
 import BottomTabNavigator from './BottomTabs';
 import AuthStack from './AuthStack';
 import { NavigationContainer } from '@react-navigation/native';
-import { View, Text } from 'react-native';
 import { useSelector } from 'react-redux';
 
 const NavigationEntry = () => {

@@ -8,11 +8,10 @@ import {
   Text,
   TextInput,
   StyleSheet,
-  Button,
-  Pressable,
   KeyboardAvoidingView,
   TouchableOpacity,
   Dimensions,
+  ActivityIndicator,
 } from 'react-native';
 import { validatePassword, isValidEmail } from '../utils/index';
 
@@ -75,8 +74,6 @@ const Signup = ({ navigation }) => {
       return;
     }
 
-    console.log('👤 Registering user...');
-
     const response = await createUser({ variables: { name, email, password } });
     dispatch(CreateUser(response.data.createUser.user));
     navigation.navigate('Onboard');
@@ -132,7 +129,10 @@ const Signup = ({ navigation }) => {
         )}
       </View>
       {loading ? (
-        <Text>Creating your account...</Text>
+        <View style={styles.loadingScreen}>
+          <Text>Creating your account...</Text>
+          <ActivityIndicator size={60} color='#89b337' />
+        </View>
       ) : (
         <TouchableOpacity style={styles.btn} onPress={handleSignup}>
           <Text style={styles.btnText}>Create Account</Text>
@@ -145,6 +145,11 @@ const Signup = ({ navigation }) => {
 const styles = StyleSheet.create({
   container: {
     width: Dimensions.get('screen').width,
+    alignItems: 'center',
+  },
+  loadingScreen: {
+    paddingTop: 75,
+    justifyContent: 'center',
     alignItems: 'center',
   },
   btn: {
